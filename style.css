@@ -1,0 +1,102 @@
+body {
+    font-family: 'Courier New', 'Courier', 'Consolas', 'Monaco', monospace;
+    background: #1a1512;
+    color: #d7ccc8;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+h1 {
+    color: #d7ccc8;
+    margin: 0;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.ai {
+    color: #ffb3c1;
+}
+
+.github {
+    margin: 0;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #d7ccc8;
+    padding-bottom: 10px;
+}
+
+.tabs label {
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #d7ccc8;
+}
+
+#tab-all:checked ~ .tabs label[for="tab-all"],
+#tab-articles:checked ~ .tabs label[for="tab-articles"],
+#tab-books:checked ~ .tabs label[for="tab-books"],
+#tab-podcasts:checked ~ .tabs label[for="tab-podcasts"],
+#tab-tools:checked ~ .tabs label[for="tab-tools"] {
+    color: #ffb3c1;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 15px 0;
+    padding-left: 0;
+}
+
+.date {
+    color: #ffb3c1;
+    margin-right: 10px;
+}
+
+.type {
+    color: #d7ccc8;
+    margin-right: 10px;
+}
+
+a {
+    color: #d7ccc8;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ffb3c1;
+}
+
+#tab-articles:checked ~ .content li:not([data-category="article"]),
+#tab-books:checked ~ .content li:not([data-category="book"]),
+#tab-podcasts:checked ~ .content li:not([data-category="podcast"]),
+#tab-tools:checked ~ .content li:not([data-category="tool"]) {
+    display: none;
+}
