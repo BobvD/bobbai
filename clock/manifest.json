@@ -1,0 +1,12 @@
+{
+  "readings": [
+    {
+      "week_id": "2026-W09",
+      "date": "2026-02-28",
+      "clock_time": "11:56:39",
+      "total_seconds_to_midnight": 201,
+      "weighted_score": 7.0,
+      "consensus_summary": "AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails."
+    }
+  ]
+}
