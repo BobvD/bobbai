@@ -3,10 +3,10 @@
     {
       "week_id": "2026-W09",
       "date": "2026-02-28",
-      "clock_time": "11:56:43",
-      "total_seconds_to_midnight": 197,
-      "weighted_score": 7.06,
-      "consensus_summary": "The clock edges closer to midnight at 11:56:43 as three converging threats dominated the week: Block's staggering 40% workforce reduction established a market-rewarded template for mass AI displacement, the Trump administration blacklisted Anthropic from all government contracts after the company refused to strip safety guardrails from Pentagon AI systems, and Anthropic reportedly dropped its flagship safety pledge, removing one of the industry's most important private-sector commitments. The weighted score of 7.06 reflects a world where AI-driven job elimination is now being openly celebrated by markets, the U.S. government is actively punishing safety compliance, and the guardrails meant to prevent catastrophic misuse are being dismantled from both sides\u2014leaving the trajectory unmistakably pointed toward midnight."
+      "clock_time": "11:56:50",
+      "total_seconds_to_midnight": 190,
+      "weighted_score": 7.17,
+      "consensus_summary": "This week marked a dangerous convergence: Anthropic abandoned core safety commitments under pressure after the Pentagon branded it a national security risk, effectively demonstrating that when military priorities collide with AI safety, safety loses. Simultaneously, Block laid off nearly half its workforce explicitly because of AI, with its CEO normalizing mass displacement as an industry template\u2014a signal that AI-driven job elimination has shifted from theoretical risk to corporate strategy. With the voluntary safety framework crumbling, economic displacement accelerating, and AI deploying into hospitals and children's lives with minimal oversight, governance is losing the race against deployment on nearly every front."
     }
   ]
 }
