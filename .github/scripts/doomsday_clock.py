@@ -31,10 +31,10 @@ MANIFEST_PATH = CLOCK_DIR / "manifest.json"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 MODELS = [
-    ("Claude", "anthropic/claude-sonnet-4"),
-    ("GPT-4.1", "openai/gpt-4.1"),
-    ("Gemini", "google/gemini-2.5-pro"),
-    ("Grok", "x-ai/grok-3"),
+    ("Claude", "anthropic/claude-opus-4.6"),
+    ("GPT-5.1", "openai/gpt-5.1"),
+    ("Gemini", "google/gemini-3-pro-preview"),
+    ("Grok", "x-ai/grok-4"),
 ]
 
 REDDIT_SUBS = [
