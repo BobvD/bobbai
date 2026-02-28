@@ -21,7 +21,7 @@ body {
     align-items: center;
     margin-bottom: 36px;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
 }
 
 h1 {
@@ -55,6 +55,48 @@ h1 {
 .github svg {
     flex-shrink: 0;
     color: var(--text);
+}
+
+.doomsday-clock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    opacity: 0.35;
+    transition: opacity var(--transition);
+    flex-shrink: 0;
+    line-height: 1;
+    position: relative;
+    margin-right: auto;
+}
+
+.doomsday-clock::before {
+    content: '';
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    left: -8px;
+    top: -8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 65%);
+    opacity: 0.3;
+    transition: opacity var(--transition);
+}
+
+.doomsday-clock:hover::before {
+    opacity: 0.5;
+}
+
+.doomsday-clock:hover {
+    opacity: 0.7;
+}
+
+.doomsday-label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7em;
+    white-space: nowrap;
+    line-height: 1.4;
 }
 
 input[type="radio"] {
