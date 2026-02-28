@@ -4,13 +4,17 @@
 
 When updating or modifying this project, strictly follow these rules:
 
-1. **Only 1 index.html file** - All content must be in a single HTML file
-2. **Only 1 style.css file** - All styling must be in a single CSS file  
-3. **NO JavaScript** - Use only HTML and CSS (CSS-only interactions allowed)
+1. **Only 1 index.html file** - All content and styles in a single HTML file (inline `<style>`)
+2. **NO JavaScript** - Use only HTML and CSS (CSS-only interactions allowed)
 4. **Only 3 colors:**
    - `#1a1512` - Dark coffee brown (background)
    - `#d7ccc8` - Cream (primary text)
    - `#ffb3c1` - Soft pink (accents)
+
+5. **List item titles max 50 characters** - Titles must not line-break on desktop (700px layout)
+6. **Doomsday indicators** - When adding articles, auto-apply these classes:
+   - `clock-tick` — articles about AI existential risk, accelerating AI capabilities, or the doomsday clock moving closer (shows ☢)
+   - `clock-tick skull` — articles specifically about job cuts/layoffs caused by AI (shows †)
 
 ## Purpose
 
