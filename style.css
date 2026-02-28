@@ -306,13 +306,10 @@ a:focus-visible {
     line-height: 1.4;
 }
 
-@media (max-width: 500px) {
-    .tools-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (max-width: 600px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   ul li {
     display: flex;
     flex-wrap: wrap;
