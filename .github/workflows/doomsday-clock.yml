@@ -29,29 +29,13 @@ jobs:
         env:
           OPEN_ROUTER: ${{ secrets.OPEN_ROUTER }}
 
-      - name: Create PR and auto-merge
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and push to main
         run: |
           WEEK=$(date -u +%Y-W%V)
-          BRANCH="doomsday-clock/${WEEK}"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git checkout -b "$BRANCH"
           git add clock/ index.html
-          git commit -m "$(cat <<EOF
-          ☢ Doomsday Clock update: ${WEEK}
-
-          Automated weekly AI Doomsday Clock update.
-          EOF
-          )"
-          git push -u origin "$BRANCH"
-
-          PR_URL=$(gh pr create \
-            --title "☢ Doomsday Clock: ${WEEK}" \
-            --body "Automated weekly AI Doomsday Clock update." \
-            --base main)
-
-          gh pr merge "$PR_URL" --merge --auto --delete-branch
+          git commit -m "☢ Doomsday Clock update: ${WEEK}"
+          git push
