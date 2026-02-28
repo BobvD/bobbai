@@ -59,9 +59,20 @@ NEWS_QUERIES = [
 # ---------------------------------------------------------------------------
 
 
-def fetch_google_news_rss(query: str, num_results: int = 10) -> list[dict]:
-    """Fetch AI news headlines from Google News RSS."""
-    url = f"https://news.google.com/rss/search?q={requests.utils.quote(query)}&hl=en&gl=US&ceid=US:en"
+def extract_real_url(bing_link: str) -> str:
+    """Extract the real article URL from a Bing News redirect link."""
+    from urllib.parse import urlparse, parse_qs, unquote
+
+    parsed = urlparse(bing_link)
+    params = parse_qs(parsed.query)
+    if "url" in params:
+        return unquote(params["url"][0])
+    return bing_link
+
+
+def fetch_news_rss(query: str, num_results: int = 10) -> list[dict]:
+    """Fetch AI news headlines from Bing News RSS (direct article links)."""
+    url = f"https://www.bing.com/news/search?q={requests.utils.quote(query)}&format=rss&count={num_results}&mkt=en-US"
     headers = {"User-Agent": "Mozilla/5.0 (compatible; DoomsdayClock/1.0)"}
     try:
         resp = requests.get(url, headers=headers, timeout=15)
@@ -70,7 +81,8 @@ def fetch_google_news_rss(query: str, num_results: int = 10) -> list[dict]:
         items = []
         for item in root.findall(".//item")[:num_results]:
             title = item.findtext("title", "")
-            link = item.findtext("link", "")
+            raw_link = item.findtext("link", "")
+            link = extract_real_url(raw_link)
             pub_date = item.findtext("pubDate", "")
             source = item.findtext("source", "")
             items.append(
@@ -78,7 +90,7 @@ def fetch_google_news_rss(query: str, num_results: int = 10) -> list[dict]:
             )
         return items
     except Exception as e:
-        print(f"  Warning: Google News fetch failed for '{query}': {e}")
+        print(f"  Warning: Bing News fetch failed for '{query}': {e}")
         return []
 
 
@@ -132,7 +144,7 @@ def gather_briefing() -> tuple[str, list[dict]]:
     print("  Fetching news headlines...")
     all_news = []
     for query in NEWS_QUERIES:
-        articles = fetch_google_news_rss(query)
+        articles = fetch_news_rss(query)
         all_news.extend(articles)
         print(f"    '{query}': {len(articles)} articles")
 
@@ -213,7 +225,7 @@ def call_model(model_name: str, model_id: str, prompt: str, briefing: str) -> di
                     {"role": "system", "content": prompt},
                     {"role": "user", "content": briefing},
                 ],
-                "max_tokens": 4000,
+                "max_tokens": 8000,
                 "temperature": 0.7,
             },
             timeout=120,
@@ -327,7 +339,7 @@ def save_to_manifest(aggregated: dict, week_id: str) -> None:
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2))
 
 
-def generate_consensus(results: list[dict], news_articles: list[dict], clock_time: str, avg_score: float) -> str:
+def generate_consensus(results: list[dict], news_articles: list[dict]) -> str:
     """Ask a model to synthesize a consensus summary with news links from all reports."""
     print("  Generating consensus summary...")
 
@@ -344,14 +356,19 @@ def generate_consensus(results: list[dict], news_articles: list[dict], clock_tim
             news_links += f"- [{article['title']}]({article['link']})\n"
 
     prompt = (
-        "You are writing a 2-3 sentence consensus summary for the AI Doomsday Clock page. "
-        f"The consensus clock reads {clock_time} with a weighted score of {avg_score:.2f}.\n\n"
+        "You are writing a 2-3 sentence consensus summary for the AI Doomsday Clock page.\n\n"
         "Below are the individual model verdicts and a list of news articles with URLs.\n\n"
         "Write a concise, punchy 2-3 sentence summary that:\n"
         "1. References the most significant events from this week\n"
         "2. Embeds hyperlinks to relevant news articles using HTML <a> tags "
         "(e.g., <a href=\"URL\" target=\"_blank\">Company Name</a>)\n"
-        "3. Explains why the clock moved\n\n"
+        "3. Explains why the situation is concerning or stabilizing\n\n"
+        "IMPORTANT RULES:\n"
+        "- Do NOT mention the clock time, clock reading, or any time like '11:56:43'\n"
+        "- Do NOT mention the weighted score, numerical scores, or any numbers like '7.06'\n"
+        "- Do NOT use phrases like 'the clock edges closer to midnight' or 'seconds to midnight'\n"
+        "- Focus ONLY on the actual news events and their implications\n"
+        "- Be direct, factual, and quotable\n\n"
         "Return ONLY the HTML paragraph text — no wrapping tags, no markdown, no explanation.\n\n"
         f"## Model Verdicts\n{model_summaries}\n\n"
         f"## News Articles with URLs\n{news_links}"
@@ -360,7 +377,8 @@ def generate_consensus(results: list[dict], news_articles: list[dict], clock_tim
     api_key = os.environ.get("OPEN_ROUTER")
     if not api_key:
         print("  Warning: No API key, using fallback consensus")
-        closest = min(results, key=lambda r: abs(r.get("weighted_score", 0) - avg_score))
+        avg = sum(r.get("weighted_score", 0) for r in results) / len(results)
+        closest = min(results, key=lambda r: abs(r.get("weighted_score", 0) - avg))
         return escape(closest.get("summary", "No summary available."))
 
     try:
@@ -375,7 +393,7 @@ def generate_consensus(results: list[dict], news_articles: list[dict], clock_tim
             json={
                 "model": "anthropic/claude-opus-4.6",
                 "messages": [{"role": "user", "content": prompt}],
-                "max_tokens": 1000,
+                "max_tokens": 2000,
                 "temperature": 0.5,
             },
             timeout=60,
@@ -386,7 +404,8 @@ def generate_consensus(results: list[dict], news_articles: list[dict], clock_tim
         return consensus
     except Exception as e:
         print(f"  Warning: Consensus generation failed: {e}")
-        closest = min(results, key=lambda r: abs(r.get("weighted_score", 0) - avg_score))
+        avg = sum(r.get("weighted_score", 0) for r in results) / len(results)
+        closest = min(results, key=lambda r: abs(r.get("weighted_score", 0) - avg))
         return escape(closest.get("summary", "No summary available."))
 
 
@@ -427,7 +446,7 @@ def aggregate_results(results: list[dict], news_articles: list[dict]) -> dict:
     hour_angle = ((11 + minutes_decimal / 60) / 12) * 360
 
     # Generate consensus with news links via extra model call
-    consensus_summary = generate_consensus(results, news_articles, clock_time, avg_score)
+    consensus_summary = generate_consensus(results, news_articles)
 
     # Comparison with previous week
     prev = get_previous_reading()
