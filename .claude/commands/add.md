@@ -40,3 +40,10 @@ The user will say something like:
 - Max 50 char titles
 - Only 3 colors: `#1a1512`, `#d7ccc8`, `#ffb3c1`
 - Insert in chronological position (compare dates, newest near top)
+
+## After adding
+
+7. **Commit and push** — after inserting the item, automatically:
+   - `git add index.html`
+   - Commit with message: `Add TITLE`
+   - `git push origin main`
