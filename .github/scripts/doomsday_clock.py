@@ -85,7 +85,7 @@ def fetch_google_news_rss(query: str, num_results: int = 10) -> list[dict]:
 def fetch_reddit_posts(subreddit: str, limit: int = 10) -> list[dict]:
     """Fetch top posts from a subreddit (past week, public JSON API)."""
     url = f"https://www.reddit.com/r/{subreddit}/top.json?t=week&limit={limit}"
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; DoomsdayClock/1.0)"}
+    headers = {"User-Agent": "python:ai-doomsday-clock:v1.0 (by /u/bobbai_dev)"}
     try:
         resp = requests.get(url, headers=headers, timeout=15)
         resp.raise_for_status()
@@ -220,7 +220,12 @@ def call_model(model_name: str, model_id: str, prompt: str, briefing: str) -> di
 
         content = data["choices"][0]["message"]["content"]
 
-        json_match = re.search(r"```json\s*\n(.*?)\n\s*```", content, re.DOTALL)
+        # Try multiple patterns: fenced json, fenced without label, raw JSON object
+        json_match = re.search(r"```json\s*\n?(.*?)\n?\s*```", content, re.DOTALL)
+        if not json_match:
+            json_match = re.search(r"```\s*\n?({\s*\"clock_time\".*?})\n?\s*```", content, re.DOTALL)
+        if not json_match:
+            json_match = re.search(r'(\{\s*"clock_time".*?"verdict"\s*:\s*"[^"]*"\s*\})', content, re.DOTALL)
         if not json_match:
             print(f"  Warning: No JSON block found in {model_name} response")
             return None
