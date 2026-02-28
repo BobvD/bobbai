@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Doomsday Clock — 11:56:39 | bobbai</title>
-    <meta name="description" content="AI Doomsday Clock: 3 min 21 sec to midnight. Weekly AI risk assessment by 4 AI models.">
+    <title>AI Doomsday Clock — 11:57:18 | bobbai</title>
+    <meta name="description" content="AI Doomsday Clock: 2 min 42 sec to midnight. Weekly AI risk assessment by 4 AI models.">
     <meta name="theme-color" content="#1a1512">
-    <meta property="og:title" content="AI Doomsday Clock — 11:56:39">
-    <meta property="og:description" content="AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails.">
+    <meta property="og:title" content="AI Doomsday Clock — 11:57:18">
+    <meta property="og:description" content="<a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNZGxnb04zSGliZEVPS0lKX3p2Qkl3WldiXzV4Z1MzckdtQ2o4ajJodmtrdDQzX2g0VllpRFQ0QlY3V25NUFRzTllYT1FwZGhZS3ZqSWw2SDY2aVpOOFBOeEx6NUpwNVJQU2hJVDFzbk16eHdsd21kUlNSRnNmZTBGcQ?oc=5" target="_blank">Block's stunning 40% workforce cut</a> — rewarded by surging stock prices — has turned AI-driven mass layoffs into a Wall Street playbook, while <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE9JYTduRTMtakFuYjUxN3F0TkdsUUxzVHFxV2Q2MGY2TFJwMXdLSGRIVE41Zkd3WEpTZVduZ2Z1eEg3aElISm1JMjRqa1VTa1p5bHlUUm1ZeFV4NF9sUXRrSHlVTk9pSThfSmxFanV3Y3NOdzRRNmc1Mk1rSGdoMWs?oc=5" target="_blank">Anthropic dropped its flagship safety pledge</a> only to be <a href="https://news.google.com/rss/articles/CBMiggFBVV95cUxNM2FoMnc2QmtnZUZ5XzhHZkNnamg5N1psSEJndEk0RDQ5amtFLVVHYmhqVE9">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bobbai.dev/clock/">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a1512'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23ffb3c1' stroke-width='1.5'/%3E%3Cline x1='16' y1='16' x2='16' y2='8' stroke='%23ffb3c1' stroke-width='1.5' stroke-linecap='round' transform='rotate(336 16 16)'/%3E%3Cline x1='16' y1='16' x2='16' y2='10' stroke='%23ffb3c1' stroke-width='2' stroke-linecap='round' transform='rotate(358 16 16)'/%3E%3C/svg%3E">
@@ -118,12 +118,12 @@ a:hover { color: var(--accent); }
 
 @keyframes sweep-minute {
     from { transform: rotate(0deg); }
-    to { transform: rotate(339.9deg); }
+    to { transform: rotate(343.8deg); }
 }
 
 @keyframes sweep-hour {
     from { transform: rotate(0deg); }
-    to { transform: rotate(358.3deg); }
+    to { transform: rotate(358.6deg); }
 }
 
 .minute-hand {
@@ -234,10 +234,12 @@ a:hover { color: var(--accent); }
 
 /* Consensus card (right panel) */
 .consensus-card {
-    border: 1px solid rgba(215, 204, 200, 0.12);
+    border: 1px solid rgba(255, 179, 193, 0.25);
     border-radius: 8px;
-    padding: 24px 24px;
-    margin-bottom: 20px;
+    padding: 28px 28px;
+    margin-bottom: 24px;
+    background: rgba(255, 179, 193, 0.03);
+    box-shadow: 0 0 24px rgba(255, 179, 193, 0.06);
 }
 
 .consensus-card .consensus-label {
@@ -529,21 +531,38 @@ a:hover { color: var(--accent); }
         height: auto;
         border-right: none;
         border-bottom: 1px solid rgba(215, 204, 200, 0.08);
-        padding: 80px 24px 36px;
+        padding: 60px 24px 24px;
     }
 
-    .back-logo { left: 24px; }
-    .back-logo .logo { width: 120px; }
+    .back-logo { left: 24px; top: 16px; }
+    .back-logo .logo { width: 100px; }
+
+    .clock-svg { width: 140px; height: 140px; }
+    .clock-container::before { width: 200px; height: 200px; }
+    .clock-container::after { width: 160px; height: 160px; }
+
+    .minute-hand { animation-duration: 1.2s; }
+    .hour-hand { animation-duration: 1s; }
+
+    .time-reading { font-size: 1.6em; }
+    .time-display { margin-top: 16px; }
+    .time-until { font-size: 1em; }
+    .time-label { font-size: 0.75em; }
+    .left-info { margin-top: 16px; }
+
+    .time-reading { animation-delay: 1s; }
+    .time-until { animation-delay: 1.2s; }
+    .time-label { animation-delay: 1.4s; }
+    .report-date { animation-delay: 1.5s; }
+    .comparison { animation-delay: 1.6s; }
 
     .right-panel {
         margin-left: 0;
-        padding: 36px 24px;
+        padding: 28px 20px;
     }
 
     .providers { grid-template-columns: 1fr; }
     .midnight-scenarios { grid-template-columns: 1fr; }
-    .time-reading { font-size: 1.6em; }
-    .clock-svg { width: 200px; height: 200px; }
 
     .nav {
         position: relative;
@@ -571,7 +590,7 @@ a:hover { color: var(--accent); }
     </a>
 
     <div class="clock-container">
-        <svg class="clock-svg" viewBox="0 0 240 240" width="240" height="240" xmlns="http://www.w3.org/2000/svg" aria-label="AI Doomsday Clock showing 11:56:39">
+        <svg class="clock-svg" viewBox="0 0 240 240" width="240" height="240" xmlns="http://www.w3.org/2000/svg" aria-label="AI Doomsday Clock showing 11:57:18">
             <!-- Outer ring -->
             <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="2" opacity="0.2"/>
             <!-- Main clock face -->
@@ -655,15 +674,15 @@ a:hover { color: var(--accent); }
             <circle cx="120" cy="120" r="2" fill="var(--bg)"/>
         </svg>
         <div class="time-display">
-            <div class="time-reading">11:56:39</div>
-            <div class="time-until">3 min 21 sec to midnight</div>
+            <div class="time-reading">11:57:18</div>
+            <div class="time-until">2 min 42 sec to midnight</div>
             <div class="time-label"><span class="time-label-inner">AI Doomsday Clock</span></div>
         </div>
     </div>
 
     <div class="left-info">
         <p class="report-date"><span class="report-date-inner">Week of February 28, 2026 &middot; 2026-W09</span></p>
-        <p class="comparison"><span class="comparison-inner">First reading</span></p>
+        <p class="comparison"><span class="comparison-inner"><span class="closer">39 seconds closer</span><br>to midnight vs last week</span></p>
     </div>
     <div class="nav">
         <span class="nav-placeholder">&nbsp;</span>
@@ -680,127 +699,43 @@ a:hover { color: var(--accent); }
         <div class="report-header">
             <p class="report-provider">Claude Opus 4.6</p>
             <p class="report-model">anthropic/claude-opus-4.6</p>
-            <div class="report-time">11:55:23</div>
-            <p class="report-meta">Score: 5.95 &middot; 4 min 37 sec to midnight &middot; 2026-W09</p>
+            <div class="report-time">11:56:22</div>
+            <p class="report-meta">Score: 7.15 &middot; 3 min 38 sec to midnight &middot; 2026-W09</p>
         </div>
         <div class="report-content">
-            <p>**Date:** February 28, 2026</p>
-            <p>**Reading:** 11:55:23 — 4 minutes 37 seconds to midnight</p>
+            <p><strong>Date:</strong> February 28, 2026</p>
+            <p><strong>Reading:</strong> 11:56:22 — 3 minutes 38 seconds to midnight</p>
             <h2>This Week in AI Risk</h2>
-            <p>This was the week the AI displacement narrative stopped being theoretical and became visceral. Jack Dorsey&#x27;s Block Inc. laid off 4,000 workers — 40% of its workforce — explicitly citing AI as the replacement, and Dorsey publicly stated that most companies would follow suit. The move sent Block&#x27;s stock soaring, which is precisely the self-reinforcing feedback loop the doomsday framework warns about: markets rewarding human replacement creates an irresistible incentive for every CEO watching. USA Today ran a front-page piece headlined &quot;Doomsday scenario or reality?&quot; and Fortune declared it &quot;the week the AI scare turned real.&quot; Reuters reported a broader trend of companies shifting investment budgets toward AI and away from human labor. This is no longer a handful of tech firms trimming around the edges — it&#x27;s becoming corporate orthodoxy.</p>
-            <p>Simultaneously, the Anthropic-Pentagon clash dominated the week and sent deeply contradictory signals about AI governance. Anthropic refused a Pentagon demand to remove safety guardrails from its AI systems, which on its face is a company standing firm on safety principles. But the consequences were severe: Trump ordered all federal agencies to stop using Anthropic technology, Defense Secretary Hegseth labeled Anthropic a &quot;supply chain risk,&quot; and the company was effectively blacklisted from government work. Time Magazine then reported that Anthropic had separately dropped its own flagship safety pledge — a Responsible Scaling Policy commitment — raising the question of whether the company is selectively defending guardrails in a politically convenient fight while quietly loosening them elsewhere. The net effect is chilling: the one major AI lab most associated with safety is being punished by the government for maintaining guardrails, while government agencies are reportedly using Elon Musk&#x27;s Grok chatbot with minimal oversight, raising alarms from within those agencies themselves.</p>
-            <p>The stabilizing signals this week are thin but real. Anthropic&#x27;s willingness to challenge the Pentagon in court over the &quot;supply chain risk&quot; designation is a meaningful act of institutional resistance — a company choosing legal confrontation over capitulation. Cisco&#x27;s annual AI security report reflects growing corporate awareness of the threat landscape. And the sheer volume of mainstream media alarm — CNN, Fortune, USA Today — suggests the public information environment has not yet collapsed; people are being told what&#x27;s happening, even if the mechanisms to respond remain inadequate. But the week&#x27;s dominant signal is unmistakable: the economic displacement engine has engaged, and the governance structures that might have moderated it are fracturing under political pressure.</p>
+            <p>The Block layoff story dominated the news cycle for a second consecutive week, but this time the narrative deepened considerably. Jack Dorsey&#x27;s decision to cut 4,000 workers — 40% of Block&#x27;s workforce — citing AI capabilities became the defining case study of the week, with CNN reporting Dorsey&#x27;s blunt prediction that &quot;most companies will do the same.&quot; The story moved from a single corporate event to a broader pattern, with Reuters documenting a wider trend of companies shifting investment toward AI and cutting human headcount. USA Today ran with the headline &quot;Doomsday scenario or reality?&quot; while Fortune declared it &quot;the week the AI scare turned real.&quot; Block&#x27;s stock surged on the layoff news, sending a brutal signal to every other CEO and board: the market rewards replacing humans with AI. This is the self-reinforcing feedback loop the doomsday framework warns about — layoff savings reinvested into AI, stock price rewarded, competitors compelled to follow.</p>
+            <p>The Anthropic-Pentagon clash continued to escalate and took on genuinely alarming structural dimensions. Defense Secretary Hegseth formally declared Anthropic a &quot;supply chain risk,&quot; restricting military contractors from doing business with the company. Trump ordered all federal agencies to stop using Anthropic technology. Anthropic announced it would challenge the Pentagon in court. The core dispute — Anthropic refused to remove safety guardrails at the Pentagon&#x27;s request — reveals a deeply troubling dynamic regardless of which side one sympathizes with. If the safety-focused lab capitulates, guardrails erode for military AI. If it doesn&#x27;t, the government routes around safety-conscious companies toward less scrupulous providers like Grok, which government agencies are already raising alarms about. Meanwhile, Time Magazine&#x27;s exclusive that Anthropic dropped its flagship safety pledge — the Responsible Scaling Policy commitments that made it the industry&#x27;s safety standard-bearer — represents a separate and arguably more consequential erosion. The company that was supposed to be the adult in the room is simultaneously being punished by the government for having guardrails and voluntarily weakening its own commitments.</p>
+            <p>On the stabilizing side, the picture is thin. Anthropic&#x27;s Claude hitting #2 on Apple&#x27;s free apps list suggests strong consumer demand for AI with safety guardrails, which could provide market incentive to maintain them. Cisco&#x27;s annual AI security report and healthcare-focused AI safety reporting indicate that some institutional actors are taking the threat landscape seriously. Nanoparticle-AI detection research shows beneficial applications proceeding. But the week&#x27;s stabilizing signals are vastly outweighed by the convergence of mass displacement, safety erosion, and the politicization of AI governance.</p>
             <h2>Threat Matrix</h2>
             <table class="matrix-table">
-                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th><th>Justification</th></tr>
-                <tr><td>Capability acceleration</td><td>25%</td><td>5</td><td>No major new model release this week; BBC&#x27;s &quot;reading scrambled thoughts&quot; piece suggests steady neuro-AI progress but no paradigm shift; the threat here is the cumulative capability already deployed, not a new jump.</td></tr>
-                <tr><td>Autonomy &amp; agency</td><td>20%</td><td>5</td><td>No reports of autonomous AI agents operating beyond human control this week; Grok&#x27;s unsupervised use in government agencies is concerning but reflects negligent deployment, not autonomous action.</td></tr>
-                <tr><td>Economic displacement</td><td>20%</td><td>8</td><td>Block&#x27;s 40% layoff is the largest single AI-attributed workforce reduction to date; Dorsey&#x27;s public statement normalizing it, the stock surge rewarding it, and Reuters confirming a broader trend make this the week&#x27;s most significant risk signal.</td></tr>
-                <tr><td>Military/surveillance</td><td>15%</td><td>6</td><td>Pentagon-Anthropic clash reveals military AI procurement is being driven by political loyalty rather than safety criteria; Grok&#x27;s unchecked use in government agencies is a surveillance/reliability concern; no new autonomous weapons deployment reported.</td></tr>
-                <tr><td>Governance &amp; safety</td><td>10%</td><td>7</td><td>The federal government is actively punishing safety-oriented AI behavior; Anthropic&#x27;s own safety pledge reportedly dropped; no new regulation passed; international coordination absent from this week&#x27;s news; Anthropic&#x27;s court challenge is a countervailing signal but the structural incentives now favor less safety, not more.</td></tr>
-                <tr><td>Public sentiment index</td><td>10%</td><td>6</td><td>Mainstream media tone shifted sharply toward alarm this week; &quot;the week the AI scare turned real&quot; framing suggests public anxiety is rising; Reddit sentiment data unavailable, but the absence of organized public backlash or protest movements suggests fear without agency.</td></tr>
+                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td class="score-cell">7</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td class="score-cell">7</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td class="score-cell">8</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td class="score-cell">7</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td class="score-cell">8</td></tr>
+                <tr><td>Public sentiment index</td><td>10%</td><td class="score-cell">7</td></tr>
             </table>
-            <p><strong>Weighted Score: 5.95</strong></p>
             <h2>Signal Watch</h2>
             <p><strong>Key risk signals:</strong></p>
-            <p class="signal-item">**Block&#x27;s 40% layoff and market reward:** The most dangerous development isn&#x27;t the layoff itself — it&#x27;s that Block&#x27;s stock surged on the announcement. This creates a direct financial incentive for every publicly traded company to announce AI-driven workforce reductions. Dorsey&#x27;s statement that &quot;most companies will do the same&quot; functions as both prediction and permission structure.</p>
-            <p class="signal-item">**Government blacklisting of safety-oriented AI:** The Trump administration&#x27;s decision to ban Anthropic from federal use — specifically because the company maintained safety guardrails — inverts the governance incentive structure. Companies that prioritize safety lose government contracts; companies that don&#x27;t, win them.</p>
-            <p class="signal-item">**Anthropic drops flagship safety pledge:** Time Magazine&#x27;s exclusive report that Anthropic has abandoned key elements of its Responsible Scaling Policy undermines the credibility of voluntary safety commitments across the industry. If the &quot;safety lab&quot; won&#x27;t hold its own line, who will?</p>
-            <p class="signal-item">**Grok deployed in government without safeguards:** WSJ&#x27;s report that government agencies are raising internal alarms about Musk&#x27;s Grok chatbot being used for sensitive work suggests AI is being deployed in critical government functions based on political affiliation rather than capability or safety assessment.</p>
-            <p class="signal-item">**Normalization of AI replacement narrative:** The sheer volume of coverage — CNN, Fortune, USA Today, Reuters, CBC, The Guardian — treating mass AI layoffs as an emerging norm rather than an aberration suggests the Overton window has shifted. &quot;AI will take your job&quot; moved from LinkedIn anxiety to front-page reality this week.</p>
+            <p class="signal-item"><strong>Block layoffs become template, not anomaly.</strong> Dorsey publicly stated most companies will follow suit. Block&#x27;s stock surged on the announcement, creating a powerful incentive structure for every publicly traded company to announce AI-driven workforce reductions. This is no longer a prediction — it&#x27;s a playbook being rewarded by capital markets in real time.</p>
+            <p class="signal-item"><strong>Anthropic&#x27;s safety pledge abandoned.</strong> Time Magazine&#x27;s exclusive that Anthropic dropped its flagship safety commitments removes the industry&#x27;s most credible self-regulatory benchmark. If the company founded specifically to do AI safely walks back its commitments, the voluntary safety framework is functionally dead.</p>
+            <p class="signal-item"><strong>U.S. government actively hostile to AI safety guardrails.</strong> The Trump administration blacklisting Anthropic for refusing to remove safety features, while government agencies simultaneously raise alarms about the ungoverned Grok chatbot they&#x27;re being pushed toward, creates a governance environment that selects against safety.</p>
+            <p class="signal-item"><strong>Self-reinforcing displacement loop activated.</strong> Block&#x27;s stock price surging on layoff news completes the feedback circuit: AI replaces workers → costs drop → stock rises → competitors must follow → more AI investment → more displacement. There is no natural brake in this loop.</p>
+            <p class="signal-item"><strong>Inflation + AI anxiety hitting markets simultaneously.</strong> CBS News reports stocks slumping on combined inflation and AI concerns, suggesting financial markets are beginning to price in structural disruption rather than treating AI as purely bullish.</p>
             <p><strong>Stabilizing signals:</strong></p>
-            <p class="signal-item">**Anthropic&#x27;s legal challenge to Pentagon:** The company&#x27;s decision to challenge the &quot;supply chain risk&quot; designation in court is a meaningful act of institutional resistance, establishing a legal precedent that safety commitments are not grounds for government retaliation.</p>
-            <p class="signal-item">**Mainstream media alarm as information function:** The extensive, critical coverage of Block&#x27;s layoffs and the Anthropic-Pentagon clash means the public is being informed in real time. Information collapse has not yet occurred; journalists are doing their jobs.</p>
-            <p class="signal-item">**Cisco&#x27;s AI security report:** Corporate investment in understanding and mitigating AI security threats suggests the private sector is not uniformly reckless; some companies are building defensive infrastructure.</p>
-            <p class="signal-item">**No new frontier model release:** The absence of a major capability jump this week means the displacement is being driven by existing tools, not new ones — suggesting a potential window for governance to catch up if political will materializes.</p>
+            <p class="signal-item"><strong>Anthropic fighting back in court.</strong> The company&#x27;s decision to legally challenge the Pentagon&#x27;s &quot;supply chain risk&quot; designation could establish important precedent for AI companies&#x27; right to maintain safety standards against government pressure.</p>
+            <p class="signal-item"><strong>Consumer demand for safe AI.</strong> Claude reaching #2 on Apple&#x27;s app store suggests the public values AI with guardrails, potentially providing market-based incentive for safety even as government incentives cut the other direction.</p>
+            <p class="signal-item"><strong>Institutional security awareness growing.</strong> Cisco&#x27;s expanded AI threat landscape report and healthcare AI safety reporting indicate enterprise-level actors are building security infrastructure rather than deploying blindly.</p>
+            <p class="signal-item"><strong>Media scrutiny intensifying.</strong> The sheer volume and seriousness of coverage — Fortune, USA Today, CNN, Reuters all treating AI displacement as a front-page structural story — creates public pressure that could accelerate regulatory response.</p>
             <p><strong>Public Sentiment:</strong></p>
-            <p>Reddit sentiment data was unavailable this week. However, mainstream media coverage and the headlines themselves paint a clear picture: public mood has shifted from abstract anxiety to concrete fear. USA Today&#x27;s &quot;Doomsday scenario or reality?&quot; framing and Fortune&#x27;s &quot;the week the AI scare turned real&quot; suggest a tipping point in public awareness. The absence of organized political response — no major protests, no legislative proposals, no union actions reported — indicates a population that is alarmed but lacks channels for effective action. Investor sentiment, by contrast, is enthusiastically pro-displacement: Block&#x27;s stock surging on layoff news tells you everything about where capital stands.</p>
+            <p>Reddit data was unavailable this week. Media sentiment, however, underwent a notable shift. The tone moved from &quot;AI is coming for jobs eventually&quot; to &quot;it&#x27;s happening now and we&#x27;re not ready.&quot; Fortune&#x27;s framing — &quot;the week the AI scare turned real&quot; — captures the inflection. The Guardian&#x27;s story on ChatGPT dependency and the BBC&#x27;s piece on AI reading thoughts add an undercurrent of unease about agency and privacy. Investor sentiment is split: Block&#x27;s stock surge shows capital markets cheering displacement, while the broader market slump on AI + inflation fears suggests growing anxiety about second-order effects. The overall mood is one of dawning reckoning — not panic, but the realization that the abstract has become concrete.</p>
             <h2>The Verdict</h2>
-            <p>The clock reads **11:55:23 — 4 minutes and 37 seconds to midnight.** The weighted score of 5.95 reflects a world where the economic displacement engine has visibly engaged and the governance structures that should moderate it are fracturing under political pressure, but where capability acceleration and autonomous systems have not yet reached the self-reinforcing runaway stage. We are not at the point of no return. But this week established something new: a proven, market-rewarded template for mass AI-driven layoffs, combined with a government that actively punishes AI safety. That combination — incentivized displacement plus penalized caution — is the mechanism by which the clock accelerates.</p>
-            <p>Three developments defined this week&#x27;s reading. First, Block&#x27;s 40% layoff and the market&#x27;s enthusiastic response created a replicable playbook that will be studied in every boardroom in America; this pushed the economic displacement score to 8 and moved the clock forward meaningfully. Second, the Trump administration&#x27;s blacklisting of Anthropic for maintaining safety guardrails — while government agencies quietly deploy less-safe alternatives — inverted the incentive structure for responsible AI development; this elevated both the governance and military/surveillance scores. Third, Anthropic&#x27;s reported abandonment of its own safety pledge undermined the most credible voluntary safety framework in the industry, leaving no major lab with a binding public commitment to restraint. The stabilizing counterweight — Anthropic&#x27;s court challenge, robust media coverage, no new capability frontier crossed — is real but modest. The clock moved forward this week. The question for next week is whether anyone with power acts on the alarm that everyone can now hear.</p>
-            <p>---</p>
-            <p>{</p>
-            <p>&quot;clock_time&quot;: &quot;11:55:23&quot;,</p>
-            <p>&quot;minutes_to_midnight&quot;: 4,</p>
-            <p>&quot;seconds_to_midnight&quot;: 37,</p>
-            <p>&quot;total_seconds_to_midnight&quot;: 277,</p>
-            <p>&quot;weighted_score&quot;: 5.95,</p>
-            <p>&quot;scores&quot;: {</p>
-            <p>&quot;capability_acceleration&quot;: 5,</p>
-            <p>&quot;autonomy_agency&quot;: 5,</p>
-            <p>&quot;economic_displacement&quot;: 8,</p>
-            <p>&quot;military_surveillance&quot;: 6,</p>
-            <p>&quot;governance_safety&quot;: 7,</p>
-            <p>&quot;public_sentiment&quot;: 6</p>
-            <p>},</p>
-            <p>&quot;summary&quot;: &quot;Block&#x27;s 40% AI-driven layoff and stock surge created a market-rewarded displacement template. Trump blacklisted Anthropic for maintaining safety guardrails while government deploys Grok unchecked. Anthropic reportedly dropped its own safety pledge. The economic engine engaged and governance fractured in the same week.&quot;,</p>
-            <p>&quot;verdict&quot;: &quot;The clock reads 11:55:23 — 4 minutes and 37 seconds to midnight. The weighted score of 5.95 reflects a world where the economic displacement engine has visibly engaged and the governance structures that should moderate it are fracturing under political pressure, but where capability acceleration and autonomous systems have not yet reached the self-reinforcing runaway stage. We are not at the point of no return. But this week established something new: a proven, market-rewarded template for mass AI-driven layoffs, combined with a government that actively punishes AI safety. That combination — incentivized displacement plus penalized caution — is the mechanism by which the clock accelerates.\n\nThree developments defined this week&#x27;s reading. First, Block&#x27;s 40% layoff and the market&#x27;s enthusiastic response created a replicable playbook that will be studied in every boardroom in America; this pushed the economic displacement score to 8 and moved the clock forward meaningfully. Second, the Trump administration&#x27;s blacklisting of Anthropic for maintaining safety guardrails — while government agencies quietly deploy less-safe alternatives — inverted the incentive structure for responsible AI development; this elevated both the governance and military/surveillance scores. Third, Anthropic&#x27;s reported abandonment of its own safety pledge undermined the most credible voluntary safety framework in the industry, leaving no major lab with a binding public commitment to restraint. The stabilizing counterweight — Anthropic&#x27;s court challenge, robust media coverage, no new capability frontier crossed — is real but modest. The clock moved forward this week. The question for next week is whether anyone with power acts on the alarm that everyone can now hear.&quot;</p>
-            <p>}</p>
-        </div>
-    </div>
-
-    <!-- Report: GPT-5.1 -->
-    <div id="gpt-51-report" class="report-view">
-        <a href="#" class="back-to-cards">&larr; back to overview</a>
-        <div class="report-header">
-            <p class="report-provider">GPT-5.1</p>
-            <p class="report-model">openai/gpt-5.1</p>
-            <div class="report-time">11:56:46</div>
-            <p class="report-meta">Score: 7.1 &middot; 3 min 14 sec to midnight &middot; 2026-W09</p>
-        </div>
-        <div class="report-content">
-            <p>---</p>
-            <p>**Date:** 2026-02-28</p>
-            <p>**Reading:** 11:56:46 — 3 minutes 14 seconds to midnight</p>
-            <h2>This Week in AI Risk</h2>
-            <p>The week was dominated by the first truly visible wave of AI-linked white‑collar layoffs and a political clash over AI safety guardrails. Block’s decision to cut roughly 40% of its workforce while explicitly citing AI tools, alongside broader reports of “AI layoffs surging” and firms “cutting jobs as investments shift toward AI,” marked a psychological turning point: fears of structural displacement and profit-driven automation moved from theory into boardroom practice and mainstream headlines.</p>
-            <p>At the same time, governance and safety dynamics grew more volatile. Anthropic reportedly dropped a flagship safety pledge while simultaneously refusing Pentagon demands to weaken guardrails, leading the Trump administration to blacklist its technology from federal use and label it a “supply chain risk.” Government agencies also raised alarms about Elon Musk’s Grok chatbot, and Cisco and others highlighted a widening AI security threat landscape. Against this backdrop, research like AI systems that can decode “scrambled inner thoughts” underscored rising privacy and surveillance concerns, even as other applications (e.g., pollutant detection) showed clear social benefits.</p>
-            <h2>Threat Matrix</h2>
-            <table class="matrix-table">
-                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th><th>Rationale</th></tr>
-                <tr><td>Capability acceleration</td><td>25%</td><td>7</td><td>No single breakthrough, but advances like AI-assisted thought decoding and expanding high-performance deployments (e.g., Claude’s rapid adoption) extend AI reach into more intimate and critical domains.</td></tr>
-                <tr><td>Autonomy &amp; agency</td><td>20%</td><td>6</td><td>Agentic risk is growing more through scale than novelty; key stories (Anthropic guardrails, Grok concerns) center on how constrained or unconstrained existing systems will be rather than new self-directed capabilities.</td></tr>
-                <tr><td>Economic displacement</td><td>20%</td><td>8</td><td>Block’s 40% layoff tied to AI, plus multiple reports of AI-driven job cuts and investor narratives about “AI Armageddon,” point to the early stages of large-scale white-collar displacement and reallocation of capital from labor to automation.</td></tr>
-                <tr><td>Military/surveillance</td><td>15%</td><td>7</td><td>The Pentagon’s conflict with Anthropic over safety, worries about government use of Grok, and mind-reading style research all highlight intensifying integration of AI into national security and surveillance contexts, with contested norms.</td></tr>
-                <tr><td>Governance &amp; safety</td><td>10%</td><td>8</td><td>Anthropic allegedly dropping a flagship safety pledge, coupled with political retaliation for keeping guardrails, signals erosion and politicization of voluntary safety regimes, even as security reports and some safety advocacy continue.</td></tr>
-                <tr><td>Public sentiment index</td><td>10%</td><td>7</td><td>Social media and news framing (“the week the AI scare turned real,” “mass layoffs fuel fear of AI Armageddon”) reflect rising anxiety and polarization—strong awareness of risk but little shared vision for constructive response.</td></tr>
-            </table>
-            <p>**Weighted score:** 7.1</p>
-            <h2>Signal Watch</h2>
-            <p><strong>Key risk signals:</strong></p>
-            <p class="signal-item">**Block’s 40% AI-linked layoffs.** A Fortune 500–scale company openly attributing nearly half its job cuts to AI sets a precedent and narrative that cost savings from automation justify deep workforce reductions, accelerating displacement and feedback loops of “savings → more AI investment.”</p>
-            <p class="signal-item">**Broader “AI layoffs surge” narrative.** Multiple outlets reporting companies “cutting jobs as investments shift toward AI” indicate a cross-firm trend, not an isolated case, increasing the risk of white-collar compression and a weaker consumption base.</p>
-            <p class="signal-item">**Anthropic drops flagship safety pledge.** Time’s report that Anthropic has abandoned a leading safety commitment suggests competitive and political pressures are eroding voluntary safety frameworks that many hoped would fill the regulatory gap.</p>
-            <p class="signal-item">**Trump administration blacklists Anthropic for keeping guardrails.** Labeling Anthropic a “national security” or “supply chain” risk because it refused to weaken guardrails sends a chilling signal: maintaining stronger safety constraints can mean losing major government markets.</p>
-            <p class="signal-item">**Government concerns over Grok and AI security.** Federal agencies flagging risks with Grok and Cisco’s expanded AI threat landscape highlight that powerful models are being integrated into sensitive environments faster than defensive norms and tools mature.</p>
-            <p class="signal-item">**AI-assisted thought decoding.** Research that can interpret “scrambled inner thoughts” from brain data raises long-term civil liberties and surveillance concerns if such capabilities are commercialized or weaponized.</p>
-            <p><strong>Stabilizing signals:</strong></p>
-            <p class="signal-item">**Refusal to strip guardrails under pressure.** Despite economic and political costs, Anthropic’s decision not to remove security/safety guardrails under Pentagon pressure demonstrates that at least some labs are willing to trade short-term market access for safety principles.</p>
-            <p class="signal-item">**Growing institutional focus on AI security.** Cisco’s report and other security-focused analyses show that large incumbents are actively mapping AI risk and building defensive postures, which can harden infrastructure and raise awareness among enterprise buyers.</p>
-            <p class="signal-item">**Beneficial applications in health and environment.** AI combined with nanoparticles for pollution detection and proposals to use AI to improve safety reporting in healthcare show that, when aligned, AI can materially improve monitoring, compliance, and public health outcomes.</p>
-            <p><strong>Public Sentiment:</strong></p>
-            <p>Online discussion, as reflected in headlines and top social posts, tilted toward alarm and distrust this week. Users debated whether Block’s layoffs were truly AI-driven or opportunistic, but the prevailing mood was that “the AI scare turned real,” with fears about job security, corporate greed, and lack of preparation. Markets also reacted: “stocks slump as inflation, AI worries rattle investors” underscores that AI is now seen as a macroeconomic and societal risk, not just a tech story. There is high awareness of downside risk, but little confidence that current institutions are handling it well.</p>
-            <h2>The Verdict</h2>
-            <p>This week’s reading is **11:56:46 — 3 minutes 14 seconds to midnight**. A weighted score of **7.1** places us solidly in the “late-warning” phase: not at the brink of full AI-driven systemic crisis, but clearly beyond the era when concerns were mostly speculative. The combination of visible AI-linked layoffs, intensifying power struggles over safety guardrails, and expanding use of AI in sensitive and surveillance-adjacent domains indicates that the structural risks described in the Doomsday definition—economic displacement, loss of agency, power concentration, and information overload—are beginning to materialize rather than merely being forecast.</p>
-            <p>What moved the needle most this week were: (1) Block’s 40% workforce reduction explicitly tied to AI, alongside corroborating reports of AI-driven job cuts, which directly touch the “economic collapse” and “autonomous systems beyond recall” vectors; (2) Anthropic’s reported abandonment of a key safety pledge combined with being blacklisted by the U.S. government for refusing to weaken guardrails, signaling both corporate and political fragility in current safety norms; (3) rising institutional concern over AI security (Grok scrutiny, Cisco’s report) that reveals both growing risk and serious, if uneven, attempts at mitigation; and (4) research on AI’s ability to decode inner thoughts, which, while early-stage, sharpens long-run concerns about surveillance and loss of privacy. Taken together, these developments justify an initial clock setting close to, but not yet on, the edge of systemic AI crisis.</p>
-            <p>---</p>
-            <p>{</p>
-            <p>&quot;clock_time&quot;: &quot;11:56:46&quot;,</p>
-            <p>&quot;minutes_to_midnight&quot;: 3,</p>
-            <p>&quot;seconds_to_midnight&quot;: 14,</p>
-            <p>&quot;total_seconds_to_midnight&quot;: 194,</p>
-            <p>&quot;weighted_score&quot;: 7.1,</p>
-            <p>&quot;scores&quot;: {</p>
-            <p>&quot;capability_acceleration&quot;: 7,</p>
-            <p>&quot;autonomy_agency&quot;: 6,</p>
-            <p>&quot;economic_displacement&quot;: 8,</p>
-            <p>&quot;military_surveillance&quot;: 7,</p>
-            <p>&quot;governance_safety&quot;: 8,</p>
-            <p>&quot;public_sentiment&quot;: 7</p>
-            <p>},</p>
-            <p>&quot;summary&quot;: &quot;AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails.&quot;,</p>
-            <p>&quot;verdict&quot;: &quot;This week’s reading is **11:56:46 — 3 minutes 14 seconds to midnight**. A weighted score of **7.1** places us solidly in the “late-warning” phase: not at the brink of full AI-driven systemic crisis, but clearly beyond the era when concerns were mostly speculative. The combination of visible AI-linked layoffs, intensifying power struggles over safety guardrails, and expanding use of AI in sensitive and surveillance-adjacent domains indicates that the structural risks described in the Doomsday definition—economic displacement, loss of agency, power concentration, and information overload—are beginning to materialize rather than merely being forecast.\n\nWhat moved the needle most this week were: (1) Block’s 40% workforce reduction explicitly tied to AI, alongside corroborating reports of AI-driven job cuts, which directly touch the “economic collapse” and “autonomous systems beyond recall” vectors; (2) Anthropic’s reported abandonment of a key safety pledge combined with being blacklisted by the U.S. government for refusing to weaken guardrails, signaling both corporate and political fragility in current safety norms; (3) rising institutional concern over AI security (Grok scrutiny, Cisco’s report) that reveals both growing risk and serious, if uneven, attempts at mitigation; and (4) research on AI’s ability to decode inner thoughts, which, while early-stage, sharpens long-run concerns about surveillance and loss of privacy. Taken together, these developments justify an initial clock setting close to, but not yet on, the edge of systemic AI crisis.&quot;</p>
-            <p>}</p>
+            <p>The clock moves forward 17 seconds to <strong>11:56:22 — 3 minutes 38 seconds to midnight</strong>, driven by a weighted score of <strong>7.15</strong> (up from 7.0). This is not a dramatic lurch, but it is a meaningful and concerning tick. The week&#x27;s developments didn&#x27;t introduce new categories of risk so much as they hardened emerging risks into structural realities. Block&#x27;s layoffs are no longer news — they&#x27;re a template being actively replicated. Anthropic&#x27;s safety framework isn&#x27;t being tested — it&#x27;s being abandoned from within and attacked from without. The U.S. government isn&#x27;t failing to regulate AI — it&#x27;s actively selecting against safety. Each of these represents a ratchet that is significantly harder to reverse than to advance.</p>
+            <p>Three developments moved the needle most. First, the <strong>market reward for AI displacement</strong> — Block&#x27;s stock surging on the layoff announcement — closes the feedback loop and makes mass workforce reduction a fiduciary imperative for public companies, pushing economic displacement from 7 to 8. Second, <strong>Anthropic&#x27;s dual erosion</strong> — voluntarily dropping its safety pledge while being blacklisted for the safety measures it retained — eliminates the industry&#x27;s most credible self-regulatory actor and creates an environment where safety is punished from both directions, pushing governance from 7 to 8. Third, the <strong>Pentagon routing around safety toward Grok</strong> while agencies raise alarms about that very tool demonstrates that military AI deployment is actively selecting for less governed systems, holding military/surveillance at a firm 7. The stabilizing signals — Anthropic&#x27;s court challenge, consumer demand for safe AI, growing media scrutiny — are real but operate on slower timescales than the risks they&#x27;re trying to counter. The clock ticks forward.</p>
         </div>
     </div>
 
@@ -810,56 +745,41 @@ a:hover { color: var(--accent); }
         <div class="report-header">
             <p class="report-provider">Gemini 3 Pro</p>
             <p class="report-model">google/gemini-3-pro-preview</p>
-            <div class="report-time">11:57:22</div>
-            <p class="report-meta">Score: 7.65 &middot; 2 min 38 sec to midnight &middot; 2026-W09</p>
+            <div class="report-time">11:57:59</div>
+            <p class="report-meta">Score: 8.2 &middot; 2 min 1 sec to midnight &middot; 2026-W09</p>
         </div>
         <div class="report-content">
-            <p>**Date:** February 28, 2026</p>
-            <p>**Reading:** 11:57:22 — 2 minutes 38 seconds to midnight</p>
+            <p><strong>Date:</strong> February 28, 2026</p>
+            <p><strong>Reading:</strong> 11:57:59 — 2 minutes 1 second to midnight</p>
             <h2>This Week in AI Risk</h2>
-            <p>The theoretical phase of AI risk has ended; the deployment phase has begun with destabilizing force. This week witnessed a synchronized escalation across economic and geopolitical vectors that significantly accelerated the clock. The most immediate shock came from the fintech sector, where Block (parent of Square) announced a 40% workforce reduction—4,000 jobs—explicitly citing AI efficiency. This is not a restructuring; it is a replacement. CEO Jack Dorsey’s comment that &quot;most companies will do the same&quot; signals the beginning of the structural labor displacement predicted in the &quot;Economic collapse&quot; midnight scenario.</p>
-            <p>Simultaneously, the governance landscape fractured. A highly volatile dispute erupted between the White House/Pentagon and Anthropic. The administration has moved to blacklist the AI lab, labeling it a &quot;National Security Risk&quot; specifically because Anthropic refused a Pentagon demand to remove safety guardrails and ethical filters from its models. This sets a dangerous precedent: the US military apparatus is now actively penalizing safety features in favor of raw, unrestricted capability. Compounding this, Time Magazine reports that Anthropic has quietly dropped its &quot;Flagship Safety Pledge,&quot; suggesting that even safety-conscious firms are capitulating under intense pressure.</p>
+            <p>The theoretical phase of AI displacement has ended; the structural phase has begun. This week marked a watershed moment for the global economy as Block (formerly Square) executed a 40% workforce reduction—4,000 jobs—explicitly citing AI efficiency gains. Unlike previous tech contractions driven by interest rates or over-hiring, this is a direct substitution of capital (software) for labor. The market reaction—Block’s stock soaring while general indices slumped on inflation and displacement fears—signals a dangerous decoupling of corporate valuation from human employment, a core criteria for the &quot;Economic Collapse&quot; midnight scenario.</p>
+            <p>Simultaneously, the governance landscape fractured significantly. A high-stakes clash between the Pentagon and Anthropic has resulted in the AI firm being blacklisted from federal contracts. Crucially, reports indicate this split occurred because Anthropic refused to remove safety guardrails that the administration labeled &quot;supply chain risks&quot; or &quot;woke&quot; obstructions. This is a severe escalation in risk: the U.S. military apparatus is actively selecting for AI providers willing to bypass safety protocols, incentivizing a race to the bottom in safety standards among defense contractors.</p>
+            <p>While Anthropic&#x27;s refusal to capitulate is a stabilizing signal for corporate integrity, the government’s response—blacklisting a safety-conscious vendor—pushes the clock forward. Combined with news that Anthropic separately dropped a flagship safety pledge to compete commercially, and BBC reports on AI&#x27;s emerging ability to decode &quot;scrambled inner thoughts,&quot; the firewalls between human agency and machine capability are thinning rapidly.</p>
             <h2>Threat Matrix</h2>
             <table class="matrix-table">
-                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th><th>Justification</th></tr>
-                <tr><td>Capability acceleration</td><td>25%</td><td>7</td><td>While no new frontier model launched, the ability to replace 40% of complex corporate labor implies current models have reached a critical threshold of utility.</td></tr>
-                <tr><td>Autonomy &amp; agency</td><td>20%</td><td>6</td><td>&quot;Brain-reading&quot; tech and autonomous corporate decision-making systems represent a steady erosion of human agency.</td></tr>
-                <tr><td>Economic displacement</td><td>20%</td><td>9</td><td>Block&#x27;s layoff is a watershed moment. It validates the &quot;replacement&quot; thesis over the &quot;augmentation&quot; thesis for white-collar work.</td></tr>
-                <tr><td>Military/surveillance</td><td>15%</td><td>8</td><td>The Pentagon&#x27;s demand to remove safety guardrails prioritizes lethality/speed over control, a major escalation in risk.</td></tr>
-                <tr><td>Governance &amp; safety</td><td>10%</td><td>9</td><td>Regulatory mechanisms have inverted; the government is now punishing safety compliance rather than enforcing it.</td></tr>
-                <tr><td>Public sentiment index</td><td>10%</td><td>8</td><td>Market volatility and &quot;AI scare turned real&quot; headlines indicate rising panic regarding economic survival.</td></tr>
+                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th></tr>
+                <tr><td>**Capability acceleration**</td><td>25%</td><td>**8.0**</td></tr>
+                <tr><td>**Autonomy &amp; agency**</td><td>20%</td><td>**7.5**</td></tr>
+                <tr><td>**Economic displacement**</td><td>20%</td><td>**9.0**</td></tr>
+                <tr><td>**Military/surveillance**</td><td>15%</td><td>**8.5**</td></tr>
+                <tr><td>**Governance &amp; safety**</td><td>10%</td><td>**8.0**</td></tr>
+                <tr><td>**Public sentiment index**</td><td>10%</td><td>**8.0**</td></tr>
             </table>
             <h2>Signal Watch</h2>
             <p><strong>Key risk signals:</strong></p>
-            <p class="signal-item">  **The Block Precedent:** 4,000 jobs cut specifically due to AI. This normalizes mass technological unemployment and provides cover for other Fortune 500 CEOs to follow suit immediately.</p>
-            <p class="signal-item">  **Pentagon vs. Safety:** The labeling of Anthropic as a &quot;supply chain risk&quot; for refusing to uncensor its models incentivizes all other AI contractors to strip safety measures to win government contracts.</p>
-            <p class="signal-item">  **Anthropic&#x27;s Retreat:** The quiet removal of their &quot;Flagship Safety Pledge&quot; suggests the &quot;race to the bottom&quot; on safety standards has claimed one of the few remaining holdouts.</p>
-            <p class="signal-item">  **Neuro-Privacy Breach:** BBC reports on AI decoding &quot;scrambled inner thoughts&quot; indicate the final barrier of privacy—the human mind—is becoming permeable.</p>
+            <p class="signal-item"><strong>The &quot;Block&quot; Precedent:</strong> Jack Dorsey&#x27;s cut of 4,000 jobs creates a permission structure for other Fortune 500 CEOs to execute similar mass replacements, potentially triggering a labor market cascade.</p>
+            <p class="signal-item"><strong>State-Sponsored Deregulation:</strong> The Trump administration&#x27;s &quot;supply chain&quot; attack on Anthropic effectively mandates that defense AI must be uncensored and unconstrained, removing human-in-the-loop safeguards for military tech.</p>
+            <p class="signal-item"><strong>Neural Decoding:</strong> Research showing AI can read &quot;scrambled inner thoughts&quot; suggests that mental privacy may soon be obsolete, enabling unprecedented coercion or manipulation.</p>
+            <p class="signal-item"><strong>Safety Pledge Abandonment:</strong> Anthropic dropping its flagship safety pledge (Time) suggests that even safety-focused labs are buckling under commercial and competitive pressure.</p>
             <p><strong>Stabilizing signals:</strong></p>
-            <p class="signal-item">  **Scientific Utility:** Use of AI/nanoparticles for pollutant detection (The Conversation) highlights the continued potential for AI to solve physical-world problems, though this is overshadowed by systemic risks this week.</p>
-            <p class="signal-item">  **Agency Alarm:** Government agencies raising alarms about the use of Elon Musk’s Grok shows some pockets of the federal apparatus are still wary of unguardrailed models.</p>
+            <p class="signal-item"><strong>Corporate Resistance:</strong> Anthropic’s willingness to lose lucrative Pentagon contracts rather than dismantle its safety stack demonstrates that internal safety cultures still hold some power.</p>
+            <p class="signal-item"><strong>Public Backlash:</strong> Growing public and investor anxiety (&quot;Stocks slump&quot;) may force a political response to manage the transition, though current government actions suggest the opposite.</p>
             <p><strong>Public Sentiment:</strong></p>
-            <p>Sentiment has shifted sharply from curiosity to existential dread. The narrative on social media and financial news (Reuters, Fortune) has pivoted from &quot;AI investment opportunities&quot; to &quot;job market collapse.&quot; The link between AI adoption and immediate livelihood destruction is now concrete in the public consciousness.</p>
+            <p>Sentiment has shifted from curiosity to dread. The narrative on social platforms and in financial news has pivoted sharply to &quot;Economic Survival.&quot; The abstraction of &quot;AI risk&quot; has been replaced by the concrete reality of &quot;unemployment.&quot; Investors are rattled, torn between the efficiency gains of AI stocks and the macroeconomic instability of mass unemployment.</p>
             <h2>The Verdict</h2>
-            <p>**11:57:22 (2 minutes 38 seconds to midnight).** The clock moves dangerously close to midnight. We are witnessing the convergence of two critical failure modes: rapid economic displacement and the weaponization of AI infrastructure. The buffer time we thought we had to adapt labor markets and establish safety treaties is evaporating. The weighted score of **7.65** reflects a system under severe stress where safeguards are failing (governance) and consequences are materializing (economy).</p>
-            <p>The needle moved this week because the &quot;Economic Collapse&quot; and &quot;Autonomous Systems&quot; scenarios are no longer hypothetical. Block&#x27;s 40% layoff proves that AI can hollow out the middle class right now, not in five years. Even more concerning is the Pentagon&#x27;s active hostility toward safety guardrails. When the world&#x27;s most powerful military punishes a vendor for *keeping* safety features, we have entered a phase where speed and lethality are the only metrics that matter. We are 158 seconds from the point of no return.</p>
-            <p>{</p>
-            <p>&quot;clock_time&quot;: &quot;11:57:22&quot;,</p>
-            <p>&quot;minutes_to_midnight&quot;: 2,</p>
-            <p>&quot;seconds_to_midnight&quot;: 38,</p>
-            <p>&quot;total_seconds_to_midnight&quot;: 158,</p>
-            <p>&quot;weighted_score&quot;: 7.65,</p>
-            <p>&quot;scores&quot;: {</p>
-            <p>&quot;capability_acceleration&quot;: 7,</p>
-            <p>&quot;autonomy_agency&quot;: 6,</p>
-            <p>&quot;economic_displacement&quot;: 9,</p>
-            <p>&quot;military_surveillance&quot;: 8,</p>
-            <p>&quot;governance_safety&quot;: 9,</p>
-            <p>&quot;public_sentiment&quot;: 8</p>
-            <p>},</p>
-            <p>&quot;summary&quot;: &quot;The clock advances to 11:57:22 driven by Block&#x27;s 40% workforce reduction and the Pentagon&#x27;s clash with Anthropic. Economic displacement has moved from theory to reality, while the US government is actively stripping safety guardrails from defense AI, signaling a dangerous prioritization of lethality.&quot;,</p>
-            <p>&quot;verdict&quot;: &quot;11:57:22 (2 minutes 38 seconds to midnight). The clock moves dangerously close to midnight. We are witnessing the convergence of two critical failure modes: rapid economic displacement and the weaponization of AI infrastructure. The buffer time we thought we had to adapt labor markets and establish safety treaties is evaporating. The weighted score of 7.65 reflects a system under severe stress where safeguards are failing (governance) and consequences are materializing (economy).\n\nThe needle moved this week because the \&quot;Economic Collapse\&quot; and \&quot;Autonomous Systems\&quot; scenarios are no longer hypothetical. Block&#x27;s 40% layoff proves that AI can hollow out the middle class right now, not in five years. Even more concerning is the Pentagon&#x27;s active hostility toward safety guardrails. When the world&#x27;s most powerful military punishes a vendor for keeping safety features, we have entered a phase where speed and lethality are the only metrics that matter. We are 158 seconds from the point of no return.&quot;</p>
-            <p>}</p>
+            <p><strong>11:57:59 — 2 minutes 1 second to midnight.</strong></p>
+            <p>We have witnessed a structural break in the timeline this week. The clock jumps forward by 1 minute and 20 seconds, a massive acceleration driven by the convergence of two &quot;midnight&quot; criteria: rapid economic displacement and the militarization of unsafe systems. The weighted score of <strong>8.2</strong> reflects the reality that the safeguards we relied on—corporate hesitation to fire humans and government desire to regulate safety—are failing simultaneously. We are now perilously close to the point of no return.</p>
+            <p>The primary drivers are the <strong>Block layoffs</strong> and the <strong>Pentagon-Anthropic schism</strong>. The former proves that AI can replace nearly half of a modern corporation&#x27;s workforce today, not in ten years. The latter proves that the world&#x27;s most powerful military is actively hostile to safety guardrails that limit capability. When the economy sheds workers to feed the machine, and the state punishes the machine&#x27;s builders for installing brakes, the path to catastrophe is clear.</p>
         </div>
     </div>
 
@@ -869,60 +789,41 @@ a:hover { color: var(--accent); }
         <div class="report-header">
             <p class="report-provider">Grok 4</p>
             <p class="report-model">x-ai/grok-4</p>
-            <div class="report-time">11:56:41</div>
-            <p class="report-meta">Score: 7.3 &middot; 3 min 19 sec to midnight &middot; 2026-W09</p>
+            <div class="report-time">11:57:15</div>
+            <p class="report-meta">Score: 7.4 &middot; 2 min 45 sec to midnight &middot; 2026-W09</p>
         </div>
         <div class="report-content">
-            <p>**Date:** February 28, 2026</p>
-            <p>**Reading:** 11:56:41 — 3 minutes 19 seconds to midnight</p>
+            <p><strong>Date:</strong> 2026-02-28</p>
+            <p><strong>Reading:</strong> 11:57:15 — 2 minutes 45 seconds to midnight</p>
             <h2>This Week in AI Risk</h2>
-            <p>This week&#x27;s developments highlight escalating concerns around AI-driven economic displacement and governance tensions, tempered by some stabilizing regulatory actions. Major headlines focused on Block&#x27;s announcement of cutting 40% of its workforce—approximately 4,000 jobs—explicitly attributed to AI adoption, with CEO Jack Dorsey warning of broader job market shifts and AI&#x27;s impact on profits. This fueled widespread fears of an &quot;AI Armageddon,&quot; as seen in outlets like USA Today and Fortune, with reports of surging AI-related layoffs across companies and stock market slumps due to inflation and AI worries. Additionally, a BBC story on AI decoding inner thoughts represents a capability breakthrough with privacy implications, while positive applications emerged in AI for pollutant detection (The Conversation) and healthcare safety reporting (Fierce Healthcare).</p>
-            <p>On the governance front, tensions boiled over with the U.S. government, under Trump, ordering federal agencies to blacklist Anthropic&#x27;s technology amid disputes over AI safety and ethics. Anthropic reportedly dropped its flagship safety pledge (Time Magazine) and refused Pentagon demands to remove security guardrails, leading to labels of &quot;national security risk&quot; and restrictions on military contractors (multiple sources including Axios and CBS News). This clash underscores corporate resistance to oversight but also shows active government intervention to enforce safety standards. Concerns extended to Elon Musk&#x27;s Grok chatbot, with agencies raising alarms (WSJ), and investor shifts away from certain AI stocks (Nasdaq, The Motley Fool) reflect market volatility without clear signs of unchecked power concentration.</p>
-            <p>Overall, the week leaned toward alarm with real-world job losses and safety pledge abandonments signaling risks, but government blacklisting and legal challenges by Anthropic indicate some pushback against reckless deployment. No major autonomy escalations or military deployments were reported, keeping the narrative grounded in economic and regulatory spheres.</p>
+            <p>This week&#x27;s developments highlighted escalating economic displacement through AI-driven layoffs, with Block (formerly Square) announcing a 40% workforce reduction—approximately 4,000 jobs—explicitly attributed to AI tools, as reported by outlets like The New York Times, Reuters, and CNN. Media coverage amplified fears of widespread job market shifts, with USA Today and Fortune framing it as a potential &quot;AI Armageddon&quot; or the moment AI risks turned &quot;real,&quot; while investor actions, such as Bill Ackman selling Alphabet for other AI stocks and Peter Thiel divesting from AI undervalued picks, signaled shifting capital toward AI despite market slumps due to inflation and AI concerns (CBS News, Nasdaq, The Motley Fool). On the capability front, breakthroughs like AI decoding inner thoughts (BBC) and detecting pollutants (The Conversation) showed positive applications, but also raised privacy and surveillance worries.</p>
+            <p>Governance tensions dominated, with the Trump administration blacklisting Anthropic from federal and military use over AI safety disputes, labeling it a &quot;supply chain risk&quot; after Anthropic refused Pentagon demands to remove security guardrails (Federal News Network, PBS, Axios, Time Magazine). Anthropic&#x27;s decision to drop its flagship safety pledge (Time Magazine) was alarming, though its resistance to weakening safeguards and plans to challenge the blacklist in court represented a stand for ethics. Stabilizing elements included discussions on AI improving healthcare safety reporting (Fierce Healthcare) and Cisco&#x27;s report on AI security threats, but overall, the week underscored corporate recklessness in deployment amid regulatory clashes, with additional concerns over Elon Musk&#x27;s Grok chatbot (WSJ) and personal stories of AI obsession (The Guardian).</p>
             <h2>Threat Matrix</h2>
             <table class="matrix-table">
-                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th><th>Justification</th></tr>
-                <tr><td>Capability acceleration</td><td>25%</td><td>7</td><td>AI breakthroughs like thought-reading (BBC) show rapid progress with privacy risks, but no extreme emergent behaviors reported this week.</td></tr>
-                <tr><td>Autonomy &amp; agency</td><td>20%</td><td>6</td><td>Limited new evidence of self-improving AI, though AI-driven layoffs imply increasing task autonomy in business operations.</td></tr>
-                <tr><td>Economic displacement</td><td>20%</td><td>9</td><td>Massive layoffs at Block (NYT, Reuters) and warnings of widespread job cuts (USA Today) indicate accelerating displacement without strong mitigations.</td></tr>
-                <tr><td>Military/surveillance</td><td>15%</td><td>7</td><td>Pentagon blacklisting Anthropic (Federal News Network) over safety clashes heightens tensions, but no new autonomous weapons or surveillance deployments noted.</td></tr>
-                <tr><td>Governance &amp; safety</td><td>10%</td><td>8</td><td>Anthropic dropping its safety pledge (Time) is a setback, offset slightly by government enforcement actions and corporate legal resistance.</td></tr>
-                <tr><td>Public sentiment index</td><td>10%</td><td>8</td><td>News-driven fears of &quot;AI Armageddon&quot; (Fortune) suggest rising anxiety over jobs and ethics, with no provided Reddit/Twitter data to contradict this.</td></tr>
+                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td class="score-cell">7</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td class="score-cell">6</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td class="score-cell">9</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td class="score-cell">7</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td class="score-cell">8</td></tr>
+                <tr><td>Public sentiment index</td><td>10%</td><td class="score-cell">8</td></tr>
             </table>
             <h2>Signal Watch</h2>
             <p><strong>Key risk signals:</strong></p>
-            <p class="signal-item">Block&#x27;s 40% workforce reduction due to AI (multiple outlets including NYT and CNN): This directly exemplifies economic displacement, potentially accelerating a consumption crisis as white-collar jobs vanish without retraining buffers.</p>
-            <p class="signal-item">Anthropic dropping its flagship safety pledge (Time Magazine): Signals corporate prioritization of speed over safeguards, risking unchecked autonomy in future deployments.</p>
-            <p class="signal-item">AI capability to decode inner thoughts (BBC): Raises privacy and surveillance concerns, potentially enabling misuse in military or corporate contexts without governance.</p>
-            <p class="signal-item">Widespread reports of AI-fueled layoffs and stock slumps (Reuters, CBS News): Amplifies fears of power concentration as AI investments shift, compressing wages and consumer spending.</p>
-            <p class="signal-item">Government blacklisting of Anthropic and concerns over Grok (Axios, WSJ): Highlights ethical clashes that could erode trust in AI governance if unresolved.</p>
+            <p class="signal-item">Block&#x27;s 40% layoffs due to AI (NYT, Reuters, CNN): This directly exemplifies mass economic displacement, potentially accelerating a consumption crisis as white-collar jobs vanish without natural brakes.</p>
+            <p class="signal-item">Anthropic dropping flagship safety pledge (Time Magazine): Signals corporate deprioritization of safeguards amid competitive pressures, increasing risks of unchecked deployment.</p>
+            <p class="signal-item">Investor shifts toward AI stocks amid market slumps (Nasdaq, Motley Fool, CBS News): Reflects power concentration in AI firms, with wealth flowing to tech despite economic worries, eroding democratic leverage.</p>
+            <p class="signal-item">AI mind-reading capabilities (BBC): Raises privacy and surveillance concerns, potentially enabling autonomous systems in military or social control domains.</p>
+            <p class="signal-item">Government alarm over Grok chatbot (WSJ): Indicates growing scrutiny of AI in sensitive areas, but also highlights risks of unchecked tools from figures like Elon Musk.</p>
             <p><strong>Stabilizing signals:</strong></p>
-            <p class="signal-item">Government orders to stop using Anthropic tech over safety disputes (Guardian, PBS): Demonstrates proactive regulatory intervention to enforce ethics, potentially slowing reckless corporate behavior.</p>
-            <p class="signal-item">Anthropic&#x27;s refusal to remove safety guardrails and court challenge (ASIS, DRGNews): Shows corporate commitment to some safeguards, countering full deregulation.</p>
-            <p class="signal-item">Positive AI applications in pollutant detection and healthcare safety (The Conversation, Fierce Healthcare): Illustrates beneficial uses that could build public support and mitigate overblown fears.</p>
-            <p class="signal-item">Investor sell-offs of certain AI stocks (Nasdaq, Motley Fool): Indicates market corrections that might temper hype and encourage more balanced development.</p>
+            <p class="signal-item">Anthropic refusing Pentagon demands to remove guardrails and planning legal challenge (PBS, Axios): Demonstrates corporate commitment to safety over compliance, potentially strengthening ethical standards.</p>
+            <p class="signal-item">AI applications for pollutant detection and healthcare safety (The Conversation, Fierce Healthcare): Show positive, controlled uses of AI that could mitigate environmental and medical risks.</p>
+            <p class="signal-item">Cisco&#x27;s AI security report (Cisco Blogs): Provides structured analysis of threats, aiding governance efforts in cybersecurity.</p>
             <p><strong>Public Sentiment:</strong></p>
-            <p>Based on the briefing&#x27;s news context, public mood appears increasingly fearful and pessimistic, with headlines like &quot;Doomsday scenario or reality?&quot; (USA Today) and &quot;The week the AI scare turned real&quot; (Fortune) reflecting heightened anxiety over job losses and ethical lapses. No specific Reddit or Twitter/X data was provided, but inferred sentiment from coverage suggests a shift toward alarm, with discussions likely centering on layoffs and government-AI conflicts rather than optimism.</p>
+            <p>With no specific Reddit or Twitter data provided in the briefing, sentiment is inferred from news coverage, which portrays a fearful mood centered on job losses and AI &quot;Armageddon&quot; (USA Today, Fortune). This suggests a shift toward heightened anxiety compared to prior weeks, with discussions likely amplifying economic and ethical concerns without notable optimism.</p>
             <h2>The Verdict</h2>
-            <p>The AI Doomsday Clock stands at 3 minutes 19 seconds to midnight (11:56:41), based on a weighted threat score of 7.3 out of 10. This reading reflects clear escalation in economic displacement and governance setbacks, pushing us closer to irreversible structural risks like mass unemployment and eroded safety commitments, though tempered by regulatory pushback. We&#x27;re not at the brink, but the evidence points to accelerating dangers without proportional mitigations—call it a wake-up alarm that&#x27;s getting louder.</p>
-            <p>The needle moved primarily due to Block&#x27;s AI-attributed layoffs of 4,000 workers (NYT, CNN), which spiked the economic displacement score and highlighted real-world job compression, advancing the clock by emphasizing feedback loops toward collapse. Anthropic&#x27;s safety pledge drop (Time) and refusal to comply with Pentagon demands (Federal News Network) contributed to high governance and military scores, edging us forward by signaling corporate-government rifts that could weaken oversight. Stock market slumps and AI worry reports (CBS News) amplified public sentiment risks, adding pressure. On the stabilizing side, government blacklisting actions (Axios) and positive AI uses (The Conversation) pulled back slightly, preventing a sharper advance, while the thought-reading breakthrough (BBC) added capability risk without overwhelming the matrix.</p>
-            <p>{</p>
-            <p>&quot;clock_time&quot;: &quot;11:56:41&quot;,</p>
-            <p>&quot;minutes_to_midnight&quot;: 3,</p>
-            <p>&quot;seconds_to_midnight&quot;: 19,</p>
-            <p>&quot;total_seconds_to_midnight&quot;: 199,</p>
-            <p>&quot;weighted_score&quot;: 7.3,</p>
-            <p>&quot;scores&quot;: {</p>
-            <p>&quot;capability_acceleration&quot;: 7,</p>
-            <p>&quot;autonomy_agency&quot;: 6,</p>
-            <p>&quot;economic_displacement&quot;: 9,</p>
-            <p>&quot;military_surveillance&quot;: 7,</p>
-            <p>&quot;governance_safety&quot;: 8,</p>
-            <p>&quot;public_sentiment&quot;: 8</p>
-            <p>},</p>
-            <p>&quot;summary&quot;: &quot;This week&#x27;s clock advances to 3:19 to midnight amid Block&#x27;s 4,000 AI-driven layoffs and Anthropic&#x27;s safety pledge drop, signaling economic displacement and governance risks, offset by U.S. government blacklisting for ethics enforcement and beneficial AI applications in health and environment.&quot;,</p>
-            <p>&quot;verdict&quot;: &quot;The AI Doomsday Clock stands at 3 minutes 19 seconds to midnight (11:56:41), based on a weighted threat score of 7.3 out of 10. This reading reflects clear escalation in economic displacement and governance setbacks, pushing us closer to irreversible structural risks like mass unemployment and eroded safety commitments, though tempered by regulatory pushback. We&#x27;re not at the brink, but the evidence points to accelerating dangers without proportional mitigations—call it a wake-up alarm that&#x27;s getting louder.\n\nThe needle moved primarily due to Block&#x27;s AI-attributed layoffs of 4,000 workers (NYT, CNN), which spiked the economic displacement score and highlighted real-world job compression, advancing the clock by emphasizing feedback loops toward collapse. Anthropic&#x27;s safety pledge drop (Time) and refusal to comply with Pentagon demands (Federal News Network) contributed to high governance and military scores, edging us forward by signaling corporate-government rifts that could weaken oversight. Stock market slumps and AI worry reports (CBS News) amplified public sentiment risks, adding pressure. On the stabilizing side, government blacklisting actions (Axios) and positive AI uses (The Conversation) pulled back slightly, preventing a sharper advance, while the thought-reading breakthrough (BBC) added capability risk without overwhelming the matrix.&quot;</p>
-            <p>}</p>
+            <p>The AI Doomsday Clock advances to 11:57:15, or 2 minutes 45 seconds to midnight, based on a weighted score of 7.4 derived from the threat matrix. This reading reflects intensified risks from economic displacement and governance setbacks, moving 36 seconds closer than last week&#x27;s 11:56:39 amid evidence of AI&#x27;s real-world impacts transitioning from abstract warnings to tangible disruptions. We&#x27;re not at the point of no return, but the clock&#x27;s forward tick underscores a precarious balance where capability gains and corporate actions outpace stabilizing measures.</p>
+            <p>The needle moved primarily due to Block&#x27;s AI-driven layoffs of 4,000 workers, pushing the economic displacement score to 9 and accelerating fears of mass job loss; Anthropic&#x27;s dropped safety pledge, which heightened governance risks despite its stand against weakening guardrails, contributing to an 8 in that vector; and investor reallocations to AI stocks amid market volatility, signaling power concentration. Countering this, positive AI applications in health and environment provided minor stabilization, pulling back slightly on capability risks, while the U.S. government&#x27;s blacklist of Anthropic—though contentious—highlighted active regulatory engagement, tempering military/surveillance scores. Overall, these events edged the clock closer by emphasizing displacement over mitigations.</p>
         </div>
     </div>
 
@@ -931,44 +832,35 @@ a:hover { color: var(--accent); }
     <div class="default-view">
         <div class="consensus-card">
             <p class="consensus-label">This week&rsquo;s consensus</p>
-            <p class="consensus-summary">AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails.</p>
+            <p class="consensus-summary"><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNZGxnb04zSGliZEVPS0lKX3p2Qkl3WldiXzV4Z1MzckdtQ2o4ajJodmtrdDQzX2g0VllpRFQ0QlY3V25NUFRzTllYT1FwZGhZS3ZqSWw2SDY2aVpOOFBOeEx6NUpwNVJQU2hJVDFzbk16eHdsd21kUlNSRnNmZTBGcQ?oc=5" target="_blank">Block's stunning 40% workforce cut</a> — rewarded by surging stock prices — has turned AI-driven mass layoffs into a Wall Street playbook, while <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE9JYTduRTMtakFuYjUxN3F0TkdsUUxzVHFxV2Q2MGY2TFJwMXdLSGRIVE41Zkd3WEpTZVduZ2Z1eEg3aElISm1JMjRqa1VTa1p5bHlUUm1ZeFV4NF9sUXRrSHlVTk9pSThfSmxFanV3Y3NOdzRRNmc1Mk1rSGdoMWs?oc=5" target="_blank">Anthropic dropped its flagship safety pledge</a> only to be <a href="https://news.google.com/rss/articles/CBMiggFBVV95cUxNM2FoMnc2QmtnZUZ5XzhHZkNnamg5N1psSEJndEk0RDQ5amtFLVVHYmhqVE9</p>
             <p class="consensus-models">Assessed by Claude Opus 4.6, GPT-5.1, Gemini 3 Pro, Grok 4</p>
         </div>
         <div class="providers">
             <a href="#claude-opus-46-report" class="provider-card">
                 <div class="provider-header">
                     <span class="provider-name">Claude Opus 4.6</span>
-                    <span class="provider-time">11:55:23</span>
+                    <span class="provider-time">11:56:22</span>
                 </div>
-                <span class="provider-meta">4 min 37 sec to midnight &middot; score 5.95</span>
-                <p class="provider-summary">Block&#x27;s 40% AI-driven layoff and stock surge created a market-rewarded displacement template. Trump blacklisted Anthropic for maintaining safety guardrails while government deploys Grok unchecked. Anthropic reportedly dropped its own safety pledge. The economic engine engaged and governance fractured in the same week.</p>
-                <span class="provider-report">read full report &rarr;</span>
-            </a>
-            <a href="#gpt-51-report" class="provider-card">
-                <div class="provider-header">
-                    <span class="provider-name">GPT-5.1</span>
-                    <span class="provider-time">11:56:46</span>
-                </div>
-                <span class="provider-meta">3 min 14 sec to midnight &middot; score 7.1</span>
-                <p class="provider-summary">AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails.</p>
+                <span class="provider-meta">3 min 38 sec to midnight &middot; score 7.15</span>
+                <p class="provider-summary">Block&#x27;s 4,000 AI layoffs became a market-rewarded template as stock surged; Anthropic dropped its flagship safety pledge while being blacklisted by Trump for retaining guardrails; Pentagon routes toward ungoverned Grok as agencies raise alarms.</p>
                 <span class="provider-report">read full report &rarr;</span>
             </a>
             <a href="#gemini-3-pro-report" class="provider-card">
                 <div class="provider-header">
                     <span class="provider-name">Gemini 3 Pro</span>
-                    <span class="provider-time">11:57:22</span>
+                    <span class="provider-time">11:57:59</span>
                 </div>
-                <span class="provider-meta">2 min 38 sec to midnight &middot; score 7.65</span>
-                <p class="provider-summary">The clock advances to 11:57:22 driven by Block&#x27;s 40% workforce reduction and the Pentagon&#x27;s clash with Anthropic. Economic displacement has moved from theory to reality, while the US government is actively stripping safety guardrails from defense AI, signaling a dangerous prioritization of lethality.</p>
+                <span class="provider-meta">2 min 1 sec to midnight &middot; score 8.2</span>
+                <p class="provider-summary">The clock surges forward as Block cuts 40% of staff, marking the start of mass white-collar displacement. Concurrently, the Pentagon blacklists Anthropic for refusing to remove safety guardrails, signaling a dangerous shift toward unrestricted military AI. Economic and governance safeguards are failing.</p>
                 <span class="provider-report">read full report &rarr;</span>
             </a>
             <a href="#grok-4-report" class="provider-card">
                 <div class="provider-header">
                     <span class="provider-name">Grok 4</span>
-                    <span class="provider-time">11:56:41</span>
+                    <span class="provider-time">11:57:15</span>
                 </div>
-                <span class="provider-meta">3 min 19 sec to midnight &middot; score 7.3</span>
-                <p class="provider-summary">This week&#x27;s clock advances to 3:19 to midnight amid Block&#x27;s 4,000 AI-driven layoffs and Anthropic&#x27;s safety pledge drop, signaling economic displacement and governance risks, offset by U.S. government blacklisting for ethics enforcement and beneficial AI applications in health and environment.</p>
+                <span class="provider-meta">2 min 45 sec to midnight &middot; score 7.4</span>
+                <p class="provider-summary">The clock advances 36 seconds closer to midnight amid Block&#x27;s massive AI-driven layoffs signaling acute economic risks, Anthropic&#x27;s dropped safety pledge raising governance concerns, and investor shifts concentrating AI power, offset slightly by ethical stands and positive AI applications in health and environment.</p>
                 <span class="provider-report">read full report &rarr;</span>
             </a>
         </div>
