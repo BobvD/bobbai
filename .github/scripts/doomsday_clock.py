@@ -729,9 +729,16 @@ def generate_html(aggregated: dict) -> None:
     index_path.write_text(html)
     print(f"  Written: {index_path}")
 
-    # Archive
+    # Archive (fix og:url and canonical to point to archive URL)
+    archive_html = html.replace(
+        'href="https://bobbai.dev/clock/"',
+        f'href="https://bobbai.dev/clock/{week_id}.html"'
+    ).replace(
+        'content="https://bobbai.dev/clock/"',
+        f'content="https://bobbai.dev/clock/{week_id}.html"'
+    )
     archive_path = CLOCK_DIR / f"{week_id}.html"
-    archive_path.write_text(html)
+    archive_path.write_text(archive_html)
     print(f"  Written: {archive_path}")
 
     # Update previous week's next link (replace last nav-placeholder)
