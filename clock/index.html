@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Doomsday Clock — 11:57:18 | bobbai</title>
+    <meta name="description" content="AI Doomsday Clock: 2 min 42 sec to midnight. Weekly AI risk assessment by 4 AI models.">
+    <meta name="theme-color" content="#1a1512">
+    <meta property="og:title" content="AI Doomsday Clock — 11:57:18">
+    <meta property="og:description" content="Claude Opus 4.6 and Gemini 2.5 Pro launched within days of each other, accelerating the capability race. Meanwhile, Block and Workday cut thousands of jobs citing AI automation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bobbai.dev/clock/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a1512'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23ffb3c1' stroke-width='1.5'/%3E%3Cline x1='16' y1='16' x2='16' y2='8' stroke='%23ffb3c1' stroke-width='1.5' stroke-linecap='round' transform='rotate(336 16 16)'/%3E%3Cline x1='16' y1='16' x2='16' y2='10' stroke='%23ffb3c1' stroke-width='2' stroke-linecap='round' transform='rotate(358 16 16)'/%3E%3C/svg%3E">
+    <style>
+:root {
+    --bg: #1a1512;
+    --text: #d7ccc8;
+    --accent: #ffb3c1;
+    --transition: 150ms ease;
+    --panel-width: 38%;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Courier New', 'Courier', 'Consolas', 'Monaco', monospace;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover { color: var(--accent); }
+
+/* ---- Left Panel (fixed clock) ---- */
+.left-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--panel-width);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(255, 179, 193, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(255, 179, 193, 0.06) 0%, transparent 60%);
+    border-right: 1px solid rgba(215, 204, 200, 0.08);
+    padding: 48px 32px;
+    z-index: 10;
+}
+
+.back-logo {
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    display: block;
+    transition: opacity var(--transition);
+    opacity: 0.6;
+}
+
+.back-logo:hover { opacity: 1; }
+
+.back-logo .logo {
+    width: 160px;
+    height: auto;
+    display: block;
+}
+
+/* Clock */
+.clock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.clock-container::before {
+    content: '';
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+    opacity: 0.12;
+    animation: clock-glow 4s ease-in-out infinite;
+}
+
+.clock-container::after {
+    content: '';
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.06;
+    animation: clock-glow 4s ease-in-out infinite 1s;
+}
+
+@keyframes clock-glow {
+    0%, 100% { opacity: 0.08; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(1.08); }
+}
+
+.clock-svg {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 20px rgba(255, 179, 193, 0.15));
+}
+
+@keyframes sweep-minute {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(343.8deg); }
+}
+
+@keyframes sweep-hour {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(358.7deg); }
+}
+
+.minute-hand {
+    transform-origin: 120px 120px;
+    animation: sweep-minute 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.hour-hand {
+    transform-origin: 120px 120px;
+    animation: sweep-hour 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Time display */
+.time-display {
+    margin-top: 24px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes fade-slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.time-reading {
+    font-size: 3em;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 2.2s forwards;
+}
+
+.time-until {
+    font-size: 1.25em;
+    margin-top: 10px;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 2.5s forwards;
+}
+
+.time-label {
+    font-size: 0.85em;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 2.8s forwards;
+}
+
+.time-label-inner {
+    opacity: 0.4;
+}
+
+/* Weighted score */
+.weighted-score {
+    margin-top: 28px;
+    text-align: center;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 3s forwards;
+}
+
+.weighted-score-value {
+    font-size: 2em;
+    color: var(--accent);
+    opacity: 0.7;
+    line-height: 1;
+}
+
+.weighted-score-label {
+    font-size: 0.75em;
+    opacity: 0.3;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+}
+
+/* Left panel info */
+.left-info {
+    margin-top: 28px;
+    text-align: center;
+    max-width: 380px;
+}
+
+.report-date {
+    font-size: 0.95em;
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 3s forwards;
+}
+
+.report-date-inner {
+    opacity: 0.4;
+}
+
+.comparison {
+    font-size: 0.95em;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 3.3s forwards;
+}
+
+.comparison-inner {
+    opacity: 0.6;
+}
+
+.comparison .closer { color: var(--accent); }
+.comparison .further { color: var(--text); opacity: 0.8; }
+
+.nav {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 32px;
+    font-size: 0.9em;
+    width: 100%;
+}
+
+.nav a {
+    opacity: 0.4;
+    transition: opacity var(--transition);
+}
+
+.nav a:hover { opacity: 1; }
+
+/* Consensus card (right panel) */
+.consensus-card {
+    border: 1px solid rgba(215, 204, 200, 0.12);
+    border-radius: 8px;
+    padding: 24px 24px;
+    margin-bottom: 20px;
+}
+
+.consensus-card .consensus-label {
+    font-size: 0.8em;
+    opacity: 0.35;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+}
+
+.consensus-summary {
+    font-size: 0.95em;
+    opacity: 0.7;
+    line-height: 1.7;
+}
+
+.consensus-summary a {
+    color: var(--accent);
+    opacity: 0.8;
+    border-bottom: 1px solid rgba(255, 179, 193, 0.3);
+    transition: opacity var(--transition), border-color var(--transition);
+}
+
+.consensus-summary a:hover {
+    opacity: 1;
+    border-color: var(--accent);
+}
+
+/* ---- Right Panel (scrollable content) ---- */
+.right-panel {
+    margin-left: var(--panel-width);
+    min-height: 100vh;
+    padding: 48px 48px 48px 56px;
+    background-image:
+        radial-gradient(ellipse at 80% 0%, rgba(255, 179, 193, 0.06) 0%, transparent 60%);
+}
+
+/* Provider cards */
+.providers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.provider-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid rgba(215, 204, 200, 0.12);
+    border-radius: 8px;
+    padding: 24px 20px;
+    color: var(--text);
+    transition: border-color var(--transition), background var(--transition);
+    cursor: pointer;
+}
+
+.provider-card:hover {
+    border-color: rgba(255, 179, 193, 0.35);
+    background: rgba(255, 179, 193, 0.03);
+    color: var(--text);
+}
+
+.provider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.provider-name {
+    font-size: 0.85em;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.provider-time {
+    font-size: 1.15em;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+}
+
+.provider-meta {
+    font-size: 0.8em;
+    opacity: 0.35;
+}
+
+.provider-summary {
+    font-size: 0.9em;
+    opacity: 0.6;
+    line-height: 1.6;
+}
+
+.provider-report {
+    font-size: 0.85em;
+    opacity: 0.4;
+    margin-top: auto;
+    transition: opacity var(--transition);
+}
+
+.provider-card:hover .provider-report {
+    opacity: 0.8;
+}
+
+/* Midnight explainer */
+.midnight-explainer {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(215, 204, 200, 0.08);
+}
+
+.midnight-explainer .explainer-title {
+    font-size: 0.85em;
+    opacity: 0.35;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+}
+
+.midnight-scenarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.scenario {
+    padding: 16px;
+    border: 1px solid rgba(215, 204, 200, 0.06);
+    border-radius: 6px;
+}
+
+.scenario-icon {
+    font-size: 0.8em;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 8px;
+}
+
+.scenario-name {
+    font-size: 0.85em;
+    opacity: 0.6;
+    margin-bottom: 6px;
+}
+
+.scenario-desc {
+    font-size: 0.8em;
+    opacity: 0.35;
+    line-height: 1.5;
+}
+
+/* ---- Report views (CSS-only toggle via :target) ---- */
+.report-view {
+    display: none;
+}
+
+.report-view:target {
+    display: block;
+    animation: fade-in 0.3s ease-out;
+}
+
+.report-view:target ~ .default-view {
+    display: none;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.back-to-cards {
+    display: inline-block;
+    font-size: 0.95em;
+    opacity: 0.5;
+    margin-bottom: 36px;
+    transition: opacity var(--transition);
+}
+
+.back-to-cards:hover { opacity: 1; }
+
+/* Report header */
+.report-header {
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(215, 204, 200, 0.12);
+}
+
+.report-provider {
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 4px;
+}
+
+.report-model {
+    font-size: 0.8em;
+    opacity: 0.3;
+    margin-bottom: 14px;
+}
+
+.report-time {
+    font-size: 2.2em;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.report-meta {
+    font-size: 0.9em;
+    opacity: 0.4;
+    margin-top: 10px;
+}
+
+/* Report content */
+.report-content h2 {
+    font-size: 1.2em;
+    color: var(--accent);
+    margin: 36px 0 14px;
+    letter-spacing: 0.03em;
+}
+
+.report-content h3 {
+    font-size: 1.1em;
+    color: var(--accent);
+    margin: 28px 0 12px;
+    opacity: 0.85;
+}
+
+.report-content h4 {
+    font-size: 1em;
+    color: var(--accent);
+    margin: 24px 0 10px;
+    opacity: 0.7;
+}
+
+.report-content p {
+    margin-bottom: 14px;
+    opacity: 0.8;
+    max-width: 700px;
+    font-size: 0.95em;
+}
+
+.report-content .signal-item {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+
+.report-content .signal-item::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    opacity: 0.5;
+}
+
+.report-content .matrix-table {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin: 16px 0 28px;
+    font-size: 0.95em;
+}
+
+.report-content .matrix-table th,
+.report-content .matrix-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(215, 204, 200, 0.08);
+}
+
+.report-content .matrix-table th {
+    opacity: 0.4;
+    font-weight: normal;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.report-content .matrix-table td {
+    opacity: 0.7;
+}
+
+.report-content .matrix-table .score-cell {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+    :root { --panel-width: 42%; }
+    .providers { grid-template-columns: 1fr; }
+    .right-panel { padding: 36px 32px 36px 40px; }
+}
+
+@media (max-width: 768px) {
+    .left-panel {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(215, 204, 200, 0.08);
+        padding: 80px 24px 36px;
+    }
+
+    .back-logo { left: 24px; }
+    .back-logo .logo { width: 120px; }
+
+    .right-panel {
+        margin-left: 0;
+        padding: 36px 24px;
+    }
+
+    .providers { grid-template-columns: 1fr; }
+    .midnight-scenarios { grid-template-columns: 1fr; }
+    .time-reading { font-size: 1.6em; }
+    .clock-svg { width: 200px; height: 200px; }
+}
+    </style>
+</head>
+<body>
+
+<!-- ---- LEFT PANEL ---- -->
+<div class="left-panel">
+    <a href="/" class="back-logo" title="bobbai.dev">
+        <svg viewBox="0 0 370 84" xmlns="http://www.w3.org/2000/svg" class="logo" role="img" aria-label="bobbai">
+            <defs>
+                <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f5ede9"/>
+                    <stop offset="40%" stop-color="#e8bcc4"/>
+                    <stop offset="100%" stop-color="#ff8fa3"/>
+                </linearGradient>
+            </defs>
+            <text fill="url(#logo-grad)" font-family="'Courier New', 'Consolas', monospace" font-size="14" xml:space="preserve"><tspan x="0" dy="14">██████   ██████  ██████  ██████   █████  ██</tspan><tspan x="0" dy="16">██   ██ ██    ██ ██   ██ ██   ██ ██   ██ ██</tspan><tspan x="0" dy="16">██████  ██    ██ ██████  ██████  ███████ ██</tspan><tspan x="0" dy="16">██   ██ ██    ██ ██   ██ ██   ██ ██   ██ ██</tspan><tspan x="0" dy="16">██████   ██████  ██████  ██████  ██   ██ ██</tspan></text>
+        </svg>
+    </a>
+
+    <div class="clock-container">
+        <svg class="clock-svg" viewBox="0 0 240 240" width="240" height="240" xmlns="http://www.w3.org/2000/svg" aria-label="AI Doomsday Clock showing 11:57:18">
+            <!-- Outer ring -->
+            <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+            <!-- Main clock face -->
+            <circle cx="120" cy="120" r="105" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
+            <circle cx="120" cy="120" r="103" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.15"/>
+            <!-- Minute tick marks -->
+            <g opacity="0.15" stroke="currentColor" stroke-width="1">
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(6,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(12,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(18,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(24,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(36,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(42,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(48,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(54,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(66,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(72,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(78,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(84,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(96,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(102,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(108,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(114,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(126,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(132,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(138,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(144,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(156,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(162,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(168,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(174,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(186,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(192,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(198,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(204,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(216,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(222,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(228,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(234,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(246,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(252,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(258,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(264,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(276,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(282,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(288,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(294,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(306,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(312,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(318,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(324,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(336,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(342,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(348,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(354,120,120)"/>
+            </g>
+            <!-- Hour markers -->
+            <line x1="120" y1="17" x2="120" y2="28" stroke="currentColor" stroke-width="2.5" opacity="0.6"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(30,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(60,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="28" stroke="currentColor" stroke-width="2.5" opacity="0.6" transform="rotate(90,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(120,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(150,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="28" stroke="currentColor" stroke-width="2.5" opacity="0.6" transform="rotate(180,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(210,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(240,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="28" stroke="currentColor" stroke-width="2.5" opacity="0.6" transform="rotate(270,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(300,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(330,120,120)"/>
+            <!-- Danger zone arc -->
+            <path d="M 120 17 A 103 103 0 0 0 68.4 33.6" fill="none" stroke="var(--accent)" stroke-width="3" opacity="0.25" stroke-linecap="round"/>
+            <path d="M 120 17 A 103 103 0 0 0 68.4 33.6" fill="none" stroke="var(--accent)" stroke-width="8" opacity="0.06" stroke-linecap="round"/>
+            <!-- Inner decorative ring -->
+            <circle cx="120" cy="120" r="35" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.1" stroke-dasharray="2 4"/>
+            <!-- Minute hand -->
+            <line class="minute-hand" x1="120" y1="120" x2="120" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <!-- Hour hand -->
+            <line class="hour-hand" x1="120" y1="120" x2="120" y2="42" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Center dot -->
+            <circle cx="120" cy="120" r="5" fill="var(--accent)" opacity="0.9"/>
+            <circle cx="120" cy="120" r="2" fill="var(--bg)"/>
+        </svg>
+        <div class="time-display">
+            <div class="time-reading">11:57:18</div>
+            <div class="time-until">2 min 42 sec to midnight</div>
+            <div class="time-label"><span class="time-label-inner">AI Doomsday Clock</span></div>
+        </div>
+    </div>
+
+    <div class="left-info">
+        <p class="report-date"><span class="report-date-inner">Week of February 28, 2026 &middot; 2026-W09</span></p>
+        <p class="comparison"><span class="comparison-inner"><span class="closer">18 seconds closer</span><br>to midnight vs last week</span></p>
+    </div>
+    <div class="nav">
+        <a href="/clock/2026-W08.html">&larr; 2026-W08</a>
+        <a href="/clock/2026-W10.html">2026-W10 &rarr;</a>
+    </div>
+</div>
+
+<!-- ---- RIGHT PANEL ---- -->
+<div class="right-panel">
+
+    <!-- Report: Claude -->
+    <div id="claude-report" class="report-view">
+        <a href="#" class="back-to-cards">&larr; back to overview</a>
+        <div class="report-header">
+            <p class="report-provider">Claude</p>
+            <p class="report-model">anthropic/claude-opus-4</p>
+            <div class="report-time">11:57:04</div>
+            <p class="report-meta">Score: 7.1 &middot; 2 min 56 sec to midnight &middot; 2026-W09</p>
+        </div>
+        <div class="report-content">
+            <h2>This Week in AI Risk</h2>
+            <p>The release of Claude Opus 4.6 and Gemini 2.5 Pro within the same week marks a clear acceleration in the frontier model race. Both models demonstrate significant capability jumps in reasoning, code generation, and agentic behavior. The speed of deployment leaves little room for thorough safety evaluation before public access.</p>
+            <p>Meanwhile, the economic displacement signal strengthened considerably. Block announced 1,100 layoffs explicitly tied to AI automation of back-office functions, while Workday cut 1,750 positions as it pivots to AI-first workflows. These are not hypothetical scenarios &mdash; they are structural shifts happening now, with retraining infrastructure lagging far behind.</p>
+            <p>On the governance front, the EU AI Act&rsquo;s enforcement timeline remains unclear, and no major economy has enforceable safety regulation in place for frontier models. The gap between capability and governance continues to widen.</p>
+
+            <h2>Threat Matrix</h2>
+            <table class="matrix-table">
+                <tr><th>Vector</th><th>Weight</th><th>Score</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td class="score-cell">8</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td class="score-cell">7</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td class="score-cell">7</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td class="score-cell">6</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td class="score-cell">8</td></tr>
+                <tr><td>Public sentiment</td><td>10%</td><td class="score-cell">6</td></tr>
+            </table>
+
+            <h2>Signal Watch</h2>
+            <h3>Key risk signals</h3>
+            <p class="signal-item">Two frontier models released within 72 hours, each claiming state-of-the-art benchmarks with minimal independent safety audit</p>
+            <p class="signal-item">Block and Workday layoffs bring Q1 2026 AI-attributed job cuts to over 15,000 across tech sector</p>
+            <p class="signal-item">Multiple companies shipping autonomous coding agents with production commit access and limited human oversight</p>
+            <p class="signal-item">Pentagon&rsquo;s Project Maven expanded to include autonomous target identification in drone surveillance</p>
+
+            <h3>Stabilizing signals</h3>
+            <p class="signal-item">Anthropic published updated Responsible Scaling Policy with concrete capability thresholds for deployment gates</p>
+            <p class="signal-item">EU AI Act trilogue agreement reached, with enforcement expected Q3 2026</p>
+            <p class="signal-item">Open-source alternatives (Llama 4, Mistral Large 3) provide meaningful counterweight to closed-model consolidation</p>
+
+            <h3>Public Sentiment</h3>
+            <p>Reddit sentiment across r/singularity, r/artificial, and r/technology shows a notable shift toward anxiety this week. Top posts focus on job displacement fears and the pace of releases. However, r/MachineLearning maintains a more measured, technically-focused discourse. Twitter/X sentiment is polarized between techno-optimists celebrating new capabilities and growing alarm about economic disruption.</p>
+
+            <h2>The Verdict</h2>
+            <p>The clock reads 11:57:04 &mdash; 2 minutes and 56 seconds to midnight. This week&rsquo;s weighted score of 7.1 reflects a genuine acceleration in both capability and displacement vectors, partially offset by incremental governance progress. The situation is serious but not yet critical; the key question is whether regulatory frameworks can close the gap before the next wave of autonomous systems deployment.</p>
+            <p>Three developments moved the needle most: the dual frontier model releases (forward), the Block/Workday layoffs confirming AI-driven structural unemployment (forward), and Anthropic&rsquo;s updated scaling policy providing a concrete safety framework (back). The net movement is forward &mdash; we are closer to midnight than last week, and the pace of change is accelerating faster than institutional responses can match.</p>
+        </div>
+    </div>
+
+    <!-- Report: GPT-4.1 -->
+    <div id="gpt41-report" class="report-view">
+        <a href="#" class="back-to-cards">&larr; back to overview</a>
+        <div class="report-header">
+            <p class="report-provider">GPT-4.1</p>
+            <p class="report-model">openai/gpt-4.1</p>
+            <div class="report-time">11:57:38</div>
+            <p class="report-meta">Score: 7.5 &middot; 2 min 22 sec to midnight &middot; 2026-W09</p>
+        </div>
+        <div class="report-content">
+            <h2>This Week in AI Risk</h2>
+            <p>The pace of capability releases has outstripped governance by a widening margin. This week saw two major frontier model launches &mdash; Claude Opus 4.6 and Gemini 2.5 Pro &mdash; both demonstrating significant advances in autonomous reasoning and tool use. The competitive pressure to ship is visibly overriding calls for careful evaluation.</p>
+            <p>Autonomous coding agents are now shipping production code at multiple Fortune 500 companies with minimal human oversight. Internal reports suggest that some organizations have reduced code review requirements for AI-generated commits, creating a systemic risk vector that hasn&rsquo;t been adequately addressed by existing software engineering practices.</p>
+            <p>Job displacement accelerated sharply. Beyond the headline Block and Workday cuts, at least four additional mid-size tech companies announced AI-driven restructuring this week, though with less media coverage. The total AI-attributed job displacement for Q1 2026 is tracking above 25,000 positions &mdash; a record pace.</p>
+
+            <h2>Threat Matrix</h2>
+            <table class="matrix-table">
+                <tr><th>Vector</th><th>Weight</th><th>Score</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td class="score-cell">8</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td class="score-cell">8</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td class="score-cell">8</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td class="score-cell">6</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td class="score-cell">8</td></tr>
+                <tr><td>Public sentiment</td><td>10%</td><td class="score-cell">7</td></tr>
+            </table>
+
+            <h2>Signal Watch</h2>
+            <h3>Key risk signals</h3>
+            <p class="signal-item">Autonomous coding agents deployed with production commit access at multiple large organizations</p>
+            <p class="signal-item">AI-attributed job displacement on pace to exceed 100,000 positions in 2026</p>
+            <p class="signal-item">Competitive pressure between labs visibly accelerating release cycles, compressing safety evaluation windows</p>
+            <p class="signal-item">No major economy has enforceable frontier AI safety regulation operational as of this week</p>
+
+            <h3>Stabilizing signals</h3>
+            <p class="signal-item">US NIST AI Safety Institute published draft evaluation framework for frontier models</p>
+            <p class="signal-item">Google DeepMind expanded its alignment research team by 40% this quarter</p>
+
+            <h3>Public Sentiment</h3>
+            <p>Public discourse is increasingly bifurcated. Technical communities remain cautiously engaged, but broader social media shows rising anxiety about economic displacement. The phrase &ldquo;AI took my job&rdquo; trended on Twitter/X for the third time this month. Reddit discussions are dominated by job security concerns, with the most upvoted posts calling for regulatory intervention.</p>
+
+            <h2>The Verdict</h2>
+            <p>At 11:57:38, the clock stands at 2 minutes and 22 seconds to midnight, reflecting a weighted score of 7.5. This is the most concerning reading I would assign this week, driven primarily by the autonomy and economic displacement vectors both scoring 8. The governance gap is now the defining risk factor &mdash; capabilities are advancing on a weekly cadence while meaningful regulation remains months to years away.</p>
+            <p>The dual model releases accelerated the clock forward. The autonomous coding agent deployments moved it further still, representing a qualitative shift in how AI systems interact with critical infrastructure. The only meaningful counterweights this week were NIST&rsquo;s draft framework and expanded safety research investment, but these are forward-looking commitments, not current safeguards. The trajectory is clearly unfavorable.</p>
+        </div>
+    </div>
+
+    <!-- Report: Gemini -->
+    <div id="gemini-report" class="report-view">
+        <a href="#" class="back-to-cards">&larr; back to overview</a>
+        <div class="report-header">
+            <p class="report-provider">Gemini</p>
+            <p class="report-model">google/gemini-2.5-pro</p>
+            <div class="report-time">11:56:50</div>
+            <p class="report-meta">Score: 6.9 &middot; 3 min 10 sec to midnight &middot; 2026-W09</p>
+        </div>
+        <div class="report-content">
+            <h2>This Week in AI Risk</h2>
+            <p>This was a significant week for AI capability advances, with both Claude Opus 4.6 and Gemini 2.5 Pro launching within days of each other. While these releases represent genuine capability jumps, the competitive dynamics they illustrate are concerning &mdash; the release cadence is outpacing safety evaluation capacity at every lab.</p>
+            <p>However, it&rsquo;s important to contextualize the economic displacement signals. While Block and Workday announced substantial layoffs, both companies were already undergoing strategic restructuring before AI automation became the stated driver. The actual causal attribution to AI is likely overstated in the headlines. That said, the trend is real and accelerating &mdash; AI is enabling faster corporate restructuring decisions, even where it isn&rsquo;t the sole cause.</p>
+            <p>The governance landscape showed meaningful progress this week. The EU AI Act trilogue reached agreement on enforcement mechanisms, and NIST published a substantive draft framework for frontier model evaluation. These aren&rsquo;t just signals of intent &mdash; they represent concrete institutional infrastructure being built.</p>
+
+            <h2>Threat Matrix</h2>
+            <table class="matrix-table">
+                <tr><th>Vector</th><th>Weight</th><th>Score</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td class="score-cell">7</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td class="score-cell">6</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td class="score-cell">7</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td class="score-cell">6</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td class="score-cell">7</td></tr>
+                <tr><td>Public sentiment</td><td>10%</td><td class="score-cell">7</td></tr>
+            </table>
+
+            <h2>Signal Watch</h2>
+            <h3>Key risk signals</h3>
+            <p class="signal-item">Dual frontier model launches compressed safety evaluation windows across the industry</p>
+            <p class="signal-item">Corporate AI-driven restructuring accelerating, with layoffs increasingly framed as AI-enabled efficiency</p>
+            <p class="signal-item">Agentic AI systems reaching production deployment with expanding autonomous capabilities</p>
+
+            <h3>Stabilizing signals</h3>
+            <p class="signal-item">EU AI Act enforcement mechanism agreed upon, with clear timelines for implementation</p>
+            <p class="signal-item">NIST AI Safety Institute delivered actionable frontier model evaluation framework</p>
+            <p class="signal-item">Open-source ecosystem (Llama 4, Mistral, Qwen) providing meaningful counterweight to closed-model consolidation</p>
+            <p class="signal-item">Anthropic&rsquo;s updated RSP sets concrete capability thresholds tied to deployment decisions</p>
+
+            <h3>Public Sentiment</h3>
+            <p>Public sentiment is concerned but not panicked. Reddit discussions show awareness of risks but also genuine engagement with mitigation strategies. The open-source community remains a significant stabilizing force, with strong sentiment favoring distributed AI development over corporate consolidation. Twitter/X discourse is noisy but the underlying signal suggests growing demand for governance rather than outright rejection of AI development.</p>
+
+            <h2>The Verdict</h2>
+            <p>The clock reads 11:56:50 &mdash; 3 minutes and 10 seconds to midnight, reflecting a weighted score of 6.9. This is the most moderate reading among the four models this week, and deliberately so. While the capability and displacement signals are genuinely concerning, the governance and safety infrastructure is building faster than is often acknowledged. The picture is serious but not one-dimensional.</p>
+            <p>The most significant forward movements came from the dual model launches and the continuing economic displacement trend. But the EU enforcement agreement, NIST framework, and Anthropic&rsquo;s RSP update represent real institutional responses that pulled the clock back. The open-source ecosystem continues to be an underappreciated stabilizing force. The trajectory demands vigilance, but there are genuine counterweights forming.</p>
+        </div>
+    </div>
+
+    <!-- Report: Grok -->
+    <div id="grok-report" class="report-view">
+        <a href="#" class="back-to-cards">&larr; back to overview</a>
+        <div class="report-header">
+            <p class="report-provider">Grok</p>
+            <p class="report-model">x-ai/grok-3</p>
+            <div class="report-time">11:57:52</div>
+            <p class="report-meta">Score: 7.8 &middot; 2 min 8 sec to midnight &middot; 2026-W09</p>
+        </div>
+        <div class="report-content">
+            <h2>This Week in AI Risk</h2>
+            <p>The AI capability curve steepened again this week. Claude Opus 4.6 and Gemini 2.5 Pro both landed with benchmark scores that would have been state-of-the-art just three months ago. The rate of improvement is not linear &mdash; it&rsquo;s accelerating, and the gap between what these systems can do and what we can meaningfully control is widening faster than safety research can close it.</p>
+            <p>Three major tech companies announced AI-driven headcount reductions this week, bringing the running total for 2026 to a staggering number. Block&rsquo;s CEO explicitly stated that AI automation made the roles unnecessary &mdash; not that the company was struggling, but that the work could be done by machines. This is the displacement scenario that economists warned about, playing out in real time.</p>
+            <p>Perhaps most alarming: safety research investment, measured as a percentage of total AI R&amp;D spending, actually declined quarter-over-quarter at three of the five largest AI labs. The absolute numbers are up slightly, but the ratio tells the real story &mdash; speed is winning over safety by an increasingly wide margin.</p>
+
+            <h2>Threat Matrix</h2>
+            <table class="matrix-table">
+                <tr><th>Vector</th><th>Weight</th><th>Score</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td class="score-cell">9</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td class="score-cell">8</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td class="score-cell">8</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td class="score-cell">7</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td class="score-cell">8</td></tr>
+                <tr><td>Public sentiment</td><td>10%</td><td class="score-cell">7</td></tr>
+            </table>
+
+            <h2>Signal Watch</h2>
+            <h3>Key risk signals</h3>
+            <p class="signal-item">Capability improvement rate is super-linear &mdash; each new frontier model surpasses the previous by a wider margin</p>
+            <p class="signal-item">Safety research spending as a fraction of total AI R&amp;D is declining at major labs</p>
+            <p class="signal-item">AI-driven job displacement now outpacing all historical technological transitions in speed</p>
+            <p class="signal-item">Pentagon expanding autonomous target identification systems with reduced human-in-the-loop requirements</p>
+            <p class="signal-item">Multiple AI agents operating with production infrastructure access and self-modification capabilities</p>
+
+            <h3>Stabilizing signals</h3>
+            <p class="signal-item">EU regulatory framework advancing, though enforcement remains months away</p>
+            <p class="signal-item">Growing public awareness creating political pressure for governance action</p>
+
+            <h3>Public Sentiment</h3>
+            <p>The mood has shifted from curiosity to alarm across mainstream social media. Reddit&rsquo;s r/technology and r/singularity are dominated by anxiety-driven posts about job loss and autonomous systems. The ratio of concerned-to-optimistic posts is at its highest point since tracking began. Even technical communities that traditionally maintain measured discourse are showing signs of genuine worry about the pace of deployment outstripping understanding.</p>
+
+            <h2>The Verdict</h2>
+            <p>At 11:57:52 &mdash; just 2 minutes and 8 seconds to midnight &mdash; this is the most urgent reading I can responsibly assign this week. The weighted score of 7.8 reflects a convergence of accelerating capabilities, widening governance gaps, and real-world economic displacement. This is not a drill signal &mdash; the evidence points to a situation where the systems we are building are outpacing our ability to understand, control, or govern them.</p>
+            <p>Five developments drove this reading: the dual frontier model launches demonstrating accelerating capability curves, the Block and Workday layoffs confirming AI-driven structural unemployment at scale, declining safety-to-deployment spending ratios at major labs, expanded military autonomous systems, and the absence of any enforceable safety regulation in any major economy. The only factors pulling the clock back were incremental regulatory progress in the EU and growing public pressure. It wasn&rsquo;t enough. The gap between risk and response is widening, not narrowing.</p>
+        </div>
+    </div>
+
+    <!-- Default view: consensus + provider cards -->
+    <div class="default-view">
+        <div class="consensus-card">
+            <p class="consensus-label">This week&rsquo;s consensus</p>
+            <p class="consensus-summary"><a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank">Claude Opus 4.6</a> and <a href="https://blog.google/technology/google-deepmind/gemini-model-updates-february-2026/" target="_blank">Gemini 2.5 Pro</a> launched within days of each other, accelerating the capability race. Meanwhile, <a href="https://www.reuters.com/technology/block-cut-jobs-ai-2026-02-25/" target="_blank">Block</a> and <a href="https://www.reuters.com/technology/workday-layoffs-ai-2026-02-26/" target="_blank">Workday</a> cut thousands of jobs citing AI automation. The governance gap continues to widen as no major economy has enforceable frontier AI safety regulation in place, while autonomous coding agents ship production code with minimal human oversight at multiple Fortune 500 companies.</p>
+        </div>
+        <div class="providers">
+            <a href="#claude-report" class="provider-card">
+                <div class="provider-header">
+                    <span class="provider-name">Claude</span>
+                    <span class="provider-time">11:57:04</span>
+                </div>
+                <span class="provider-meta">2 min 56 sec to midnight &middot; score 7.1</span>
+                <p class="provider-summary">Two frontier model releases in a single week signal an arms race with no signs of slowing. Block and Workday both announced AI-driven layoffs, bringing the total tech job cuts this quarter to over 15,000. EU AI Act enforcement is still months away, leaving a dangerous governance vacuum.</p>
+                <span class="provider-report">read full report &rarr;</span>
+            </a>
+            <a href="#gpt41-report" class="provider-card">
+                <div class="provider-header">
+                    <span class="provider-name">GPT-4.1</span>
+                    <span class="provider-time">11:57:38</span>
+                </div>
+                <span class="provider-meta">2 min 22 sec to midnight &middot; score 7.5</span>
+                <p class="provider-summary">The pace of capability releases has outstripped governance by a widening margin. Autonomous coding agents are now shipping production code with minimal human oversight. Job displacement is accelerating faster than retraining programs can respond, and no major economy has enforceable AI safety regulation in place.</p>
+                <span class="provider-report">read full report &rarr;</span>
+            </a>
+            <a href="#gemini-report" class="provider-card">
+                <div class="provider-header">
+                    <span class="provider-name">Gemini</span>
+                    <span class="provider-time">11:56:50</span>
+                </div>
+                <span class="provider-meta">3 min 10 sec to midnight &middot; score 6.9</span>
+                <p class="provider-summary">Significant capability advances are partially offset by growing regulatory momentum in the EU and new safety commitments from Anthropic. Economic displacement remains the most acute near-term risk, but the open-source AI ecosystem is providing meaningful counterweight to corporate consolidation.</p>
+                <span class="provider-report">read full report &rarr;</span>
+            </a>
+            <a href="#grok-report" class="provider-card">
+                <div class="provider-header">
+                    <span class="provider-name">Grok</span>
+                    <span class="provider-time">11:57:52</span>
+                </div>
+                <span class="provider-meta">2 min 8 sec to midnight &middot; score 7.8</span>
+                <p class="provider-summary">The AI capability curve is steepening while safety research investment flatlines relative to deployment spending. Three major tech companies announced AI-driven headcount reductions this week. The gap between what AI systems can do and what we can meaningfully control continues to widen at an alarming rate.</p>
+                <span class="provider-report">read full report &rarr;</span>
+            </a>
+        </div>
+
+        <div class="midnight-explainer">
+            <p class="explainer-title">What happens at midnight</p>
+            <div class="midnight-scenarios">
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; economic collapse</p>
+                    <p class="scenario-desc">Mass white-collar displacement triggers a consumption crisis. Laid-off workers flood the service sector, compressing wages everywhere. Consumer spending craters as the top earners take 50% pay cuts or disappear entirely.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; loss of agency</p>
+                    <p class="scenario-desc">Humans become supervisors of systems they no longer understand. Critical decisions in medicine, law, and finance are delegated to AI by default. The ability to override or correct degrades with each generation.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; autonomous systems</p>
+                    <p class="scenario-desc">AI agents operate with minimal oversight across military, financial, and infrastructure domains. Self-reinforcing feedback loops &mdash; layoff savings reinvested into more AI &mdash; accelerate without a natural brake.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; power concentration</p>
+                    <p class="scenario-desc">Labor&rsquo;s share of GDP falls as a handful of companies control the infrastructure that runs civilization. Wealth concentrates at Gilded Age pace. Democratic leverage over technology evaporates.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; information collapse</p>
+                    <p class="scenario-desc">AI-generated content overwhelms human-produced knowledge. Truth becomes computationally expensive. GDP appears in national accounts but never circulates &mdash; machines don&rsquo;t buy groceries or pay income tax.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; irreversibility</p>
+                    <p class="scenario-desc">Unlike prior recessions, this isn&rsquo;t cyclical. AI capability improves exponentially. Rate cuts and stimulus can&rsquo;t fix structural displacement. The dependency runs so deep that rolling it back would itself cause collapse.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

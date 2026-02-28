@@ -1,0 +1,57 @@
+name: AI Doomsday Clock
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday 09:00 UTC
+  workflow_dispatch:       # Manual trigger
+
+jobs:
+  update-clock:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run doomsday clock script
+        run: python .github/scripts/doomsday_clock.py
+        env:
+          OPEN_ROUTER: ${{ secrets.OPEN_ROUTER }}
+
+      - name: Create PR and auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          WEEK=$(date -u +%Y-W%V)
+          BRANCH="doomsday-clock/${WEEK}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$BRANCH"
+          git add clock/ index.html
+          git commit -m "$(cat <<EOF
+          ☢ Doomsday Clock update: ${WEEK}
+
+          Automated weekly AI Doomsday Clock update.
+          EOF
+          )"
+          git push -u origin "$BRANCH"
+
+          PR_URL=$(gh pr create \
+            --title "☢ Doomsday Clock: ${WEEK}" \
+            --body "Automated weekly AI Doomsday Clock update." \
+            --base main)
+
+          gh pr merge "$PR_URL" --merge --auto --delete-branch
