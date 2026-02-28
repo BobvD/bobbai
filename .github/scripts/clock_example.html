@@ -253,10 +253,12 @@ a:hover { color: var(--accent); }
 
 /* Consensus card (right panel) */
 .consensus-card {
-    border: 1px solid rgba(215, 204, 200, 0.12);
+    border: 1px solid rgba(255, 179, 193, 0.25);
     border-radius: 8px;
-    padding: 24px 24px;
-    margin-bottom: 20px;
+    padding: 28px 28px;
+    margin-bottom: 24px;
+    background: rgba(255, 179, 193, 0.03);
+    box-shadow: 0 0 24px rgba(255, 179, 193, 0.06);
 }
 
 .consensus-card .consensus-label {
@@ -566,21 +568,44 @@ a:hover { color: var(--accent); }
         height: auto;
         border-right: none;
         border-bottom: 1px solid rgba(215, 204, 200, 0.08);
-        padding: 80px 24px 36px;
+        padding: 60px 24px 24px;
     }
 
-    .back-logo { left: 24px; }
-    .back-logo .logo { width: 120px; }
+    .back-logo { left: 24px; top: 16px; }
+    .back-logo .logo { width: 100px; }
+
+    .clock-svg { width: 140px; height: 140px; }
+    .clock-container::before { width: 200px; height: 200px; }
+    .clock-container::after { width: 160px; height: 160px; }
+
+    .minute-hand { animation-duration: 1.2s; }
+    .hour-hand { animation-duration: 1s; }
+
+    .time-reading { font-size: 1.6em; }
+    .time-display { margin-top: 16px; }
+    .time-until { font-size: 1em; }
+    .time-label { font-size: 0.75em; }
+    .left-info { margin-top: 16px; }
+
+    .time-reading { animation-delay: 1s; }
+    .time-until { animation-delay: 1.2s; }
+    .time-label { animation-delay: 1.4s; }
+    .report-date { animation-delay: 1.5s; }
+    .comparison { animation-delay: 1.6s; }
 
     .right-panel {
         margin-left: 0;
-        padding: 36px 24px;
+        padding: 28px 20px;
     }
 
     .providers { grid-template-columns: 1fr; }
     .midnight-scenarios { grid-template-columns: 1fr; }
-    .time-reading { font-size: 1.6em; }
-    .clock-svg { width: 200px; height: 200px; }
+
+    .nav {
+        position: relative;
+        bottom: auto;
+        margin-top: 20px;
+    }
 }
     </style>
 </head>
