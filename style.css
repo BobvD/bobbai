@@ -146,3 +146,121 @@ a:focus-visible {
 #tab-tools:checked ~ .content li:not([data-category="tool"]) {
     display: none;
 }
+
+#tab-all:checked ~ .content .tools-grid,
+#tab-articles:checked ~ .content .tools-grid,
+#tab-books:checked ~ .content .tools-grid,
+#tab-podcasts:checked ~ .content .tools-grid {
+    display: none;
+}
+
+#tab-all:checked ~ .content .books-grid,
+#tab-articles:checked ~ .content .books-grid,
+#tab-podcasts:checked ~ .content .books-grid,
+#tab-tools:checked ~ .content .books-grid {
+    display: none;
+}
+
+#tab-tools:checked ~ .content ul li {
+    display: none;
+}
+
+#tab-books:checked ~ .content ul li {
+    display: none;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.book-card {
+    border: 1px solid rgba(215, 204, 200, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    transition: border-color var(--transition), color var(--transition);
+    color: var(--text);
+    text-decoration: none;
+}
+
+.book-card:hover {
+    border-color: var(--accent);
+}
+
+.book-cover {
+    width: 100px;
+    height: auto;
+    border-radius: 4px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    background: rgba(215, 204, 200, 0.1);
+}
+
+.book-title {
+    font-size: 0.85em;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+}
+
+.book-author {
+    font-size: 0.75em;
+    opacity: 0.6;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.tool-card {
+    border: 1px solid rgba(215, 204, 200, 0.2);
+    border-radius: 8px;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    transition: border-color var(--transition), color var(--transition);
+    color: var(--text);
+    text-decoration: none;
+}
+
+.tool-card:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.tool-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.tool-name {
+    font-size: 0.95em;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+}
+
+.tool-desc {
+    font-size: 0.75em;
+    opacity: 0.6;
+    line-height: 1.4;
+}
+
+@media (max-width: 500px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+}
