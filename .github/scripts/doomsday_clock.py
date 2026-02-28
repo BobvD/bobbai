@@ -384,18 +384,28 @@ def aggregate_results(results: list[dict]) -> dict:
 # ---------------------------------------------------------------------------
 
 
+def inline_markdown(text: str) -> str:
+    """Convert inline markdown (bold) to HTML within a line."""
+    # **text** -> <strong>text</strong>
+    text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    # *text* -> <em>text</em> (but not inside <strong>)
+    text = re.sub(r'(?<!\*)\*([^*]+?)\*(?!\*)', r'<em>\1</em>', text)
+    return text
+
+
 def markdown_to_html(text: str) -> str:
     """Convert a model's markdown response to HTML for inline report display."""
     html_parts = []
     lines = text.split("\n")
     in_table = False
+    in_json = False
     table_rows = []
     is_header_row = True
 
     for line in lines:
         stripped = line.strip()
 
-        # Skip empty lines, code fences, and JSON blocks
+        # Skip empty lines
         if not stripped:
             if in_table:
                 html_parts.append(flush_table(table_rows))
@@ -403,9 +413,22 @@ def markdown_to_html(text: str) -> str:
                 in_table = False
                 is_header_row = True
             continue
+
+        # Skip code fences
         if stripped.startswith("```"):
+            in_json = not in_json
             continue
-        if stripped.startswith("{") and stripped.endswith("}"):
+
+        # Skip everything inside fenced code blocks
+        if in_json:
+            continue
+
+        # Skip JSON lines (unfenced): lines that look like JSON key/value pairs
+        if stripped in ("{", "}") or stripped.startswith('"') and '":' in stripped:
+            continue
+
+        # Skip horizontal rules
+        if stripped == "---":
             continue
 
         # Table rows
@@ -415,6 +438,9 @@ def markdown_to_html(text: str) -> str:
             if all(c.replace("-", "").replace(":", "") == "" for c in cells):
                 continue
             in_table = True
+            # Limit to 3 columns (Vector, Weight, Score) — drop justification
+            if len(cells) > 3:
+                cells = cells[:3]
             table_rows.append({"cells": cells, "is_header": is_header_row})
             is_header_row = False
             continue
@@ -435,20 +461,14 @@ def markdown_to_html(text: str) -> str:
             html_parts.append(f'<h3>{escape(stripped[4:])}</h3>')
         elif stripped.startswith("#### "):
             html_parts.append(f'<h4>{escape(stripped[5:])}</h4>')
-        # Bold lines as headers
-        elif stripped.startswith("**") and stripped.endswith("**") and len(stripped) < 80:
-            inner = stripped.strip("*").strip()
-            # Check if it's a key:value pair like **Date:** March 3
-            if ":" in inner:
-                html_parts.append(f'<p><strong>{escape(inner)}</strong></p>')
-            else:
-                html_parts.append(f'<h4>{escape(inner)}</h4>')
         # Bullet points
         elif stripped.startswith("- ") or stripped.startswith("* "):
-            html_parts.append(f'<p class="signal-item">{escape(stripped[2:])}</p>')
-        # Regular paragraphs
+            content = inline_markdown(escape(stripped[2:].lstrip()))
+            html_parts.append(f'<p class="signal-item">{content}</p>')
+        # Regular paragraphs — convert inline bold/italic
         else:
-            html_parts.append(f'<p>{escape(stripped)}</p>')
+            content = inline_markdown(escape(stripped))
+            html_parts.append(f'<p>{content}</p>')
 
     if in_table:
         html_parts.append(flush_table(table_rows))
