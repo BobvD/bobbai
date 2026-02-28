@@ -122,7 +122,7 @@ def get_previous_reading() -> dict | None:
     return None
 
 
-def gather_briefing() -> str:
+def gather_briefing() -> tuple[str, list[dict]]:
     """Gather news + sentiment + previous week context into a briefing."""
     print("Phase A: Gathering research...")
 
@@ -178,7 +178,7 @@ def gather_briefing() -> str:
         print("  No previous week data (first reading)")
 
     print(f"  Briefing compiled: {len(unique_news)} news articles, {len(all_reddit)} Reddit posts")
-    return briefing
+    return briefing, unique_news
 
 
 # ---------------------------------------------------------------------------
@@ -300,13 +300,76 @@ def save_to_manifest(aggregated: dict, week_id: str) -> None:
         "clock_time": aggregated["clock_time"],
         "total_seconds_to_midnight": aggregated["total_seconds_to_midnight"],
         "weighted_score": aggregated["weighted_score"],
-        "consensus_summary": aggregated["consensus_summary"],
+        "consensus_summary": re.sub(r'<[^>]+>', '', aggregated["consensus_summary"]),
     })
 
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2))
 
 
-def aggregate_results(results: list[dict]) -> dict:
+def generate_consensus(results: list[dict], news_articles: list[dict], clock_time: str, avg_score: float) -> str:
+    """Ask a model to synthesize a consensus summary with news links from all reports."""
+    print("  Generating consensus summary...")
+
+    # Build context from all model verdicts + news URLs
+    model_summaries = ""
+    for r in results:
+        name = r.get("_provider", "Unknown")
+        model_summaries += f"\n### {name} (score: {r.get('weighted_score', '?')})\n"
+        model_summaries += f"{r.get('verdict', r.get('summary', 'No summary.'))}\n"
+
+    news_links = ""
+    for article in news_articles[:20]:
+        if article.get("link"):
+            news_links += f"- [{article['title']}]({article['link']})\n"
+
+    prompt = (
+        "You are writing a 2-3 sentence consensus summary for the AI Doomsday Clock page. "
+        f"The consensus clock reads {clock_time} with a weighted score of {avg_score:.2f}.\n\n"
+        "Below are the individual model verdicts and a list of news articles with URLs.\n\n"
+        "Write a concise, punchy 2-3 sentence summary that:\n"
+        "1. References the most significant events from this week\n"
+        "2. Embeds hyperlinks to relevant news articles using HTML <a> tags "
+        "(e.g., <a href=\"URL\" target=\"_blank\">Company Name</a>)\n"
+        "3. Explains why the clock moved\n\n"
+        "Return ONLY the HTML paragraph text — no wrapping tags, no markdown, no explanation.\n\n"
+        f"## Model Verdicts\n{model_summaries}\n\n"
+        f"## News Articles with URLs\n{news_links}"
+    )
+
+    api_key = os.environ.get("OPEN_ROUTER")
+    if not api_key:
+        print("  Warning: No API key, using fallback consensus")
+        closest = min(results, key=lambda r: abs(r.get("weighted_score", 0) - avg_score))
+        return escape(closest.get("summary", "No summary available."))
+
+    try:
+        resp = requests.post(
+            OPENROUTER_URL,
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+                "HTTP-Referer": "https://bobbai.dev",
+                "X-Title": "AI Doomsday Clock",
+            },
+            json={
+                "model": "openai/gpt-4.1-mini",
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": 500,
+                "temperature": 0.5,
+            },
+            timeout=60,
+        )
+        resp.raise_for_status()
+        consensus = resp.json()["choices"][0]["message"]["content"].strip()
+        print(f"  Consensus generated ({len(consensus)} chars)")
+        return consensus
+    except Exception as e:
+        print(f"  Warning: Consensus generation failed: {e}")
+        closest = min(results, key=lambda r: abs(r.get("weighted_score", 0) - avg_score))
+        return escape(closest.get("summary", "No summary available."))
+
+
+def aggregate_results(results: list[dict], news_articles: list[dict]) -> dict:
     """Average scores across all models to get final reading."""
     print("\nPhase C: Aggregating results...")
 
@@ -342,9 +405,8 @@ def aggregate_results(results: list[dict]) -> dict:
     minute_angle = (minutes_decimal / 60) * 360
     hour_angle = ((11 + minutes_decimal / 60) / 12) * 360
 
-    # Pick consensus summary from model closest to average
-    closest = min(results, key=lambda r: abs(r.get("weighted_score", 0) - avg_score))
-    consensus_summary = closest.get("summary", "No summary available.")
+    # Generate consensus with news links via extra model call
+    consensus_summary = generate_consensus(results, news_articles, clock_time, avg_score)
 
     # Comparison with previous week
     prev = get_previous_reading()
@@ -606,7 +668,7 @@ def generate_html(aggregated: dict) -> None:
         "{{SECONDS}}": str(aggregated["seconds"]),
         "{{MINUTE_HAND_ROTATION}}": str(aggregated["minute_hand_rotation"]),
         "{{HOUR_HAND_ROTATION}}": str(aggregated["hour_hand_rotation"]),
-        "{{CONSENSUS_SUMMARY}}": escape(aggregated["consensus_summary"]),
+        "{{CONSENSUS_SUMMARY}}": aggregated["consensus_summary"],
         "{{COMPARISON}}": aggregated["comparison"],
         "{{PROVIDER_CARDS}}": provider_cards,
         "{{REPORT_VIEWS}}": report_views,
@@ -695,9 +757,9 @@ def main():
         sys.exit(1)
     prompt = PROMPT_PATH.read_text()
 
-    briefing = gather_briefing()
+    briefing, news_articles = gather_briefing()
     results = query_all_models(prompt, briefing)
-    aggregated = aggregate_results(results)
+    aggregated = aggregate_results(results, news_articles)
     generate_html(aggregated)
 
     print("\n" + "=" * 60)
