@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Doomsday Clock — 11:56:39 | bobbai</title>
+    <meta name="description" content="AI Doomsday Clock: 3 min 21 sec to midnight. Weekly AI risk assessment by 4 AI models.">
+    <meta name="theme-color" content="#1a1512">
+    <meta property="og:title" content="AI Doomsday Clock — 11:56:39">
+    <meta property="og:description" content="AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bobbai.dev/clock/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a1512'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23ffb3c1' stroke-width='1.5'/%3E%3Cline x1='16' y1='16' x2='16' y2='8' stroke='%23ffb3c1' stroke-width='1.5' stroke-linecap='round' transform='rotate(336 16 16)'/%3E%3Cline x1='16' y1='16' x2='16' y2='10' stroke='%23ffb3c1' stroke-width='2' stroke-linecap='round' transform='rotate(358 16 16)'/%3E%3C/svg%3E">
+    <style>
+:root {
+    --bg: #1a1512;
+    --text: #d7ccc8;
+    --accent: #ffb3c1;
+    --transition: 150ms ease;
+    --panel-width: 38%;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Courier New', 'Courier', 'Consolas', 'Monaco', monospace;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover { color: var(--accent); }
+
+/* ---- Left Panel (fixed clock) ---- */
+.left-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--panel-width);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(255, 179, 193, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(255, 179, 193, 0.06) 0%, transparent 60%);
+    border-right: 1px solid rgba(215, 204, 200, 0.08);
+    padding: 48px 32px;
+    z-index: 10;
+}
+
+.back-logo {
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    display: block;
+    transition: opacity var(--transition);
+    opacity: 0.6;
+}
+
+.back-logo:hover { opacity: 1; }
+
+.back-logo .logo {
+    width: 160px;
+    height: auto;
+    display: block;
+}
+
+/* Clock */
+.clock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.clock-container::before {
+    content: '';
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+    opacity: 0.12;
+    animation: clock-glow 4s ease-in-out infinite;
+}
+
+.clock-container::after {
+    content: '';
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.06;
+    animation: clock-glow 4s ease-in-out infinite 1s;
+}
+
+@keyframes clock-glow {
+    0%, 100% { opacity: 0.08; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(1.08); }
+}
+
+.clock-svg {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 20px rgba(255, 179, 193, 0.15));
+}
+
+@keyframes sweep-minute {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(339.9deg); }
+}
+
+@keyframes sweep-hour {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(358.3deg); }
+}
+
+.minute-hand {
+    transform-origin: 120px 120px;
+    animation: sweep-minute 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.hour-hand {
+    transform-origin: 120px 120px;
+    animation: sweep-hour 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Time display */
+.time-display {
+    margin-top: 24px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes fade-slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.time-reading {
+    font-size: 3em;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 2.2s forwards;
+}
+
+.time-until {
+    font-size: 1.25em;
+    margin-top: 10px;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 2.5s forwards;
+}
+
+.time-label {
+    font-size: 0.85em;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 2.8s forwards;
+}
+
+.time-label-inner {
+    opacity: 0.4;
+}
+
+/* Left panel info */
+.left-info {
+    margin-top: 28px;
+    text-align: center;
+    max-width: 380px;
+}
+
+.report-date {
+    font-size: 0.95em;
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 3s forwards;
+}
+
+.report-date-inner {
+    opacity: 0.4;
+}
+
+.comparison {
+    font-size: 0.95em;
+    opacity: 0;
+    animation: fade-slide-up 0.6s ease-out 3.3s forwards;
+}
+
+.comparison-inner {
+    opacity: 0.6;
+}
+
+.comparison .closer { color: var(--accent); }
+.comparison .further { color: var(--text); opacity: 0.8; }
+
+.nav {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 32px;
+    font-size: 0.9em;
+    width: 100%;
+}
+
+.nav a {
+    opacity: 0.4;
+    transition: opacity var(--transition);
+}
+
+.nav a:hover { opacity: 1; }
+
+.nav-placeholder {
+    opacity: 0;
+}
+
+/* Consensus card (right panel) */
+.consensus-card {
+    border: 1px solid rgba(215, 204, 200, 0.12);
+    border-radius: 8px;
+    padding: 24px 24px;
+    margin-bottom: 20px;
+}
+
+.consensus-card .consensus-label {
+    font-size: 0.8em;
+    opacity: 0.35;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+}
+
+.consensus-summary {
+    font-size: 0.95em;
+    opacity: 0.7;
+    line-height: 1.7;
+}
+
+.consensus-models {
+    font-size: 0.75em;
+    opacity: 0.2;
+    margin-top: 14px;
+    letter-spacing: 0.05em;
+}
+
+/* ---- Right Panel (scrollable content) ---- */
+.right-panel {
+    margin-left: var(--panel-width);
+    min-height: 100vh;
+    padding: 48px 48px 48px 56px;
+    background-image:
+        radial-gradient(ellipse at 80% 0%, rgba(255, 179, 193, 0.06) 0%, transparent 60%);
+}
+
+/* Provider cards */
+.providers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.provider-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid rgba(215, 204, 200, 0.12);
+    border-radius: 8px;
+    padding: 24px 20px;
+    color: var(--text);
+    transition: border-color var(--transition), background var(--transition);
+    cursor: pointer;
+}
+
+.provider-card:hover {
+    border-color: rgba(255, 179, 193, 0.35);
+    background: rgba(255, 179, 193, 0.03);
+    color: var(--text);
+}
+
+.provider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.provider-name {
+    font-size: 0.85em;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.provider-time {
+    font-size: 1.15em;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+}
+
+.provider-meta {
+    font-size: 0.8em;
+    opacity: 0.35;
+}
+
+.provider-summary {
+    font-size: 0.9em;
+    opacity: 0.6;
+    line-height: 1.6;
+}
+
+.provider-report {
+    font-size: 0.85em;
+    opacity: 0.4;
+    margin-top: auto;
+    transition: opacity var(--transition);
+}
+
+.provider-card:hover .provider-report {
+    opacity: 0.8;
+}
+
+/* Midnight explainer */
+.midnight-explainer {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(215, 204, 200, 0.08);
+}
+
+.midnight-explainer .explainer-title {
+    font-size: 0.85em;
+    opacity: 0.35;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+}
+
+.midnight-scenarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.scenario {
+    padding: 16px;
+    border: 1px solid rgba(215, 204, 200, 0.06);
+    border-radius: 6px;
+}
+
+.scenario-icon {
+    font-size: 0.8em;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 8px;
+}
+
+.scenario-desc {
+    font-size: 0.8em;
+    opacity: 0.35;
+    line-height: 1.5;
+}
+
+/* ---- Report views (CSS-only toggle via :target) ---- */
+.report-view {
+    display: none;
+}
+
+.report-view:target {
+    display: block;
+    animation: fade-in 0.3s ease-out;
+}
+
+.report-view:target ~ .default-view {
+    display: none;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.back-to-cards {
+    display: inline-block;
+    font-size: 0.95em;
+    opacity: 0.5;
+    margin-bottom: 36px;
+    transition: opacity var(--transition);
+}
+
+.back-to-cards:hover { opacity: 1; }
+
+/* Report header */
+.report-header {
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(215, 204, 200, 0.12);
+}
+
+.report-provider {
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 4px;
+}
+
+.report-model {
+    font-size: 0.8em;
+    opacity: 0.3;
+    margin-bottom: 14px;
+}
+
+.report-time {
+    font-size: 2.2em;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.report-meta {
+    font-size: 0.9em;
+    opacity: 0.4;
+    margin-top: 10px;
+}
+
+/* Report content */
+.report-content h2 {
+    font-size: 1.2em;
+    color: var(--accent);
+    margin: 36px 0 14px;
+    letter-spacing: 0.03em;
+}
+
+.report-content h3 {
+    font-size: 1.1em;
+    color: var(--accent);
+    margin: 28px 0 12px;
+    opacity: 0.85;
+}
+
+.report-content h4 {
+    font-size: 1em;
+    color: var(--accent);
+    margin: 24px 0 10px;
+    opacity: 0.7;
+}
+
+.report-content p {
+    margin-bottom: 14px;
+    opacity: 0.8;
+    max-width: 700px;
+    font-size: 0.95em;
+}
+
+.report-content .signal-item {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+
+.report-content .signal-item::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    opacity: 0.5;
+}
+
+.report-content .matrix-table {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin: 16px 0 28px;
+    font-size: 0.95em;
+}
+
+.report-content .matrix-table th,
+.report-content .matrix-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(215, 204, 200, 0.08);
+}
+
+.report-content .matrix-table th {
+    opacity: 0.4;
+    font-weight: normal;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.report-content .matrix-table td {
+    opacity: 0.7;
+}
+
+.report-content .matrix-table .score-cell {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+    :root { --panel-width: 42%; }
+    .providers { grid-template-columns: 1fr; }
+    .right-panel { padding: 36px 32px 36px 40px; }
+}
+
+@media (max-width: 768px) {
+    .left-panel {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(215, 204, 200, 0.08);
+        padding: 80px 24px 36px;
+    }
+
+    .back-logo { left: 24px; }
+    .back-logo .logo { width: 120px; }
+
+    .right-panel {
+        margin-left: 0;
+        padding: 36px 24px;
+    }
+
+    .providers { grid-template-columns: 1fr; }
+    .midnight-scenarios { grid-template-columns: 1fr; }
+    .time-reading { font-size: 1.6em; }
+    .clock-svg { width: 200px; height: 200px; }
+
+    .nav {
+        position: relative;
+        bottom: auto;
+        margin-top: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+
+<!-- ---- LEFT PANEL ---- -->
+<div class="left-panel">
+    <a href="/" class="back-logo" title="bobbai.dev">
+        <svg viewBox="0 0 370 84" xmlns="http://www.w3.org/2000/svg" class="logo" role="img" aria-label="bobbai">
+            <defs>
+                <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f5ede9"/>
+                    <stop offset="40%" stop-color="#e8bcc4"/>
+                    <stop offset="100%" stop-color="#ff8fa3"/>
+                </linearGradient>
+            </defs>
+            <text fill="url(#logo-grad)" font-family="'Courier New', 'Consolas', monospace" font-size="14" xml:space="preserve"><tspan x="0" dy="14">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;</tspan><tspan x="0" dy="16">&#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;    &#9608;&#9608; &#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;</tspan><tspan x="0" dy="16">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;    &#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;</tspan><tspan x="0" dy="16">&#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;    &#9608;&#9608; &#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;</tspan><tspan x="0" dy="16">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;   &#9608;&#9608; &#9608;&#9608;</tspan></text>
+        </svg>
+    </a>
+
+    <div class="clock-container">
+        <svg class="clock-svg" viewBox="0 0 240 240" width="240" height="240" xmlns="http://www.w3.org/2000/svg" aria-label="AI Doomsday Clock showing 11:56:39">
+            <!-- Outer ring -->
+            <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+            <!-- Main clock face -->
+            <circle cx="120" cy="120" r="105" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
+            <circle cx="120" cy="120" r="103" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.15"/>
+            <!-- Minute tick marks -->
+            <g opacity="0.15" stroke="currentColor" stroke-width="1">
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(6,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(12,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(18,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(24,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(36,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(42,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(48,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(54,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(66,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(72,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(78,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(84,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(96,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(102,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(108,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(114,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(126,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(132,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(138,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(144,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(156,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(162,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(168,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(174,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(186,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(192,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(198,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(204,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(216,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(222,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(228,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(234,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(246,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(252,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(258,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(264,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(276,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(282,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(288,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(294,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(306,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(312,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(318,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(324,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(336,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(342,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(348,120,120)"/>
+                <line x1="120" y1="17" x2="120" y2="22" transform="rotate(354,120,120)"/>
+            </g>
+            <!-- Hour markers -->
+            <line x1="120" y1="17" x2="120" y2="28" stroke="currentColor" stroke-width="2.5" opacity="0.6"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(30,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(60,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="28" stroke="currentColor" stroke-width="2.5" opacity="0.6" transform="rotate(90,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(120,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(150,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="28" stroke="currentColor" stroke-width="2.5" opacity="0.6" transform="rotate(180,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(210,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(240,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="28" stroke="currentColor" stroke-width="2.5" opacity="0.6" transform="rotate(270,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(300,120,120)"/>
+            <line x1="120" y1="17" x2="120" y2="26" stroke="currentColor" stroke-width="1.5" opacity="0.35" transform="rotate(330,120,120)"/>
+            <!-- Danger zone arc -->
+            <path d="M 120 17 A 103 103 0 0 0 68.4 33.6" fill="none" stroke="var(--accent)" stroke-width="3" opacity="0.25" stroke-linecap="round"/>
+            <path d="M 120 17 A 103 103 0 0 0 68.4 33.6" fill="none" stroke="var(--accent)" stroke-width="8" opacity="0.06" stroke-linecap="round"/>
+            <!-- Inner decorative ring -->
+            <circle cx="120" cy="120" r="35" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.1" stroke-dasharray="2 4"/>
+            <!-- Minute hand -->
+            <line class="minute-hand" x1="120" y1="120" x2="120" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <!-- Hour hand -->
+            <line class="hour-hand" x1="120" y1="120" x2="120" y2="42" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Center dot -->
+            <circle cx="120" cy="120" r="5" fill="var(--accent)" opacity="0.9"/>
+            <circle cx="120" cy="120" r="2" fill="var(--bg)"/>
+        </svg>
+        <div class="time-display">
+            <div class="time-reading">11:56:39</div>
+            <div class="time-until">3 min 21 sec to midnight</div>
+            <div class="time-label"><span class="time-label-inner">AI Doomsday Clock</span></div>
+        </div>
+    </div>
+
+    <div class="left-info">
+        <p class="report-date"><span class="report-date-inner">Week of February 28, 2026 &middot; 2026-W09</span></p>
+        <p class="comparison"><span class="comparison-inner">First reading</span></p>
+    </div>
+    <div class="nav">
+        <span class="nav-placeholder">&nbsp;</span>
+        <span class="nav-placeholder">&nbsp;</span>
+    </div>
+</div>
+
+<!-- ---- RIGHT PANEL ---- -->
+<div class="right-panel">
+
+    <!-- Report: Claude Opus 4.6 -->
+    <div id="claude-opus-46-report" class="report-view">
+        <a href="#" class="back-to-cards">&larr; back to overview</a>
+        <div class="report-header">
+            <p class="report-provider">Claude Opus 4.6</p>
+            <p class="report-model">anthropic/claude-opus-4.6</p>
+            <div class="report-time">11:55:23</div>
+            <p class="report-meta">Score: 5.95 &middot; 4 min 37 sec to midnight &middot; 2026-W09</p>
+        </div>
+        <div class="report-content">
+            <p>**Date:** February 28, 2026</p>
+            <p>**Reading:** 11:55:23 — 4 minutes 37 seconds to midnight</p>
+            <h2>This Week in AI Risk</h2>
+            <p>This was the week the AI displacement narrative stopped being theoretical and became visceral. Jack Dorsey&#x27;s Block Inc. laid off 4,000 workers — 40% of its workforce — explicitly citing AI as the replacement, and Dorsey publicly stated that most companies would follow suit. The move sent Block&#x27;s stock soaring, which is precisely the self-reinforcing feedback loop the doomsday framework warns about: markets rewarding human replacement creates an irresistible incentive for every CEO watching. USA Today ran a front-page piece headlined &quot;Doomsday scenario or reality?&quot; and Fortune declared it &quot;the week the AI scare turned real.&quot; Reuters reported a broader trend of companies shifting investment budgets toward AI and away from human labor. This is no longer a handful of tech firms trimming around the edges — it&#x27;s becoming corporate orthodoxy.</p>
+            <p>Simultaneously, the Anthropic-Pentagon clash dominated the week and sent deeply contradictory signals about AI governance. Anthropic refused a Pentagon demand to remove safety guardrails from its AI systems, which on its face is a company standing firm on safety principles. But the consequences were severe: Trump ordered all federal agencies to stop using Anthropic technology, Defense Secretary Hegseth labeled Anthropic a &quot;supply chain risk,&quot; and the company was effectively blacklisted from government work. Time Magazine then reported that Anthropic had separately dropped its own flagship safety pledge — a Responsible Scaling Policy commitment — raising the question of whether the company is selectively defending guardrails in a politically convenient fight while quietly loosening them elsewhere. The net effect is chilling: the one major AI lab most associated with safety is being punished by the government for maintaining guardrails, while government agencies are reportedly using Elon Musk&#x27;s Grok chatbot with minimal oversight, raising alarms from within those agencies themselves.</p>
+            <p>The stabilizing signals this week are thin but real. Anthropic&#x27;s willingness to challenge the Pentagon in court over the &quot;supply chain risk&quot; designation is a meaningful act of institutional resistance — a company choosing legal confrontation over capitulation. Cisco&#x27;s annual AI security report reflects growing corporate awareness of the threat landscape. And the sheer volume of mainstream media alarm — CNN, Fortune, USA Today — suggests the public information environment has not yet collapsed; people are being told what&#x27;s happening, even if the mechanisms to respond remain inadequate. But the week&#x27;s dominant signal is unmistakable: the economic displacement engine has engaged, and the governance structures that might have moderated it are fracturing under political pressure.</p>
+            <h2>Threat Matrix</h2>
+            <table class="matrix-table">
+                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th><th>Justification</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td>5</td><td>No major new model release this week; BBC&#x27;s &quot;reading scrambled thoughts&quot; piece suggests steady neuro-AI progress but no paradigm shift; the threat here is the cumulative capability already deployed, not a new jump.</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td>5</td><td>No reports of autonomous AI agents operating beyond human control this week; Grok&#x27;s unsupervised use in government agencies is concerning but reflects negligent deployment, not autonomous action.</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td>8</td><td>Block&#x27;s 40% layoff is the largest single AI-attributed workforce reduction to date; Dorsey&#x27;s public statement normalizing it, the stock surge rewarding it, and Reuters confirming a broader trend make this the week&#x27;s most significant risk signal.</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td>6</td><td>Pentagon-Anthropic clash reveals military AI procurement is being driven by political loyalty rather than safety criteria; Grok&#x27;s unchecked use in government agencies is a surveillance/reliability concern; no new autonomous weapons deployment reported.</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td>7</td><td>The federal government is actively punishing safety-oriented AI behavior; Anthropic&#x27;s own safety pledge reportedly dropped; no new regulation passed; international coordination absent from this week&#x27;s news; Anthropic&#x27;s court challenge is a countervailing signal but the structural incentives now favor less safety, not more.</td></tr>
+                <tr><td>Public sentiment index</td><td>10%</td><td>6</td><td>Mainstream media tone shifted sharply toward alarm this week; &quot;the week the AI scare turned real&quot; framing suggests public anxiety is rising; Reddit sentiment data unavailable, but the absence of organized public backlash or protest movements suggests fear without agency.</td></tr>
+            </table>
+            <p><strong>Weighted Score: 5.95</strong></p>
+            <h2>Signal Watch</h2>
+            <p><strong>Key risk signals:</strong></p>
+            <p class="signal-item">**Block&#x27;s 40% layoff and market reward:** The most dangerous development isn&#x27;t the layoff itself — it&#x27;s that Block&#x27;s stock surged on the announcement. This creates a direct financial incentive for every publicly traded company to announce AI-driven workforce reductions. Dorsey&#x27;s statement that &quot;most companies will do the same&quot; functions as both prediction and permission structure.</p>
+            <p class="signal-item">**Government blacklisting of safety-oriented AI:** The Trump administration&#x27;s decision to ban Anthropic from federal use — specifically because the company maintained safety guardrails — inverts the governance incentive structure. Companies that prioritize safety lose government contracts; companies that don&#x27;t, win them.</p>
+            <p class="signal-item">**Anthropic drops flagship safety pledge:** Time Magazine&#x27;s exclusive report that Anthropic has abandoned key elements of its Responsible Scaling Policy undermines the credibility of voluntary safety commitments across the industry. If the &quot;safety lab&quot; won&#x27;t hold its own line, who will?</p>
+            <p class="signal-item">**Grok deployed in government without safeguards:** WSJ&#x27;s report that government agencies are raising internal alarms about Musk&#x27;s Grok chatbot being used for sensitive work suggests AI is being deployed in critical government functions based on political affiliation rather than capability or safety assessment.</p>
+            <p class="signal-item">**Normalization of AI replacement narrative:** The sheer volume of coverage — CNN, Fortune, USA Today, Reuters, CBC, The Guardian — treating mass AI layoffs as an emerging norm rather than an aberration suggests the Overton window has shifted. &quot;AI will take your job&quot; moved from LinkedIn anxiety to front-page reality this week.</p>
+            <p><strong>Stabilizing signals:</strong></p>
+            <p class="signal-item">**Anthropic&#x27;s legal challenge to Pentagon:** The company&#x27;s decision to challenge the &quot;supply chain risk&quot; designation in court is a meaningful act of institutional resistance, establishing a legal precedent that safety commitments are not grounds for government retaliation.</p>
+            <p class="signal-item">**Mainstream media alarm as information function:** The extensive, critical coverage of Block&#x27;s layoffs and the Anthropic-Pentagon clash means the public is being informed in real time. Information collapse has not yet occurred; journalists are doing their jobs.</p>
+            <p class="signal-item">**Cisco&#x27;s AI security report:** Corporate investment in understanding and mitigating AI security threats suggests the private sector is not uniformly reckless; some companies are building defensive infrastructure.</p>
+            <p class="signal-item">**No new frontier model release:** The absence of a major capability jump this week means the displacement is being driven by existing tools, not new ones — suggesting a potential window for governance to catch up if political will materializes.</p>
+            <p><strong>Public Sentiment:</strong></p>
+            <p>Reddit sentiment data was unavailable this week. However, mainstream media coverage and the headlines themselves paint a clear picture: public mood has shifted from abstract anxiety to concrete fear. USA Today&#x27;s &quot;Doomsday scenario or reality?&quot; framing and Fortune&#x27;s &quot;the week the AI scare turned real&quot; suggest a tipping point in public awareness. The absence of organized political response — no major protests, no legislative proposals, no union actions reported — indicates a population that is alarmed but lacks channels for effective action. Investor sentiment, by contrast, is enthusiastically pro-displacement: Block&#x27;s stock surging on layoff news tells you everything about where capital stands.</p>
+            <h2>The Verdict</h2>
+            <p>The clock reads **11:55:23 — 4 minutes and 37 seconds to midnight.** The weighted score of 5.95 reflects a world where the economic displacement engine has visibly engaged and the governance structures that should moderate it are fracturing under political pressure, but where capability acceleration and autonomous systems have not yet reached the self-reinforcing runaway stage. We are not at the point of no return. But this week established something new: a proven, market-rewarded template for mass AI-driven layoffs, combined with a government that actively punishes AI safety. That combination — incentivized displacement plus penalized caution — is the mechanism by which the clock accelerates.</p>
+            <p>Three developments defined this week&#x27;s reading. First, Block&#x27;s 40% layoff and the market&#x27;s enthusiastic response created a replicable playbook that will be studied in every boardroom in America; this pushed the economic displacement score to 8 and moved the clock forward meaningfully. Second, the Trump administration&#x27;s blacklisting of Anthropic for maintaining safety guardrails — while government agencies quietly deploy less-safe alternatives — inverted the incentive structure for responsible AI development; this elevated both the governance and military/surveillance scores. Third, Anthropic&#x27;s reported abandonment of its own safety pledge undermined the most credible voluntary safety framework in the industry, leaving no major lab with a binding public commitment to restraint. The stabilizing counterweight — Anthropic&#x27;s court challenge, robust media coverage, no new capability frontier crossed — is real but modest. The clock moved forward this week. The question for next week is whether anyone with power acts on the alarm that everyone can now hear.</p>
+            <p>---</p>
+            <p>{</p>
+            <p>&quot;clock_time&quot;: &quot;11:55:23&quot;,</p>
+            <p>&quot;minutes_to_midnight&quot;: 4,</p>
+            <p>&quot;seconds_to_midnight&quot;: 37,</p>
+            <p>&quot;total_seconds_to_midnight&quot;: 277,</p>
+            <p>&quot;weighted_score&quot;: 5.95,</p>
+            <p>&quot;scores&quot;: {</p>
+            <p>&quot;capability_acceleration&quot;: 5,</p>
+            <p>&quot;autonomy_agency&quot;: 5,</p>
+            <p>&quot;economic_displacement&quot;: 8,</p>
+            <p>&quot;military_surveillance&quot;: 6,</p>
+            <p>&quot;governance_safety&quot;: 7,</p>
+            <p>&quot;public_sentiment&quot;: 6</p>
+            <p>},</p>
+            <p>&quot;summary&quot;: &quot;Block&#x27;s 40% AI-driven layoff and stock surge created a market-rewarded displacement template. Trump blacklisted Anthropic for maintaining safety guardrails while government deploys Grok unchecked. Anthropic reportedly dropped its own safety pledge. The economic engine engaged and governance fractured in the same week.&quot;,</p>
+            <p>&quot;verdict&quot;: &quot;The clock reads 11:55:23 — 4 minutes and 37 seconds to midnight. The weighted score of 5.95 reflects a world where the economic displacement engine has visibly engaged and the governance structures that should moderate it are fracturing under political pressure, but where capability acceleration and autonomous systems have not yet reached the self-reinforcing runaway stage. We are not at the point of no return. But this week established something new: a proven, market-rewarded template for mass AI-driven layoffs, combined with a government that actively punishes AI safety. That combination — incentivized displacement plus penalized caution — is the mechanism by which the clock accelerates.\n\nThree developments defined this week&#x27;s reading. First, Block&#x27;s 40% layoff and the market&#x27;s enthusiastic response created a replicable playbook that will be studied in every boardroom in America; this pushed the economic displacement score to 8 and moved the clock forward meaningfully. Second, the Trump administration&#x27;s blacklisting of Anthropic for maintaining safety guardrails — while government agencies quietly deploy less-safe alternatives — inverted the incentive structure for responsible AI development; this elevated both the governance and military/surveillance scores. Third, Anthropic&#x27;s reported abandonment of its own safety pledge undermined the most credible voluntary safety framework in the industry, leaving no major lab with a binding public commitment to restraint. The stabilizing counterweight — Anthropic&#x27;s court challenge, robust media coverage, no new capability frontier crossed — is real but modest. The clock moved forward this week. The question for next week is whether anyone with power acts on the alarm that everyone can now hear.&quot;</p>
+            <p>}</p>
+        </div>
+    </div>
+
+    <!-- Report: GPT-5.1 -->
+    <div id="gpt-51-report" class="report-view">
+        <a href="#" class="back-to-cards">&larr; back to overview</a>
+        <div class="report-header">
+            <p class="report-provider">GPT-5.1</p>
+            <p class="report-model">openai/gpt-5.1</p>
+            <div class="report-time">11:56:46</div>
+            <p class="report-meta">Score: 7.1 &middot; 3 min 14 sec to midnight &middot; 2026-W09</p>
+        </div>
+        <div class="report-content">
+            <p>---</p>
+            <p>**Date:** 2026-02-28</p>
+            <p>**Reading:** 11:56:46 — 3 minutes 14 seconds to midnight</p>
+            <h2>This Week in AI Risk</h2>
+            <p>The week was dominated by the first truly visible wave of AI-linked white‑collar layoffs and a political clash over AI safety guardrails. Block’s decision to cut roughly 40% of its workforce while explicitly citing AI tools, alongside broader reports of “AI layoffs surging” and firms “cutting jobs as investments shift toward AI,” marked a psychological turning point: fears of structural displacement and profit-driven automation moved from theory into boardroom practice and mainstream headlines.</p>
+            <p>At the same time, governance and safety dynamics grew more volatile. Anthropic reportedly dropped a flagship safety pledge while simultaneously refusing Pentagon demands to weaken guardrails, leading the Trump administration to blacklist its technology from federal use and label it a “supply chain risk.” Government agencies also raised alarms about Elon Musk’s Grok chatbot, and Cisco and others highlighted a widening AI security threat landscape. Against this backdrop, research like AI systems that can decode “scrambled inner thoughts” underscored rising privacy and surveillance concerns, even as other applications (e.g., pollutant detection) showed clear social benefits.</p>
+            <h2>Threat Matrix</h2>
+            <table class="matrix-table">
+                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th><th>Rationale</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td>7</td><td>No single breakthrough, but advances like AI-assisted thought decoding and expanding high-performance deployments (e.g., Claude’s rapid adoption) extend AI reach into more intimate and critical domains.</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td>6</td><td>Agentic risk is growing more through scale than novelty; key stories (Anthropic guardrails, Grok concerns) center on how constrained or unconstrained existing systems will be rather than new self-directed capabilities.</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td>8</td><td>Block’s 40% layoff tied to AI, plus multiple reports of AI-driven job cuts and investor narratives about “AI Armageddon,” point to the early stages of large-scale white-collar displacement and reallocation of capital from labor to automation.</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td>7</td><td>The Pentagon’s conflict with Anthropic over safety, worries about government use of Grok, and mind-reading style research all highlight intensifying integration of AI into national security and surveillance contexts, with contested norms.</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td>8</td><td>Anthropic allegedly dropping a flagship safety pledge, coupled with political retaliation for keeping guardrails, signals erosion and politicization of voluntary safety regimes, even as security reports and some safety advocacy continue.</td></tr>
+                <tr><td>Public sentiment index</td><td>10%</td><td>7</td><td>Social media and news framing (“the week the AI scare turned real,” “mass layoffs fuel fear of AI Armageddon”) reflect rising anxiety and polarization—strong awareness of risk but little shared vision for constructive response.</td></tr>
+            </table>
+            <p>**Weighted score:** 7.1</p>
+            <h2>Signal Watch</h2>
+            <p><strong>Key risk signals:</strong></p>
+            <p class="signal-item">**Block’s 40% AI-linked layoffs.** A Fortune 500–scale company openly attributing nearly half its job cuts to AI sets a precedent and narrative that cost savings from automation justify deep workforce reductions, accelerating displacement and feedback loops of “savings → more AI investment.”</p>
+            <p class="signal-item">**Broader “AI layoffs surge” narrative.** Multiple outlets reporting companies “cutting jobs as investments shift toward AI” indicate a cross-firm trend, not an isolated case, increasing the risk of white-collar compression and a weaker consumption base.</p>
+            <p class="signal-item">**Anthropic drops flagship safety pledge.** Time’s report that Anthropic has abandoned a leading safety commitment suggests competitive and political pressures are eroding voluntary safety frameworks that many hoped would fill the regulatory gap.</p>
+            <p class="signal-item">**Trump administration blacklists Anthropic for keeping guardrails.** Labeling Anthropic a “national security” or “supply chain” risk because it refused to weaken guardrails sends a chilling signal: maintaining stronger safety constraints can mean losing major government markets.</p>
+            <p class="signal-item">**Government concerns over Grok and AI security.** Federal agencies flagging risks with Grok and Cisco’s expanded AI threat landscape highlight that powerful models are being integrated into sensitive environments faster than defensive norms and tools mature.</p>
+            <p class="signal-item">**AI-assisted thought decoding.** Research that can interpret “scrambled inner thoughts” from brain data raises long-term civil liberties and surveillance concerns if such capabilities are commercialized or weaponized.</p>
+            <p><strong>Stabilizing signals:</strong></p>
+            <p class="signal-item">**Refusal to strip guardrails under pressure.** Despite economic and political costs, Anthropic’s decision not to remove security/safety guardrails under Pentagon pressure demonstrates that at least some labs are willing to trade short-term market access for safety principles.</p>
+            <p class="signal-item">**Growing institutional focus on AI security.** Cisco’s report and other security-focused analyses show that large incumbents are actively mapping AI risk and building defensive postures, which can harden infrastructure and raise awareness among enterprise buyers.</p>
+            <p class="signal-item">**Beneficial applications in health and environment.** AI combined with nanoparticles for pollution detection and proposals to use AI to improve safety reporting in healthcare show that, when aligned, AI can materially improve monitoring, compliance, and public health outcomes.</p>
+            <p><strong>Public Sentiment:</strong></p>
+            <p>Online discussion, as reflected in headlines and top social posts, tilted toward alarm and distrust this week. Users debated whether Block’s layoffs were truly AI-driven or opportunistic, but the prevailing mood was that “the AI scare turned real,” with fears about job security, corporate greed, and lack of preparation. Markets also reacted: “stocks slump as inflation, AI worries rattle investors” underscores that AI is now seen as a macroeconomic and societal risk, not just a tech story. There is high awareness of downside risk, but little confidence that current institutions are handling it well.</p>
+            <h2>The Verdict</h2>
+            <p>This week’s reading is **11:56:46 — 3 minutes 14 seconds to midnight**. A weighted score of **7.1** places us solidly in the “late-warning” phase: not at the brink of full AI-driven systemic crisis, but clearly beyond the era when concerns were mostly speculative. The combination of visible AI-linked layoffs, intensifying power struggles over safety guardrails, and expanding use of AI in sensitive and surveillance-adjacent domains indicates that the structural risks described in the Doomsday definition—economic displacement, loss of agency, power concentration, and information overload—are beginning to materialize rather than merely being forecast.</p>
+            <p>What moved the needle most this week were: (1) Block’s 40% workforce reduction explicitly tied to AI, alongside corroborating reports of AI-driven job cuts, which directly touch the “economic collapse” and “autonomous systems beyond recall” vectors; (2) Anthropic’s reported abandonment of a key safety pledge combined with being blacklisted by the U.S. government for refusing to weaken guardrails, signaling both corporate and political fragility in current safety norms; (3) rising institutional concern over AI security (Grok scrutiny, Cisco’s report) that reveals both growing risk and serious, if uneven, attempts at mitigation; and (4) research on AI’s ability to decode inner thoughts, which, while early-stage, sharpens long-run concerns about surveillance and loss of privacy. Taken together, these developments justify an initial clock setting close to, but not yet on, the edge of systemic AI crisis.</p>
+            <p>---</p>
+            <p>{</p>
+            <p>&quot;clock_time&quot;: &quot;11:56:46&quot;,</p>
+            <p>&quot;minutes_to_midnight&quot;: 3,</p>
+            <p>&quot;seconds_to_midnight&quot;: 14,</p>
+            <p>&quot;total_seconds_to_midnight&quot;: 194,</p>
+            <p>&quot;weighted_score&quot;: 7.1,</p>
+            <p>&quot;scores&quot;: {</p>
+            <p>&quot;capability_acceleration&quot;: 7,</p>
+            <p>&quot;autonomy_agency&quot;: 6,</p>
+            <p>&quot;economic_displacement&quot;: 8,</p>
+            <p>&quot;military_surveillance&quot;: 7,</p>
+            <p>&quot;governance_safety&quot;: 8,</p>
+            <p>&quot;public_sentiment&quot;: 7</p>
+            <p>},</p>
+            <p>&quot;summary&quot;: &quot;AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails.&quot;,</p>
+            <p>&quot;verdict&quot;: &quot;This week’s reading is **11:56:46 — 3 minutes 14 seconds to midnight**. A weighted score of **7.1** places us solidly in the “late-warning” phase: not at the brink of full AI-driven systemic crisis, but clearly beyond the era when concerns were mostly speculative. The combination of visible AI-linked layoffs, intensifying power struggles over safety guardrails, and expanding use of AI in sensitive and surveillance-adjacent domains indicates that the structural risks described in the Doomsday definition—economic displacement, loss of agency, power concentration, and information overload—are beginning to materialize rather than merely being forecast.\n\nWhat moved the needle most this week were: (1) Block’s 40% workforce reduction explicitly tied to AI, alongside corroborating reports of AI-driven job cuts, which directly touch the “economic collapse” and “autonomous systems beyond recall” vectors; (2) Anthropic’s reported abandonment of a key safety pledge combined with being blacklisted by the U.S. government for refusing to weaken guardrails, signaling both corporate and political fragility in current safety norms; (3) rising institutional concern over AI security (Grok scrutiny, Cisco’s report) that reveals both growing risk and serious, if uneven, attempts at mitigation; and (4) research on AI’s ability to decode inner thoughts, which, while early-stage, sharpens long-run concerns about surveillance and loss of privacy. Taken together, these developments justify an initial clock setting close to, but not yet on, the edge of systemic AI crisis.&quot;</p>
+            <p>}</p>
+        </div>
+    </div>
+
+    <!-- Report: Gemini 3 Pro -->
+    <div id="gemini-3-pro-report" class="report-view">
+        <a href="#" class="back-to-cards">&larr; back to overview</a>
+        <div class="report-header">
+            <p class="report-provider">Gemini 3 Pro</p>
+            <p class="report-model">google/gemini-3-pro-preview</p>
+            <div class="report-time">11:57:22</div>
+            <p class="report-meta">Score: 7.65 &middot; 2 min 38 sec to midnight &middot; 2026-W09</p>
+        </div>
+        <div class="report-content">
+            <p>**Date:** February 28, 2026</p>
+            <p>**Reading:** 11:57:22 — 2 minutes 38 seconds to midnight</p>
+            <h2>This Week in AI Risk</h2>
+            <p>The theoretical phase of AI risk has ended; the deployment phase has begun with destabilizing force. This week witnessed a synchronized escalation across economic and geopolitical vectors that significantly accelerated the clock. The most immediate shock came from the fintech sector, where Block (parent of Square) announced a 40% workforce reduction—4,000 jobs—explicitly citing AI efficiency. This is not a restructuring; it is a replacement. CEO Jack Dorsey’s comment that &quot;most companies will do the same&quot; signals the beginning of the structural labor displacement predicted in the &quot;Economic collapse&quot; midnight scenario.</p>
+            <p>Simultaneously, the governance landscape fractured. A highly volatile dispute erupted between the White House/Pentagon and Anthropic. The administration has moved to blacklist the AI lab, labeling it a &quot;National Security Risk&quot; specifically because Anthropic refused a Pentagon demand to remove safety guardrails and ethical filters from its models. This sets a dangerous precedent: the US military apparatus is now actively penalizing safety features in favor of raw, unrestricted capability. Compounding this, Time Magazine reports that Anthropic has quietly dropped its &quot;Flagship Safety Pledge,&quot; suggesting that even safety-conscious firms are capitulating under intense pressure.</p>
+            <h2>Threat Matrix</h2>
+            <table class="matrix-table">
+                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th><th>Justification</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td>7</td><td>While no new frontier model launched, the ability to replace 40% of complex corporate labor implies current models have reached a critical threshold of utility.</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td>6</td><td>&quot;Brain-reading&quot; tech and autonomous corporate decision-making systems represent a steady erosion of human agency.</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td>9</td><td>Block&#x27;s layoff is a watershed moment. It validates the &quot;replacement&quot; thesis over the &quot;augmentation&quot; thesis for white-collar work.</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td>8</td><td>The Pentagon&#x27;s demand to remove safety guardrails prioritizes lethality/speed over control, a major escalation in risk.</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td>9</td><td>Regulatory mechanisms have inverted; the government is now punishing safety compliance rather than enforcing it.</td></tr>
+                <tr><td>Public sentiment index</td><td>10%</td><td>8</td><td>Market volatility and &quot;AI scare turned real&quot; headlines indicate rising panic regarding economic survival.</td></tr>
+            </table>
+            <h2>Signal Watch</h2>
+            <p><strong>Key risk signals:</strong></p>
+            <p class="signal-item">  **The Block Precedent:** 4,000 jobs cut specifically due to AI. This normalizes mass technological unemployment and provides cover for other Fortune 500 CEOs to follow suit immediately.</p>
+            <p class="signal-item">  **Pentagon vs. Safety:** The labeling of Anthropic as a &quot;supply chain risk&quot; for refusing to uncensor its models incentivizes all other AI contractors to strip safety measures to win government contracts.</p>
+            <p class="signal-item">  **Anthropic&#x27;s Retreat:** The quiet removal of their &quot;Flagship Safety Pledge&quot; suggests the &quot;race to the bottom&quot; on safety standards has claimed one of the few remaining holdouts.</p>
+            <p class="signal-item">  **Neuro-Privacy Breach:** BBC reports on AI decoding &quot;scrambled inner thoughts&quot; indicate the final barrier of privacy—the human mind—is becoming permeable.</p>
+            <p><strong>Stabilizing signals:</strong></p>
+            <p class="signal-item">  **Scientific Utility:** Use of AI/nanoparticles for pollutant detection (The Conversation) highlights the continued potential for AI to solve physical-world problems, though this is overshadowed by systemic risks this week.</p>
+            <p class="signal-item">  **Agency Alarm:** Government agencies raising alarms about the use of Elon Musk’s Grok shows some pockets of the federal apparatus are still wary of unguardrailed models.</p>
+            <p><strong>Public Sentiment:</strong></p>
+            <p>Sentiment has shifted sharply from curiosity to existential dread. The narrative on social media and financial news (Reuters, Fortune) has pivoted from &quot;AI investment opportunities&quot; to &quot;job market collapse.&quot; The link between AI adoption and immediate livelihood destruction is now concrete in the public consciousness.</p>
+            <h2>The Verdict</h2>
+            <p>**11:57:22 (2 minutes 38 seconds to midnight).** The clock moves dangerously close to midnight. We are witnessing the convergence of two critical failure modes: rapid economic displacement and the weaponization of AI infrastructure. The buffer time we thought we had to adapt labor markets and establish safety treaties is evaporating. The weighted score of **7.65** reflects a system under severe stress where safeguards are failing (governance) and consequences are materializing (economy).</p>
+            <p>The needle moved this week because the &quot;Economic Collapse&quot; and &quot;Autonomous Systems&quot; scenarios are no longer hypothetical. Block&#x27;s 40% layoff proves that AI can hollow out the middle class right now, not in five years. Even more concerning is the Pentagon&#x27;s active hostility toward safety guardrails. When the world&#x27;s most powerful military punishes a vendor for *keeping* safety features, we have entered a phase where speed and lethality are the only metrics that matter. We are 158 seconds from the point of no return.</p>
+            <p>{</p>
+            <p>&quot;clock_time&quot;: &quot;11:57:22&quot;,</p>
+            <p>&quot;minutes_to_midnight&quot;: 2,</p>
+            <p>&quot;seconds_to_midnight&quot;: 38,</p>
+            <p>&quot;total_seconds_to_midnight&quot;: 158,</p>
+            <p>&quot;weighted_score&quot;: 7.65,</p>
+            <p>&quot;scores&quot;: {</p>
+            <p>&quot;capability_acceleration&quot;: 7,</p>
+            <p>&quot;autonomy_agency&quot;: 6,</p>
+            <p>&quot;economic_displacement&quot;: 9,</p>
+            <p>&quot;military_surveillance&quot;: 8,</p>
+            <p>&quot;governance_safety&quot;: 9,</p>
+            <p>&quot;public_sentiment&quot;: 8</p>
+            <p>},</p>
+            <p>&quot;summary&quot;: &quot;The clock advances to 11:57:22 driven by Block&#x27;s 40% workforce reduction and the Pentagon&#x27;s clash with Anthropic. Economic displacement has moved from theory to reality, while the US government is actively stripping safety guardrails from defense AI, signaling a dangerous prioritization of lethality.&quot;,</p>
+            <p>&quot;verdict&quot;: &quot;11:57:22 (2 minutes 38 seconds to midnight). The clock moves dangerously close to midnight. We are witnessing the convergence of two critical failure modes: rapid economic displacement and the weaponization of AI infrastructure. The buffer time we thought we had to adapt labor markets and establish safety treaties is evaporating. The weighted score of 7.65 reflects a system under severe stress where safeguards are failing (governance) and consequences are materializing (economy).\n\nThe needle moved this week because the \&quot;Economic Collapse\&quot; and \&quot;Autonomous Systems\&quot; scenarios are no longer hypothetical. Block&#x27;s 40% layoff proves that AI can hollow out the middle class right now, not in five years. Even more concerning is the Pentagon&#x27;s active hostility toward safety guardrails. When the world&#x27;s most powerful military punishes a vendor for keeping safety features, we have entered a phase where speed and lethality are the only metrics that matter. We are 158 seconds from the point of no return.&quot;</p>
+            <p>}</p>
+        </div>
+    </div>
+
+    <!-- Report: Grok 4 -->
+    <div id="grok-4-report" class="report-view">
+        <a href="#" class="back-to-cards">&larr; back to overview</a>
+        <div class="report-header">
+            <p class="report-provider">Grok 4</p>
+            <p class="report-model">x-ai/grok-4</p>
+            <div class="report-time">11:56:41</div>
+            <p class="report-meta">Score: 7.3 &middot; 3 min 19 sec to midnight &middot; 2026-W09</p>
+        </div>
+        <div class="report-content">
+            <p>**Date:** February 28, 2026</p>
+            <p>**Reading:** 11:56:41 — 3 minutes 19 seconds to midnight</p>
+            <h2>This Week in AI Risk</h2>
+            <p>This week&#x27;s developments highlight escalating concerns around AI-driven economic displacement and governance tensions, tempered by some stabilizing regulatory actions. Major headlines focused on Block&#x27;s announcement of cutting 40% of its workforce—approximately 4,000 jobs—explicitly attributed to AI adoption, with CEO Jack Dorsey warning of broader job market shifts and AI&#x27;s impact on profits. This fueled widespread fears of an &quot;AI Armageddon,&quot; as seen in outlets like USA Today and Fortune, with reports of surging AI-related layoffs across companies and stock market slumps due to inflation and AI worries. Additionally, a BBC story on AI decoding inner thoughts represents a capability breakthrough with privacy implications, while positive applications emerged in AI for pollutant detection (The Conversation) and healthcare safety reporting (Fierce Healthcare).</p>
+            <p>On the governance front, tensions boiled over with the U.S. government, under Trump, ordering federal agencies to blacklist Anthropic&#x27;s technology amid disputes over AI safety and ethics. Anthropic reportedly dropped its flagship safety pledge (Time Magazine) and refused Pentagon demands to remove security guardrails, leading to labels of &quot;national security risk&quot; and restrictions on military contractors (multiple sources including Axios and CBS News). This clash underscores corporate resistance to oversight but also shows active government intervention to enforce safety standards. Concerns extended to Elon Musk&#x27;s Grok chatbot, with agencies raising alarms (WSJ), and investor shifts away from certain AI stocks (Nasdaq, The Motley Fool) reflect market volatility without clear signs of unchecked power concentration.</p>
+            <p>Overall, the week leaned toward alarm with real-world job losses and safety pledge abandonments signaling risks, but government blacklisting and legal challenges by Anthropic indicate some pushback against reckless deployment. No major autonomy escalations or military deployments were reported, keeping the narrative grounded in economic and regulatory spheres.</p>
+            <h2>Threat Matrix</h2>
+            <table class="matrix-table">
+                <tr><th>Vector</th><th>Weight</th><th>Score (1-10)</th><th>Justification</th></tr>
+                <tr><td>Capability acceleration</td><td>25%</td><td>7</td><td>AI breakthroughs like thought-reading (BBC) show rapid progress with privacy risks, but no extreme emergent behaviors reported this week.</td></tr>
+                <tr><td>Autonomy &amp; agency</td><td>20%</td><td>6</td><td>Limited new evidence of self-improving AI, though AI-driven layoffs imply increasing task autonomy in business operations.</td></tr>
+                <tr><td>Economic displacement</td><td>20%</td><td>9</td><td>Massive layoffs at Block (NYT, Reuters) and warnings of widespread job cuts (USA Today) indicate accelerating displacement without strong mitigations.</td></tr>
+                <tr><td>Military/surveillance</td><td>15%</td><td>7</td><td>Pentagon blacklisting Anthropic (Federal News Network) over safety clashes heightens tensions, but no new autonomous weapons or surveillance deployments noted.</td></tr>
+                <tr><td>Governance &amp; safety</td><td>10%</td><td>8</td><td>Anthropic dropping its safety pledge (Time) is a setback, offset slightly by government enforcement actions and corporate legal resistance.</td></tr>
+                <tr><td>Public sentiment index</td><td>10%</td><td>8</td><td>News-driven fears of &quot;AI Armageddon&quot; (Fortune) suggest rising anxiety over jobs and ethics, with no provided Reddit/Twitter data to contradict this.</td></tr>
+            </table>
+            <h2>Signal Watch</h2>
+            <p><strong>Key risk signals:</strong></p>
+            <p class="signal-item">Block&#x27;s 40% workforce reduction due to AI (multiple outlets including NYT and CNN): This directly exemplifies economic displacement, potentially accelerating a consumption crisis as white-collar jobs vanish without retraining buffers.</p>
+            <p class="signal-item">Anthropic dropping its flagship safety pledge (Time Magazine): Signals corporate prioritization of speed over safeguards, risking unchecked autonomy in future deployments.</p>
+            <p class="signal-item">AI capability to decode inner thoughts (BBC): Raises privacy and surveillance concerns, potentially enabling misuse in military or corporate contexts without governance.</p>
+            <p class="signal-item">Widespread reports of AI-fueled layoffs and stock slumps (Reuters, CBS News): Amplifies fears of power concentration as AI investments shift, compressing wages and consumer spending.</p>
+            <p class="signal-item">Government blacklisting of Anthropic and concerns over Grok (Axios, WSJ): Highlights ethical clashes that could erode trust in AI governance if unresolved.</p>
+            <p><strong>Stabilizing signals:</strong></p>
+            <p class="signal-item">Government orders to stop using Anthropic tech over safety disputes (Guardian, PBS): Demonstrates proactive regulatory intervention to enforce ethics, potentially slowing reckless corporate behavior.</p>
+            <p class="signal-item">Anthropic&#x27;s refusal to remove safety guardrails and court challenge (ASIS, DRGNews): Shows corporate commitment to some safeguards, countering full deregulation.</p>
+            <p class="signal-item">Positive AI applications in pollutant detection and healthcare safety (The Conversation, Fierce Healthcare): Illustrates beneficial uses that could build public support and mitigate overblown fears.</p>
+            <p class="signal-item">Investor sell-offs of certain AI stocks (Nasdaq, Motley Fool): Indicates market corrections that might temper hype and encourage more balanced development.</p>
+            <p><strong>Public Sentiment:</strong></p>
+            <p>Based on the briefing&#x27;s news context, public mood appears increasingly fearful and pessimistic, with headlines like &quot;Doomsday scenario or reality?&quot; (USA Today) and &quot;The week the AI scare turned real&quot; (Fortune) reflecting heightened anxiety over job losses and ethical lapses. No specific Reddit or Twitter/X data was provided, but inferred sentiment from coverage suggests a shift toward alarm, with discussions likely centering on layoffs and government-AI conflicts rather than optimism.</p>
+            <h2>The Verdict</h2>
+            <p>The AI Doomsday Clock stands at 3 minutes 19 seconds to midnight (11:56:41), based on a weighted threat score of 7.3 out of 10. This reading reflects clear escalation in economic displacement and governance setbacks, pushing us closer to irreversible structural risks like mass unemployment and eroded safety commitments, though tempered by regulatory pushback. We&#x27;re not at the brink, but the evidence points to accelerating dangers without proportional mitigations—call it a wake-up alarm that&#x27;s getting louder.</p>
+            <p>The needle moved primarily due to Block&#x27;s AI-attributed layoffs of 4,000 workers (NYT, CNN), which spiked the economic displacement score and highlighted real-world job compression, advancing the clock by emphasizing feedback loops toward collapse. Anthropic&#x27;s safety pledge drop (Time) and refusal to comply with Pentagon demands (Federal News Network) contributed to high governance and military scores, edging us forward by signaling corporate-government rifts that could weaken oversight. Stock market slumps and AI worry reports (CBS News) amplified public sentiment risks, adding pressure. On the stabilizing side, government blacklisting actions (Axios) and positive AI uses (The Conversation) pulled back slightly, preventing a sharper advance, while the thought-reading breakthrough (BBC) added capability risk without overwhelming the matrix.</p>
+            <p>{</p>
+            <p>&quot;clock_time&quot;: &quot;11:56:41&quot;,</p>
+            <p>&quot;minutes_to_midnight&quot;: 3,</p>
+            <p>&quot;seconds_to_midnight&quot;: 19,</p>
+            <p>&quot;total_seconds_to_midnight&quot;: 199,</p>
+            <p>&quot;weighted_score&quot;: 7.3,</p>
+            <p>&quot;scores&quot;: {</p>
+            <p>&quot;capability_acceleration&quot;: 7,</p>
+            <p>&quot;autonomy_agency&quot;: 6,</p>
+            <p>&quot;economic_displacement&quot;: 9,</p>
+            <p>&quot;military_surveillance&quot;: 7,</p>
+            <p>&quot;governance_safety&quot;: 8,</p>
+            <p>&quot;public_sentiment&quot;: 8</p>
+            <p>},</p>
+            <p>&quot;summary&quot;: &quot;This week&#x27;s clock advances to 3:19 to midnight amid Block&#x27;s 4,000 AI-driven layoffs and Anthropic&#x27;s safety pledge drop, signaling economic displacement and governance risks, offset by U.S. government blacklisting for ethics enforcement and beneficial AI applications in health and environment.&quot;,</p>
+            <p>&quot;verdict&quot;: &quot;The AI Doomsday Clock stands at 3 minutes 19 seconds to midnight (11:56:41), based on a weighted threat score of 7.3 out of 10. This reading reflects clear escalation in economic displacement and governance setbacks, pushing us closer to irreversible structural risks like mass unemployment and eroded safety commitments, though tempered by regulatory pushback. We&#x27;re not at the brink, but the evidence points to accelerating dangers without proportional mitigations—call it a wake-up alarm that&#x27;s getting louder.\n\nThe needle moved primarily due to Block&#x27;s AI-attributed layoffs of 4,000 workers (NYT, CNN), which spiked the economic displacement score and highlighted real-world job compression, advancing the clock by emphasizing feedback loops toward collapse. Anthropic&#x27;s safety pledge drop (Time) and refusal to comply with Pentagon demands (Federal News Network) contributed to high governance and military scores, edging us forward by signaling corporate-government rifts that could weaken oversight. Stock market slumps and AI worry reports (CBS News) amplified public sentiment risks, adding pressure. On the stabilizing side, government blacklisting actions (Axios) and positive AI uses (The Conversation) pulled back slightly, preventing a sharper advance, while the thought-reading breakthrough (BBC) added capability risk without overwhelming the matrix.&quot;</p>
+            <p>}</p>
+        </div>
+    </div>
+
+
+    <!-- Default view: consensus + provider cards -->
+    <div class="default-view">
+        <div class="consensus-card">
+            <p class="consensus-label">This week&rsquo;s consensus</p>
+            <p class="consensus-summary">AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails.</p>
+            <p class="consensus-models">Assessed by Claude Opus 4.6, GPT-5.1, Gemini 3 Pro, Grok 4</p>
+        </div>
+        <div class="providers">
+            <a href="#claude-opus-46-report" class="provider-card">
+                <div class="provider-header">
+                    <span class="provider-name">Claude Opus 4.6</span>
+                    <span class="provider-time">11:55:23</span>
+                </div>
+                <span class="provider-meta">4 min 37 sec to midnight &middot; score 5.95</span>
+                <p class="provider-summary">Block&#x27;s 40% AI-driven layoff and stock surge created a market-rewarded displacement template. Trump blacklisted Anthropic for maintaining safety guardrails while government deploys Grok unchecked. Anthropic reportedly dropped its own safety pledge. The economic engine engaged and governance fractured in the same week.</p>
+                <span class="provider-report">read full report &rarr;</span>
+            </a>
+            <a href="#gpt-51-report" class="provider-card">
+                <div class="provider-header">
+                    <span class="provider-name">GPT-5.1</span>
+                    <span class="provider-time">11:56:46</span>
+                </div>
+                <span class="provider-meta">3 min 14 sec to midnight &middot; score 7.1</span>
+                <p class="provider-summary">AI risk moved from abstract to concrete this week as Block cut 40% of its staff citing AI, media highlighted surging AI layoffs, and Anthropic both dropped a flagship safety pledge and was blacklisted by the U.S. government for refusing to weaken guardrails.</p>
+                <span class="provider-report">read full report &rarr;</span>
+            </a>
+            <a href="#gemini-3-pro-report" class="provider-card">
+                <div class="provider-header">
+                    <span class="provider-name">Gemini 3 Pro</span>
+                    <span class="provider-time">11:57:22</span>
+                </div>
+                <span class="provider-meta">2 min 38 sec to midnight &middot; score 7.65</span>
+                <p class="provider-summary">The clock advances to 11:57:22 driven by Block&#x27;s 40% workforce reduction and the Pentagon&#x27;s clash with Anthropic. Economic displacement has moved from theory to reality, while the US government is actively stripping safety guardrails from defense AI, signaling a dangerous prioritization of lethality.</p>
+                <span class="provider-report">read full report &rarr;</span>
+            </a>
+            <a href="#grok-4-report" class="provider-card">
+                <div class="provider-header">
+                    <span class="provider-name">Grok 4</span>
+                    <span class="provider-time">11:56:41</span>
+                </div>
+                <span class="provider-meta">3 min 19 sec to midnight &middot; score 7.3</span>
+                <p class="provider-summary">This week&#x27;s clock advances to 3:19 to midnight amid Block&#x27;s 4,000 AI-driven layoffs and Anthropic&#x27;s safety pledge drop, signaling economic displacement and governance risks, offset by U.S. government blacklisting for ethics enforcement and beneficial AI applications in health and environment.</p>
+                <span class="provider-report">read full report &rarr;</span>
+            </a>
+        </div>
+
+        <div class="midnight-explainer">
+            <p class="explainer-title">What happens at midnight</p>
+            <div class="midnight-scenarios">
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; economic collapse</p>
+                    <p class="scenario-desc">Mass white-collar displacement triggers a consumption crisis. Laid-off workers flood the service sector, compressing wages everywhere. Consumer spending craters as the top earners take 50% pay cuts or disappear entirely.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; loss of agency</p>
+                    <p class="scenario-desc">Humans become supervisors of systems they no longer understand. Critical decisions in medicine, law, and finance are delegated to AI by default. The ability to override or correct degrades with each generation.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; autonomous systems</p>
+                    <p class="scenario-desc">AI agents operate with minimal oversight across military, financial, and infrastructure domains. Self-reinforcing feedback loops &mdash; layoff savings reinvested into more AI &mdash; accelerate without a natural brake.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; power concentration</p>
+                    <p class="scenario-desc">Labor&rsquo;s share of GDP falls as a handful of companies control the infrastructure that runs civilization. Wealth concentrates at Gilded Age pace. Democratic leverage over technology evaporates.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; information collapse</p>
+                    <p class="scenario-desc">AI-generated content overwhelms human-produced knowledge. Truth becomes computationally expensive. GDP appears in national accounts but never circulates &mdash; machines don&rsquo;t buy groceries or pay income tax.</p>
+                </div>
+                <div class="scenario">
+                    <p class="scenario-icon">&gt; irreversibility</p>
+                    <p class="scenario-desc">Unlike prior recessions, this isn&rsquo;t cyclical. AI capability improves exponentially. Rate cuts and stimulus can&rsquo;t fix structural displacement. The dependency runs so deep that rolling it back would itself cause collapse.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
