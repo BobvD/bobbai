@@ -352,7 +352,7 @@ def generate_consensus(results: list[dict], news_articles: list[dict], clock_tim
                 "X-Title": "AI Doomsday Clock",
             },
             json={
-                "model": "openai/gpt-4.1-mini",
+                "model": "anthropic/claude-opus-4.6",
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 500,
                 "temperature": 0.5,
