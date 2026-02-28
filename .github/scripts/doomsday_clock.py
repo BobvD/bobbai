@@ -109,14 +109,17 @@ def fetch_reddit_posts(subreddit: str, limit: int = 10) -> list[dict]:
 
 
 def get_previous_reading() -> dict | None:
-    """Load the previous week's reading from manifest."""
+    """Load the previous week's reading from manifest (excluding current week)."""
     if not MANIFEST_PATH.exists():
         return None
+    current_week = get_week_id()
     try:
         manifest = json.loads(MANIFEST_PATH.read_text())
         readings = manifest.get("readings", [])
-        if readings:
-            return readings[-1]
+        # Filter out the current week — we don't want to compare against ourselves
+        past_readings = [r for r in readings if r.get("week_id") != current_week]
+        if past_readings:
+            return past_readings[-1]
     except (json.JSONDecodeError, KeyError):
         pass
     return None
@@ -223,14 +226,32 @@ def call_model(model_name: str, model_id: str, prompt: str, briefing: str) -> di
         # Try multiple patterns: fenced json, fenced without label, raw JSON object
         json_match = re.search(r"```json\s*\n?(.*?)\n?\s*```", content, re.DOTALL)
         if not json_match:
-            json_match = re.search(r"```\s*\n?({\s*\"clock_time\".*?})\n?\s*```", content, re.DOTALL)
+            json_match = re.search(r"```\s*\n?(\{.*?\"clock_time\".*?\})\s*\n?```", content, re.DOTALL)
         if not json_match:
-            json_match = re.search(r'(\{\s*"clock_time".*?"verdict"\s*:\s*"[^"]*"\s*\})', content, re.DOTALL)
+            # Find JSON block containing clock_time — greedy to capture nested {} like scores
+            json_match = re.search(r'(\{\s*"clock_time".*"verdict"\s*:\s*"[^"]*"\s*\})', content, re.DOTALL)
+        if not json_match:
+            # Most permissive: from clock_time to last } in content
+            json_match = re.search(r'(\{\s*"clock_time"[\s\S]*\})', content)
+
         if not json_match:
             print(f"  Warning: No JSON block found in {model_name} response")
+            print(f"  Response preview: {content[-500:]}")
             return None
 
-        result = json.loads(json_match.group(1))
+        try:
+            result = json.loads(json_match.group(1))
+        except json.JSONDecodeError:
+            # Try cleaning: remove trailing commas, fix common issues
+            json_str = json_match.group(1)
+            json_str = re.sub(r',\s*}', '}', json_str)  # trailing commas
+            json_str = re.sub(r',\s*]', ']', json_str)
+            try:
+                result = json.loads(json_str)
+            except json.JSONDecodeError as e2:
+                print(f"  Error parsing {model_name} JSON even after cleanup: {e2}")
+                print(f"  JSON snippet: {json_str[:300]}")
+                return None
         result["_provider"] = model_name
         result["_full_response"] = content
         print(f"  {model_name}: {result.get('clock_time', '?')} (score: {result.get('weighted_score', '?')})")
@@ -354,7 +375,7 @@ def generate_consensus(results: list[dict], news_articles: list[dict], clock_tim
             json={
                 "model": "anthropic/claude-opus-4.6",
                 "messages": [{"role": "user", "content": prompt}],
-                "max_tokens": 500,
+                "max_tokens": 1000,
                 "temperature": 0.5,
             },
             timeout=60,
@@ -555,7 +576,7 @@ def flush_table(rows: list[dict]) -> str:
                     cls = ' class="score-cell"'
                 except ValueError:
                     pass
-            cells_html += f"<{tag}{cls}>{escape(cell)}</{tag}>"
+            cells_html += f"<{tag}{cls}>{inline_markdown(escape(cell))}</{tag}>"
         html += f"                <tr>{cells_html}</tr>\n"
     html += "            </table>"
     return html
@@ -669,6 +690,7 @@ def generate_html(aggregated: dict) -> None:
         "{{MINUTE_HAND_ROTATION}}": str(aggregated["minute_hand_rotation"]),
         "{{HOUR_HAND_ROTATION}}": str(aggregated["hour_hand_rotation"]),
         "{{CONSENSUS_SUMMARY}}": aggregated["consensus_summary"],
+        "{{CONSENSUS_PLAIN}}": escape(re.sub(r'<[^>]+>', '', aggregated["consensus_summary"])),
         "{{COMPARISON}}": aggregated["comparison"],
         "{{PROVIDER_CARDS}}": provider_cards,
         "{{REPORT_VIEWS}}": report_views,

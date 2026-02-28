@@ -7,7 +7,7 @@
     <meta name="description" content="AI Doomsday Clock: {{MINUTES}} min {{SECONDS}} sec to midnight. Weekly AI risk assessment by 4 AI models.">
     <meta name="theme-color" content="#1a1512">
     <meta property="og:title" content="AI Doomsday Clock — {{CLOCK_TIME}}">
-    <meta property="og:description" content="{{CONSENSUS_SUMMARY}}">
+    <meta property="og:description" content="{{CONSENSUS_PLAIN}}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bobbai.dev/clock/">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a1512'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23ffb3c1' stroke-width='1.5'/%3E%3Cline x1='16' y1='16' x2='16' y2='8' stroke='%23ffb3c1' stroke-width='1.5' stroke-linecap='round' transform='rotate(336 16 16)'/%3E%3Cline x1='16' y1='16' x2='16' y2='10' stroke='%23ffb3c1' stroke-width='2' stroke-linecap='round' transform='rotate(358 16 16)'/%3E%3C/svg%3E">
@@ -230,6 +230,24 @@ a:hover { color: var(--accent); }
 
 .nav-placeholder {
     opacity: 0;
+}
+
+/* Explainer */
+.explainer {
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.explainer p:first-child {
+    font-size: 0.95em;
+    opacity: 0.55;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.explainer p:last-child {
+    font-size: 0.78em;
+    opacity: 0.25;
 }
 
 /* Consensus card (right panel) */
@@ -564,6 +582,8 @@ a:hover { color: var(--accent); }
     .providers { grid-template-columns: 1fr; }
     .midnight-scenarios { grid-template-columns: 1fr; }
 
+    .explainer p:last-child { display: none; }
+
     .nav {
         position: relative;
         bottom: auto;
@@ -697,6 +717,10 @@ a:hover { color: var(--accent); }
 
     <!-- Default view: consensus + provider cards -->
     <div class="default-view">
+        <div class="explainer">
+            <p>every week we ask four AIs to read the news and tell us how close they are to ending civilization.</p>
+            <p>a script gathers the week&rsquo;s AI headlines, feeds them to four frontier models with the same prompt, and asks each one to score how close we are to the point of no return. their individual reports are below. the consensus is their averaged verdict.</p>
+        </div>
         <div class="consensus-card">
             <p class="consensus-label">This week&rsquo;s consensus</p>
             <p class="consensus-summary">{{CONSENSUS_SUMMARY}}</p>

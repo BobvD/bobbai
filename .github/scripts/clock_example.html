@@ -251,6 +251,24 @@ a:hover { color: var(--accent); }
 
 .nav a:hover { opacity: 1; }
 
+/* Explainer */
+.explainer {
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.explainer p:first-child {
+    font-size: 0.95em;
+    opacity: 0.55;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.explainer p:last-child {
+    font-size: 0.78em;
+    opacity: 0.25;
+}
+
 /* Consensus card (right panel) */
 .consensus-card {
     border: 1px solid rgba(255, 179, 193, 0.25);
@@ -601,6 +619,8 @@ a:hover { color: var(--accent); }
     .providers { grid-template-columns: 1fr; }
     .midnight-scenarios { grid-template-columns: 1fr; }
 
+    .explainer p:last-child { display: none; }
+
     .nav {
         position: relative;
         bottom: auto;
@@ -919,6 +939,10 @@ a:hover { color: var(--accent); }
 
     <!-- Default view: consensus + provider cards -->
     <div class="default-view">
+        <div class="explainer">
+            <p>every week we ask four AIs to read the news and tell us how close they are to ending civilization.</p>
+            <p>a script gathers the week&rsquo;s AI headlines, feeds them to four frontier models with the same prompt, and asks each one to score how close we are to the point of no return. their individual reports are below. the consensus is their averaged verdict.</p>
+        </div>
         <div class="consensus-card">
             <p class="consensus-label">This week&rsquo;s consensus</p>
             <p class="consensus-summary"><a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank">Claude Opus 4.6</a> and <a href="https://blog.google/technology/google-deepmind/gemini-model-updates-february-2026/" target="_blank">Gemini 2.5 Pro</a> launched within days of each other, accelerating the capability race. Meanwhile, <a href="https://www.reuters.com/technology/block-cut-jobs-ai-2026-02-25/" target="_blank">Block</a> and <a href="https://www.reuters.com/technology/workday-layoffs-ai-2026-02-26/" target="_blank">Workday</a> cut thousands of jobs citing AI automation. The governance gap continues to widen as no major economy has enforceable frontier AI safety regulation in place, while autonomous coding agents ship production code with minimal human oversight at multiple Fortune 500 companies.</p>
