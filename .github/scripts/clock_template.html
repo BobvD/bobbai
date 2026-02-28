@@ -254,6 +254,13 @@ a:hover { color: var(--accent); }
     line-height: 1.7;
 }
 
+.consensus-models {
+    font-size: 0.75em;
+    opacity: 0.2;
+    margin-top: 14px;
+    letter-spacing: 0.05em;
+}
+
 /* ---- Right Panel (scrollable content) ---- */
 .right-panel {
     margin-left: var(--panel-width);
@@ -674,6 +681,7 @@ a:hover { color: var(--accent); }
         <div class="consensus-card">
             <p class="consensus-label">This week&rsquo;s consensus</p>
             <p class="consensus-summary">{{CONSENSUS_SUMMARY}}</p>
+            <p class="consensus-models">Assessed by {{MODEL_NAMES}}</p>
         </div>
         <div class="providers">
 {{PROVIDER_CARDS}}

@@ -273,6 +273,13 @@ a:hover { color: var(--accent); }
     line-height: 1.7;
 }
 
+.consensus-models {
+    font-size: 0.75em;
+    opacity: 0.2;
+    margin-top: 14px;
+    letter-spacing: 0.05em;
+}
+
 .consensus-summary a {
     color: var(--accent);
     opacity: 0.8;
@@ -702,8 +709,8 @@ a:hover { color: var(--accent); }
     <div id="claude-report" class="report-view">
         <a href="#" class="back-to-cards">&larr; back to overview</a>
         <div class="report-header">
-            <p class="report-provider">Claude</p>
-            <p class="report-model">anthropic/claude-opus-4</p>
+            <p class="report-provider">Claude Opus 4.6</p>
+            <p class="report-model">anthropic/claude-opus-4.6</p>
             <div class="report-time">11:57:04</div>
             <p class="report-meta">Score: 7.1 &middot; 2 min 56 sec to midnight &middot; 2026-W09</p>
         </div>
@@ -745,12 +752,12 @@ a:hover { color: var(--accent); }
         </div>
     </div>
 
-    <!-- Report: GPT-4.1 -->
-    <div id="gpt41-report" class="report-view">
+    <!-- Report: GPT-5.1 -->
+    <div id="gpt-51-report" class="report-view">
         <a href="#" class="back-to-cards">&larr; back to overview</a>
         <div class="report-header">
-            <p class="report-provider">GPT-4.1</p>
-            <p class="report-model">openai/gpt-4.1</p>
+            <p class="report-provider">GPT-5.1</p>
+            <p class="report-model">openai/gpt-5.1</p>
             <div class="report-time">11:57:38</div>
             <p class="report-meta">Score: 7.5 &middot; 2 min 22 sec to midnight &middot; 2026-W09</p>
         </div>
@@ -795,8 +802,8 @@ a:hover { color: var(--accent); }
     <div id="gemini-report" class="report-view">
         <a href="#" class="back-to-cards">&larr; back to overview</a>
         <div class="report-header">
-            <p class="report-provider">Gemini</p>
-            <p class="report-model">google/gemini-2.5-pro</p>
+            <p class="report-provider">Gemini 3 Pro</p>
+            <p class="report-model">google/gemini-3-pro-preview</p>
             <div class="report-time">11:56:50</div>
             <p class="report-meta">Score: 6.9 &middot; 3 min 10 sec to midnight &middot; 2026-W09</p>
         </div>
@@ -842,8 +849,8 @@ a:hover { color: var(--accent); }
     <div id="grok-report" class="report-view">
         <a href="#" class="back-to-cards">&larr; back to overview</a>
         <div class="report-header">
-            <p class="report-provider">Grok</p>
-            <p class="report-model">x-ai/grok-3</p>
+            <p class="report-provider">Grok 4</p>
+            <p class="report-model">x-ai/grok-4</p>
             <div class="report-time">11:57:52</div>
             <p class="report-meta">Score: 7.8 &middot; 2 min 8 sec to midnight &middot; 2026-W09</p>
         </div>
@@ -890,20 +897,21 @@ a:hover { color: var(--accent); }
         <div class="consensus-card">
             <p class="consensus-label">This week&rsquo;s consensus</p>
             <p class="consensus-summary"><a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank">Claude Opus 4.6</a> and <a href="https://blog.google/technology/google-deepmind/gemini-model-updates-february-2026/" target="_blank">Gemini 2.5 Pro</a> launched within days of each other, accelerating the capability race. Meanwhile, <a href="https://www.reuters.com/technology/block-cut-jobs-ai-2026-02-25/" target="_blank">Block</a> and <a href="https://www.reuters.com/technology/workday-layoffs-ai-2026-02-26/" target="_blank">Workday</a> cut thousands of jobs citing AI automation. The governance gap continues to widen as no major economy has enforceable frontier AI safety regulation in place, while autonomous coding agents ship production code with minimal human oversight at multiple Fortune 500 companies.</p>
+            <p class="consensus-models">Assessed by Claude Opus 4.6, GPT-5.1, Gemini 3 Pro, Grok 4</p>
         </div>
         <div class="providers">
             <a href="#claude-report" class="provider-card">
                 <div class="provider-header">
-                    <span class="provider-name">Claude</span>
+                    <span class="provider-name">Claude Opus 4.6</span>
                     <span class="provider-time">11:57:04</span>
                 </div>
                 <span class="provider-meta">2 min 56 sec to midnight &middot; score 7.1</span>
                 <p class="provider-summary">Two frontier model releases in a single week signal an arms race with no signs of slowing. Block and Workday both announced AI-driven layoffs, bringing the total tech job cuts this quarter to over 15,000. EU AI Act enforcement is still months away, leaving a dangerous governance vacuum.</p>
                 <span class="provider-report">read full report &rarr;</span>
             </a>
-            <a href="#gpt41-report" class="provider-card">
+            <a href="#gpt-51-report" class="provider-card">
                 <div class="provider-header">
-                    <span class="provider-name">GPT-4.1</span>
+                    <span class="provider-name">GPT-5.1</span>
                     <span class="provider-time">11:57:38</span>
                 </div>
                 <span class="provider-meta">2 min 22 sec to midnight &middot; score 7.5</span>
@@ -912,7 +920,7 @@ a:hover { color: var(--accent); }
             </a>
             <a href="#gemini-report" class="provider-card">
                 <div class="provider-header">
-                    <span class="provider-name">Gemini</span>
+                    <span class="provider-name">Gemini 3 Pro</span>
                     <span class="provider-time">11:56:50</span>
                 </div>
                 <span class="provider-meta">3 min 10 sec to midnight &middot; score 6.9</span>
@@ -921,7 +929,7 @@ a:hover { color: var(--accent); }
             </a>
             <a href="#grok-report" class="provider-card">
                 <div class="provider-header">
-                    <span class="provider-name">Grok</span>
+                    <span class="provider-name">Grok 4</span>
                     <span class="provider-time">11:57:52</span>
                 </div>
                 <span class="provider-meta">2 min 8 sec to midnight &middot; score 7.8</span>

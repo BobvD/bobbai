@@ -31,10 +31,10 @@ MANIFEST_PATH = CLOCK_DIR / "manifest.json"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 MODELS = [
-    ("Claude", "anthropic/claude-opus-4.6"),
+    ("Claude Opus 4.6", "anthropic/claude-opus-4.6"),
     ("GPT-5.1", "openai/gpt-5.1"),
-    ("Gemini", "google/gemini-3-pro-preview"),
-    ("Grok", "x-ai/grok-4"),
+    ("Gemini 3 Pro", "google/gemini-3-pro-preview"),
+    ("Grok 4", "x-ai/grok-4"),
 ]
 
 REDDIT_SUBS = [
@@ -594,6 +594,7 @@ def generate_html(aggregated: dict) -> None:
         "{{WEEK_ID}}": week_id,
         "{{PREV_LINK}}": prev_link,
         "{{NEXT_LINK}}": next_link,
+        "{{MODEL_NAMES}}": ", ".join(name for name, _ in MODELS),
     }
     for placeholder, value in replacements.items():
         html = html.replace(placeholder, value)
