@@ -1,3 +1,6 @@
+# worktrees
+.worktrees/
+
 # wrangler files
 .wrangler
 .dev.vars*
