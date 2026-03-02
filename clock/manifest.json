@@ -7,6 +7,14 @@
       "total_seconds_to_midnight": 190,
       "weighted_score": 7.17,
       "consensus_summary": "This week marked a dangerous convergence: Anthropic abandoned core safety commitments under pressure after the Pentagon branded it a national security risk, effectively demonstrating that when military priorities collide with AI safety, safety loses. Simultaneously, Block laid off nearly half its workforce explicitly because of AI, with its CEO normalizing mass displacement as an industry template\u2014a signal that AI-driven job elimination has shifted from theoretical risk to corporate strategy. With the voluntary safety framework crumbling, economic displacement accelerating, and AI deploying into hospitals and children's lives with minimal oversight, governance is losing the race against deployment on nearly every front."
+    },
+    {
+      "week_id": "2026-W10",
+      "date": "2026-03-02",
+      "clock_time": "11:57:19",
+      "total_seconds_to_midnight": 161,
+      "weighted_score": 7.59,
+      "consensus_summary": "This week saw AI-driven economic displacement shift from forecast to reality, as Block laid off nearly half its workforce with CEO Jack Dorsey declaring most companies will follow suit\u2014a signal that mass AI-driven job elimination is now corporate doctrine, not speculation. Meanwhile, the voluntary safety framework suffered a serious blow as Anthropic abandoned core safety promises under Pentagon pressure, only for the Trump administration to order agencies to stop using Anthropic entirely\u2014creating a perverse dynamic where safety-minded companies are punished while compliant ones are rewarded. Counterweights like AI Safety Asia's diplomatic efforts and congressional hearings on AI workplace safety exist but operate too slowly to match the pace of deployment and deregulation now underway."
     }
   ]
 }
