@@ -11,9 +11,11 @@ Add a new item to the feed in `index.html`. The user provides a URL (and optiona
 1. **Determine category** from context or ask: `article`, `podcast`, `video`, `tool`
 2. **Determine date** — use provided date, or today's date formatted as `DD Mon` (e.g. `07 Feb`)
 3. **Get title** — fetch the URL via oembed (for YouTube) or WebFetch to get the page title. Clean it up to max 50 characters. Use `—` (em dash) to separate title from source when needed.
-4. **Check doomsday indicators** per AI_RULES.md:
-   - AI existential risk / accelerating capabilities → add class `clock-tick`
-   - AI job cuts / layoffs → add class `clock-tick skull`
+4. **Check doomsday indicators** — if the article relates to AI existential risk, accelerating capabilities, or AI job cuts/layoffs, **ask the user for confirmation** before adding any clock-tick class:
+   - Ask: "Should this get a clock-tick?" and suggest which type based on context
+   - AI existential risk / accelerating capabilities → `clock-tick`
+   - AI job cuts / layoffs → `clock-tick skull`
+   - If the user says no, add no class
 5. **Insert the list item** in chronological order (newest first) inside `<ul>` in `.content`:
 
 ```html
