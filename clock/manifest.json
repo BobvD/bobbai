@@ -15,6 +15,14 @@
       "total_seconds_to_midnight": 161,
       "weighted_score": 7.59,
       "consensus_summary": "This week saw AI-driven economic displacement shift from forecast to reality, as Block laid off nearly half its workforce with CEO Jack Dorsey declaring most companies will follow suit\u2014a signal that mass AI-driven job elimination is now corporate doctrine, not speculation. Meanwhile, the voluntary safety framework suffered a serious blow as Anthropic abandoned core safety promises under Pentagon pressure, only for the Trump administration to order agencies to stop using Anthropic entirely\u2014creating a perverse dynamic where safety-minded companies are punished while compliant ones are rewarded. Counterweights like AI Safety Asia's diplomatic efforts and congressional hearings on AI workplace safety exist but operate too slowly to match the pace of deployment and deregulation now underway."
+    },
+    {
+      "week_id": "2026-W11",
+      "date": "2026-03-09",
+      "clock_time": "11:57:07",
+      "total_seconds_to_midnight": 173,
+      "weighted_score": 7.42,
+      "consensus_summary": "This week saw over 35,000 AI-attributed layoffs across major companies, signaling that workforce displacement has shifted from theoretical risk to active corporate strategy\u2014with savings being funneled directly back into AI infrastructure spending. Simultaneously, the governance landscape fractured as the U.S. withheld support from a major international AI safety report while the Anthropic-government standoff escalated from a federal ban on the company's products to Anthropic reopening Pentagon talks under pressure, suggesting safety commitments buckle when national security demands collide with them. Modest counterweights\u2014including congressional hearings on AI workplace safety, growing scrutiny of medical AI oversight, and free AI education initiatives\u2014remain reactive and far too slow to match the pace of deployment."
     }
   ]
 }
