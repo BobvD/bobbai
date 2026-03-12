@@ -18,11 +18,11 @@
     },
     {
       "week_id": "2026-W11",
-      "date": "2026-03-09",
-      "clock_time": "11:57:07",
-      "total_seconds_to_midnight": 173,
-      "weighted_score": 7.42,
-      "consensus_summary": "This week saw over 35,000 AI-attributed layoffs across major companies, signaling that workforce displacement has shifted from theoretical risk to active corporate strategy\u2014with savings being funneled directly back into AI infrastructure spending. Simultaneously, the governance landscape fractured as the U.S. withheld support from a major international AI safety report while the Anthropic-government standoff escalated from a federal ban on the company's products to Anthropic reopening Pentagon talks under pressure, suggesting safety commitments buckle when national security demands collide with them. Modest counterweights\u2014including congressional hearings on AI workplace safety, growing scrutiny of medical AI oversight, and free AI education initiatives\u2014remain reactive and far too slow to match the pace of deployment."
+      "date": "2026-03-12",
+      "clock_time": "11:57:30",
+      "total_seconds_to_midnight": 150,
+      "weighted_score": 7.76,
+      "consensus_summary": "This week saw AI-driven economic displacement harden into corporate doctrine, with Atlassian cutting 1,600 jobs explicitly citing the \"AI era\" as part of a wave that has now eliminated over 35,000 tech jobs in 2026 alone. Meanwhile, the governance landscape fractured further as Anthropic sued the Trump administration over its \"supply chain risk\" designation\u2014forcing the leading safety-focused AI lab into a legal battle instead of safety research\u2014while AI software is now actively managing U.S. military operations against Iran, embedding autonomous decision-making into live combat with little public oversight. The convergence of normalized mass displacement, a hostile federal posture toward AI safety, and accelerating military deployment signals that critical systems are being transformed faster than any institution can govern them."
     }
   ]
 }
