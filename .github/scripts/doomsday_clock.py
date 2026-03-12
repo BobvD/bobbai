@@ -70,10 +70,21 @@ def extract_real_url(bing_link: str) -> str:
     return bing_link
 
 
+def parse_pub_date(date_str: str) -> datetime | None:
+    """Parse an RSS pubDate string into a datetime, or None on failure."""
+    for fmt in ("%a, %d %b %Y %H:%M:%S %Z", "%a, %d %b %Y %H:%M:%S %z"):
+        try:
+            return datetime.strptime(date_str.strip(), fmt).replace(tzinfo=None)
+        except ValueError:
+            continue
+    return None
+
+
 def fetch_news_rss(query: str, num_results: int = 10) -> list[dict]:
-    """Fetch AI news headlines from Bing News RSS (direct article links)."""
-    url = f"https://www.bing.com/news/search?q={requests.utils.quote(query)}&format=rss&count={num_results}&mkt=en-US"
+    """Fetch AI news headlines from Bing News RSS (direct article links, past week only)."""
+    url = f"https://www.bing.com/news/search?q={requests.utils.quote(query)}&format=rss&count={num_results}&freshness=Week&sortby=date&mkt=en-US"
     headers = {"User-Agent": "Mozilla/5.0 (compatible; DoomsdayClock/1.0)"}
+    cutoff = datetime.now() - timedelta(days=8)
     try:
         resp = requests.get(url, headers=headers, timeout=15)
         resp.raise_for_status()
@@ -85,6 +96,10 @@ def fetch_news_rss(query: str, num_results: int = 10) -> list[dict]:
             link = extract_real_url(raw_link)
             pub_date = item.findtext("pubDate", "")
             source = item.findtext("source", "")
+            # Filter out articles older than 8 days
+            parsed_date = parse_pub_date(pub_date)
+            if parsed_date and parsed_date < cutoff:
+                continue
             items.append(
                 {"title": title, "link": link, "date": pub_date, "source": source}
             )
