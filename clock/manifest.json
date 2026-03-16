@@ -23,6 +23,14 @@
       "total_seconds_to_midnight": 150,
       "weighted_score": 7.76,
       "consensus_summary": "This week saw AI-driven economic displacement harden into corporate doctrine, with Atlassian cutting 1,600 jobs explicitly citing the \"AI era\" as part of a wave that has now eliminated over 35,000 tech jobs in 2026 alone. Meanwhile, the governance landscape fractured further as Anthropic sued the Trump administration over its \"supply chain risk\" designation\u2014forcing the leading safety-focused AI lab into a legal battle instead of safety research\u2014while AI software is now actively managing U.S. military operations against Iran, embedding autonomous decision-making into live combat with little public oversight. The convergence of normalized mass displacement, a hostile federal posture toward AI safety, and accelerating military deployment signals that critical systems are being transformed faster than any institution can govern them."
+    },
+    {
+      "week_id": "2026-W12",
+      "date": "2026-03-16",
+      "clock_time": "11:57:24",
+      "total_seconds_to_midnight": 156,
+      "weighted_score": 7.67,
+      "consensus_summary": "This week's defining pattern is the accelerating displacement-reinvestment loop, with Meta planning to cut 20% of its workforce to fund AI while over 35,000 tech jobs have been eliminated across Meta, Oracle, Amazon, and others\u2014human labor being liquidated to purchase the systems replacing it, with industry leaders now openly contemplating unemployment exceeding 30%. Meanwhile, Anthropic's lawsuit against the Trump administration over its \"supply chain risk\" designation is directly threatening critical AI nuclear safety research, illustrating a governance system actively undermining its own safety infrastructure at the worst possible moment. Modest stabilizers like state-level regulations and new university AI programs exist but remain far too weak to offset the hardening trajectories of economic displacement, expanding autonomy, and fragmenting oversight."
     }
   ]
 }
