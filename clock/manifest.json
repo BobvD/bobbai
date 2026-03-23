@@ -31,6 +31,14 @@
       "total_seconds_to_midnight": 156,
       "weighted_score": 7.67,
       "consensus_summary": "This week's defining pattern is the accelerating displacement-reinvestment loop, with Meta planning to cut 20% of its workforce to fund AI while over 35,000 tech jobs have been eliminated across Meta, Oracle, Amazon, and others\u2014human labor being liquidated to purchase the systems replacing it, with industry leaders now openly contemplating unemployment exceeding 30%. Meanwhile, Anthropic's lawsuit against the Trump administration over its \"supply chain risk\" designation is directly threatening critical AI nuclear safety research, illustrating a governance system actively undermining its own safety infrastructure at the worst possible moment. Modest stabilizers like state-level regulations and new university AI programs exist but remain far too weak to offset the hardening trajectories of economic displacement, expanding autonomy, and fragmenting oversight."
+    },
+    {
+      "week_id": "2026-W13",
+      "date": "2026-03-23",
+      "clock_time": "11:57:32",
+      "total_seconds_to_midnight": 148,
+      "weighted_score": 7.8,
+      "consensus_summary": "The most striking development this week is the Pentagon declaring Anthropic's safety guardrails an \"unacceptable\" wartime risk, signaling that the U.S. military now views AI safety protocols as strategic liabilities to be stripped away rather than strengthened \u2014 a dynamic that threatens to erode norms across the entire industry. Meanwhile, the economic picture sharpened as the Uber CEO accused fellow executives of privately admitting \"millions of jobs are gone\" while publicly downplaying displacement, even as Meta, Amazon, and others accelerate AI-driven layoffs. Fragmented governance responses \u2014 a Minnesota notice bill, Colorado's implementation recommendations, and a Trump administration plan critics say lacks teeth \u2014 remain vastly outpaced by the speed of military adoption, corporate restructuring, and the deliberate information asymmetry between boardrooms and the public."
     }
   ]
 }
