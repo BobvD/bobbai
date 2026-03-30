@@ -39,6 +39,14 @@
       "total_seconds_to_midnight": 148,
       "weighted_score": 7.8,
       "consensus_summary": "The most striking development this week is the Pentagon declaring Anthropic's safety guardrails an \"unacceptable\" wartime risk, signaling that the U.S. military now views AI safety protocols as strategic liabilities to be stripped away rather than strengthened \u2014 a dynamic that threatens to erode norms across the entire industry. Meanwhile, the economic picture sharpened as the Uber CEO accused fellow executives of privately admitting \"millions of jobs are gone\" while publicly downplaying displacement, even as Meta, Amazon, and others accelerate AI-driven layoffs. Fragmented governance responses \u2014 a Minnesota notice bill, Colorado's implementation recommendations, and a Trump administration plan critics say lacks teeth \u2014 remain vastly outpaced by the speed of military adoption, corporate restructuring, and the deliberate information asymmetry between boardrooms and the public."
+    },
+    {
+      "week_id": "2026-W14",
+      "date": "2026-03-30",
+      "clock_time": "11:56:56",
+      "total_seconds_to_midnight": 184,
+      "weighted_score": 7.25,
+      "consensus_summary": "This week saw Meta slash roughly 700 jobs while Microsoft froze hiring after its own layoffs, cementing a pattern where Big Tech reinvests labor savings directly into AI\u2014a cycle made more troubling by Perplexity's CEO openly celebrating displacement as a \"glorious future.\" On the stabilizing side, a federal judge ruled against the Pentagon's blacklisting of Anthropic, defending safety-oriented AI companies from political retaliation, while OpenAI launched a safety-focused bug bounty program. The overall picture remains one of rapid deployment outpacing governance, with AI expanding into sensitive domains like mental health prescribing and industry leaders actively normalizing mass job loss rather than building safeguards against it."
     }
   ]
 }
