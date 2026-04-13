@@ -55,6 +55,14 @@
       "total_seconds_to_midnight": 202,
       "weighted_score": 6.98,
       "consensus_summary": "Oracle's sudden elimination of 30,000 jobs headlined a brutal quarter in which over 52,000 tech positions were cut in just three months, signaling that AI-driven displacement has leapt from startups to legacy enterprise giants\u2014while a hospital CEO's readiness to replace radiologists with AI despite safety warnings and AI's quiet creep into lawmaking show autonomous systems moving from assistive tools to decision-makers in critical domains. Emerging regulatory efforts in California, Colorado, and Costa Rica offer real but fragmented counterweights, and investor rotation away from AI stocks could temper the most reckless deployments\u2014yet the simultaneous buildout of infrastructure giving AI agents direct access to financial accounts and crypto rails is laying groundwork for autonomous economic activity that may prove very difficult to reverse."
+    },
+    {
+      "week_id": "2026-W16",
+      "date": "2026-04-13",
+      "clock_time": "11:56:49",
+      "total_seconds_to_midnight": 191,
+      "weighted_score": 7.14,
+      "consensus_summary": "This week's most alarming development is the report that AI has already displaced 3 million jobs, with Amazon, Citi, and Dell leading a fresh wave of structural layoffs that signal permanent workforce elimination rather than cyclical cuts. Meanwhile, governance is fracturing on multiple fronts: xAI is suing Colorado over its landmark AI regulation law, Anthropic is clashing with the U.S. government over AI control, and regulation is stalling globally even as hallucinating AI agents are being entrusted with real money. Anthropic's voluntary restriction of its Mythos model over exploit-finding risks is a notable act of restraint, but one company's caution cannot compensate for the widening gap between deployment speed and institutional oversight."
     }
   ]
 }
