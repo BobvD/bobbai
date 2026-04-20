@@ -63,6 +63,14 @@
       "total_seconds_to_midnight": 191,
       "weighted_score": 7.14,
       "consensus_summary": "This week's most alarming development is the report that AI has already displaced 3 million jobs, with Amazon, Citi, and Dell leading a fresh wave of structural layoffs that signal permanent workforce elimination rather than cyclical cuts. Meanwhile, governance is fracturing on multiple fronts: xAI is suing Colorado over its landmark AI regulation law, Anthropic is clashing with the U.S. government over AI control, and regulation is stalling globally even as hallucinating AI agents are being entrusted with real money. Anthropic's voluntary restriction of its Mythos model over exploit-finding risks is a notable act of restraint, but one company's caution cannot compensate for the widening gap between deployment speed and institutional oversight."
+    },
+    {
+      "week_id": "2026-W17",
+      "date": "2026-04-20",
+      "clock_time": "11:56:46",
+      "total_seconds_to_midnight": 194,
+      "weighted_score": 7.1,
+      "consensus_summary": "This week's most alarming signal is the sheer scale of AI-driven workforce displacement: 80,000 jobs were cut globally in Q1 alone, with Meta slashing 8,000 roles during a record-profit year and Snap cutting 1,000 while explicitly blaming AI \u2014 a pattern that is normalizing structural displacement at profitable companies rather than distressed ones. Meanwhile, AI is expanding into sensitive domains from real-time public safety surveillance to AI-powered scams targeting religious congregations, deepening societal reliance on and vulnerability to opaque automated systems. Nascent countermeasures \u2014 including Illinois's push to establish AI liability frameworks, Tennessee's crackdown on AI mental health claims, and a DOE AI safety testbed \u2014 show governance is beginning to engage, but these efforts remain far outpaced by the speed of corporate AI restructuring and deployment."
     }
   ]
 }
