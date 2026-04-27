@@ -71,6 +71,14 @@
       "total_seconds_to_midnight": 194,
       "weighted_score": 7.1,
       "consensus_summary": "This week's most alarming signal is the sheer scale of AI-driven workforce displacement: 80,000 jobs were cut globally in Q1 alone, with Meta slashing 8,000 roles during a record-profit year and Snap cutting 1,000 while explicitly blaming AI \u2014 a pattern that is normalizing structural displacement at profitable companies rather than distressed ones. Meanwhile, AI is expanding into sensitive domains from real-time public safety surveillance to AI-powered scams targeting religious congregations, deepening societal reliance on and vulnerability to opaque automated systems. Nascent countermeasures \u2014 including Illinois's push to establish AI liability frameworks, Tennessee's crackdown on AI mental health claims, and a DOE AI safety testbed \u2014 show governance is beginning to engage, but these efforts remain far outpaced by the speed of corporate AI restructuring and deployment."
+    },
+    {
+      "week_id": "2026-W18",
+      "date": "2026-04-27",
+      "clock_time": "11:57:15",
+      "total_seconds_to_midnight": 165,
+      "weighted_score": 7.54,
+      "consensus_summary": "This week saw a striking convergence of destabilizing developments: the Trump administration fired the former Anthropic researcher leading the federal AI safety body, dismantling oversight precisely as autonomous systems scale faster than ever\u2014highlighted by the Pentagon's Gemini agent generating 103,000 tools in just five weeks. Simultaneously, Oracle announced over 20,000 job cuts and \"Bloody Thursday\" saw up to 18,000 workers hit at Meta, Nike, and Microsoft, confirming that AI-driven white-collar displacement is now a coordinated corporate strategy at profitable firms. Stanford's 2026 AI Index underscores the widening gap between rapid capability deployment and governance frameworks that remain fragmented and outmatched."
     }
   ]
 }
