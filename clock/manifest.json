@@ -79,6 +79,14 @@
       "total_seconds_to_midnight": 165,
       "weighted_score": 7.54,
       "consensus_summary": "This week saw a striking convergence of destabilizing developments: the Trump administration fired the former Anthropic researcher leading the federal AI safety body, dismantling oversight precisely as autonomous systems scale faster than ever\u2014highlighted by the Pentagon's Gemini agent generating 103,000 tools in just five weeks. Simultaneously, Oracle announced over 20,000 job cuts and \"Bloody Thursday\" saw up to 18,000 workers hit at Meta, Nike, and Microsoft, confirming that AI-driven white-collar displacement is now a coordinated corporate strategy at profitable firms. Stanford's 2026 AI Index underscores the widening gap between rapid capability deployment and governance frameworks that remain fragmented and outmatched."
+    },
+    {
+      "week_id": "2026-W19",
+      "date": "2026-05-04",
+      "clock_time": "11:56:36",
+      "total_seconds_to_midnight": 204,
+      "weighted_score": 6.95,
+      "consensus_summary": "This week's most striking development is the growing feedback loop between AI investment and workforce displacement: Zuckerberg explicitly tied Meta's layoffs to AI spending while Big Tech collectively cut 80,000 jobs blaming AI, confirming a self-reinforcing cycle where displaced workers fund the very systems replacing them. Governance is responding on multiple fronts\u2014China made AI-driven layoffs illegal, Connecticut advanced new AI regulations, and the EU AI Act machinery continued to take shape\u2014but these measures remain fragmented and outpaced by the speed of corporate restructuring. Meanwhile, Anthropic suing the Pentagon over being labeled a \"supply chain risk\" and Musk calling OpenAI a \"safety risk\" in court underscore a troubling fracture within the AI industry itself over who can be trusted with increasingly powerful systems."
     }
   ]
 }
