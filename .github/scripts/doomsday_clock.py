@@ -31,10 +31,10 @@ MANIFEST_PATH = CLOCK_DIR / "manifest.json"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 MODELS = [
-    ("Claude Opus 4.6", "anthropic/claude-opus-4.6"),
-    ("GPT-5.1", "openai/gpt-5.1"),
-    ("Gemini 3 Pro", "google/gemini-3-pro-preview"),
-    ("Grok 4", "x-ai/grok-4"),
+    ("Claude Opus 4.7", "anthropic/claude-opus-4.7"),
+    ("GPT-5.5", "openai/gpt-5.5"),
+    ("Gemini 3.1 Pro", "google/gemini-3.1-pro-preview"),
+    ("Grok 4.3", "x-ai/grok-4.3"),
 ]
 
 REDDIT_SUBS = [
@@ -406,7 +406,7 @@ def generate_consensus(results: list[dict], news_articles: list[dict]) -> str:
                 "X-Title": "AI Doomsday Clock",
             },
             json={
-                "model": "anthropic/claude-opus-4.6",
+                "model": "anthropic/claude-opus-4.7",
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 2000,
                 "temperature": 0.5,
