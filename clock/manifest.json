@@ -87,6 +87,14 @@
       "total_seconds_to_midnight": 152,
       "weighted_score": 7.73,
       "consensus_summary": "This week laid bare a widening gap between AI deployment and the guardrails meant to contain it: the Pentagon cut Anthropic from classified contracts for refusing to drop safety protocols, even as it stands up more than 100,000 autonomous defense agents, while Zuckerberg explicitly tied Meta's layoffs to AI spending and Big Tech shed 80,000 jobs to fund more compute. Governance is finally stirring \u2014 Connecticut's new AI rules and China's ban on AI-driven layoffs offer real friction \u2014 but regulation is moving at statute speed while capital, military autonomy, and labor displacement compound weekly."
+    },
+    {
+      "week_id": "2026-W20",
+      "date": "2026-05-11",
+      "clock_time": "11:56:53",
+      "total_seconds_to_midnight": 187,
+      "weighted_score": 7.2,
+      "consensus_summary": "AI-driven workforce displacement reached a new inflection point this week, with AI emerging as the leading cause of April layoffs at 26% of all job cuts, Cloudflare eliminating 1,100 jobs despite record revenue, and Zuckerberg openly stating one AI worker now replaces dozens ahead of 8,000 Meta cuts. Governance finally pushed back, with the White House drafting an executive order requiring pre-release safety proof, the EU amending its AI Act, and Hawai\u02bbi passing an AI Disclosure and Safety Act. The displacement engine is louder than ever, but for the first time in months, regulators are putting a foot on the brake."
     }
   ]
 }
