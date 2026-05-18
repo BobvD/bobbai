@@ -95,6 +95,14 @@
       "total_seconds_to_midnight": 187,
       "weighted_score": 7.2,
       "consensus_summary": "AI-driven workforce displacement reached a new inflection point this week, with AI emerging as the leading cause of April layoffs at 26% of all job cuts, Cloudflare eliminating 1,100 jobs despite record revenue, and Zuckerberg openly stating one AI worker now replaces dozens ahead of 8,000 Meta cuts. Governance finally pushed back, with the White House drafting an executive order requiring pre-release safety proof, the EU amending its AI Act, and Hawai\u02bbi passing an AI Disclosure and Safety Act. The displacement engine is louder than ever, but for the first time in months, regulators are putting a foot on the brake."
+    },
+    {
+      "week_id": "2026-W21",
+      "date": "2026-05-18",
+      "clock_time": "11:57:06",
+      "total_seconds_to_midnight": 174,
+      "weighted_score": 7.4,
+      "consensus_summary": "This week's developments accelerated concerns on multiple fronts: Cisco announced 4,000 AI-driven layoffs, Microsoft's AI chief forecast most office jobs automated within 18 months, and the most-cited computer scientist alive warned AI could drive humanity to extinction within a decade. Counterweights emerged in Pope Leo XIV's new AI study group and forthcoming encyclical and Illinois Senate Democrats' regulatory bills, but experts warn agentic AI deployment is outpacing safety guardrails faster than institutions can respond."
     }
   ]
 }
