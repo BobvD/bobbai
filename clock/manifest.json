@@ -103,6 +103,14 @@
       "total_seconds_to_midnight": 174,
       "weighted_score": 7.4,
       "consensus_summary": "This week's developments accelerated concerns on multiple fronts: Cisco announced 4,000 AI-driven layoffs, Microsoft's AI chief forecast most office jobs automated within 18 months, and the most-cited computer scientist alive warned AI could drive humanity to extinction within a decade. Counterweights emerged in Pope Leo XIV's new AI study group and forthcoming encyclical and Illinois Senate Democrats' regulatory bills, but experts warn agentic AI deployment is outpacing safety guardrails faster than institutions can respond."
+    },
+    {
+      "week_id": "2026-W22",
+      "date": "2026-05-25",
+      "clock_time": "11:57:07",
+      "total_seconds_to_midnight": 173,
+      "weighted_score": 7.41,
+      "consensus_summary": "This week saw AI-driven economic displacement harden into industry practice, with tech layoffs crossing 100,000 in 2026 explicitly to fund AI investment and Coinbase normalizing AI \"one-person teams\" by cutting 700 jobs, even as Trump scrapped a major federal AI safety plan and removed a key guardrail. Counterweights emerged from Pope Leo XIV's AI encyclical co-launched with Anthropic and Jensen Huang calling CEOs blaming AI for layoffs \"lazy\", but the deployment-displacement feedback loop is now outpacing institutional control, with graduation speakers being booed for praising AI signaling that public consent is fraying faster than the technology can deliver."
     }
   ]
 }
