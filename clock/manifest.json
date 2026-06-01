@@ -111,6 +111,14 @@
       "total_seconds_to_midnight": 173,
       "weighted_score": 7.41,
       "consensus_summary": "This week saw AI-driven economic displacement harden into industry practice, with tech layoffs crossing 100,000 in 2026 explicitly to fund AI investment and Coinbase normalizing AI \"one-person teams\" by cutting 700 jobs, even as Trump scrapped a major federal AI safety plan and removed a key guardrail. Counterweights emerged from Pope Leo XIV's AI encyclical co-launched with Anthropic and Jensen Huang calling CEOs blaming AI for layoffs \"lazy\", but the deployment-displacement feedback loop is now outpacing institutional control, with graduation speakers being booed for praising AI signaling that public consent is fraying faster than the technology can deliver."
+    },
+    {
+      "week_id": "2026-W23",
+      "date": "2026-06-01",
+      "clock_time": "11:56:43",
+      "total_seconds_to_midnight": 197,
+      "weighted_score": 7.05,
+      "consensus_summary": "This week brought a rare counterweight to mounting AI risk as Illinois passed a landmark AI accountability framework requiring independent safety audits, even as a damning benchmark found zero of 13 AI agents could clear 40% safe task completion and Cisco researchers warned standard safety tests miss the real threats. The displacement story darkened further with Meta's fresh round of AI-driven layoffs joining a growing list of companies replacing workers with AI, while the Pentagon remains openly divided over battlefield AI. Institutions are finally pushing back, but the underlying capability-deployment gap continues to widen faster than oversight can close it."
     }
   ]
 }
