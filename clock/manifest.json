@@ -119,6 +119,14 @@
       "total_seconds_to_midnight": 197,
       "weighted_score": 7.05,
       "consensus_summary": "This week brought a rare counterweight to mounting AI risk as Illinois passed a landmark AI accountability framework requiring independent safety audits, even as a damning benchmark found zero of 13 AI agents could clear 40% safe task completion and Cisco researchers warned standard safety tests miss the real threats. The displacement story darkened further with Meta's fresh round of AI-driven layoffs joining a growing list of companies replacing workers with AI, while the Pentagon remains openly divided over battlefield AI. Institutions are finally pushing back, but the underlying capability-deployment gap continues to widen faster than oversight can close it."
+    },
+    {
+      "week_id": "2026-W24",
+      "date": "2026-06-08",
+      "clock_time": "11:57:25",
+      "total_seconds_to_midnight": 155,
+      "weighted_score": 7.68,
+      "consensus_summary": "This week's developments mark a sharp deterioration on multiple fronts: Anthropic broke ranks with the industry to warn that humans risk losing control of frontier systems, while a new report confirms AI is now the leading reason US companies cite for cutting jobs. Meanwhile, federal governance is collapsing precisely when it's needed most\u2014Trump signed a voluntary-only executive order and a bipartisan draft would preempt state AI laws for three years, gutting the patchwork of safeguards that had been the primary check on frontier deployment. When the builders themselves are asking for a pause and the regulators are removing brakes, the window for meaningful intervention is narrowing fast."
     }
   ]
 }
