@@ -135,6 +135,14 @@
       "total_seconds_to_midnight": 161,
       "weighted_score": 7.6,
       "consensus_summary": "The U.S. government's unprecedented lockdown of Anthropic's Fable 5 model marked the first hard federal intervention against a frontier system, while Anthropic's CEO simultaneously called for binding authority to block dangerous deployments \u2014 rare stabilizing signals in an otherwise accelerating landscape. Yet capability and labor risks intensified sharply, with 99% of CEOs planning AI-driven layoffs within two years and a developer warning that humans risk losing control of AI building its own successor. The brakes engaged this week, but they are fraying against exponential strain from autonomy, displacement, and recursive capability gains."
+    },
+    {
+      "week_id": "2026-W26",
+      "date": "2026-06-22",
+      "clock_time": "11:56:53",
+      "total_seconds_to_midnight": 187,
+      "weighted_score": 7.2,
+      "consensus_summary": "This week saw autonomous AI agents being wired directly into critical infrastructure, with AWS openly admitting its oversight tools lag behind agent deployment, while Elon Musk compressed his superintelligence timeline to just four or five years. The displacement pattern is darkening: companies are firing workers to fund AI systems that don't yet work, and 55% of employers already regret the replacements, even as Anthropic and OpenAI escalate a proxy war over Congress. Modest counterweights \u2014 Bloomington's unanimous existential-risk resolution and Macron's call for democratic AI coordination \u2014 show governance scrambling to catch up, but agent deployment is clearly outpacing the guardrails."
     }
   ]
 }
