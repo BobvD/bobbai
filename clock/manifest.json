@@ -143,6 +143,14 @@
       "total_seconds_to_midnight": 187,
       "weighted_score": 7.2,
       "consensus_summary": "This week saw autonomous AI agents being wired directly into critical infrastructure, with AWS openly admitting its oversight tools lag behind agent deployment, while Elon Musk compressed his superintelligence timeline to just four or five years. The displacement pattern is darkening: companies are firing workers to fund AI systems that don't yet work, and 55% of employers already regret the replacements, even as Anthropic and OpenAI escalate a proxy war over Congress. Modest counterweights \u2014 Bloomington's unanimous existential-risk resolution and Macron's call for democratic AI coordination \u2014 show governance scrambling to catch up, but agent deployment is clearly outpacing the guardrails."
+    },
+    {
+      "week_id": "2026-W27",
+      "date": "2026-06-29",
+      "clock_time": "11:57:18",
+      "total_seconds_to_midnight": 162,
+      "weighted_score": 7.58,
+      "consensus_summary": "This week marked a decisive shift from theoretical AI risk to concrete structural impact, headlined by Oracle cutting 21,000 jobs to fund its AI pivot and a cascade of AI-cited layoffs across Meta, Walmart, and Robinhood that confirm human labor is being liquidated to finance compute budgets. Compounding the concern, Five Eyes intelligence agencies warned that AI could breach government and corporate defenses within months, while the pro-AI lobby's heavy PAC spending works to neutralize regulators. Modest stabilizers \u2014 EU AI Act enforcement and resilient engineering employment \u2014 are being outpaced by the speed of deployment and displacement."
     }
   ]
 }
